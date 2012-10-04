@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/settings_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/settings_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_launcher"
+        android:text="@string/settings_name" />
+
+    <Button
+        android:id="@+id/map_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/friends_in_map" />
+
+    <CheckBox
+        android:id="@+id/avalaible_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_avalaible" />
+
+    <TextView
+        android:id="@+id/avalaible_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/avalaible_hint" />
+
+    <Button
+        android:id="@+id/blocked_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blocked_friends" />
+
+    <TextView
+        android:id="@+id/blocked_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blocked_hint" />
+
+    <Button
+        android:id="@+id/invite_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/invite_friends" />
+
+    <CheckBox
+        android:id="@+id/gps_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gps" />
+
+    <TextView
+        android:id="@+id/gps_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gps_hint" />
+
+</LinearLayout>

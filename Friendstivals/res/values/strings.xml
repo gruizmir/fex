@@ -1,8 +1,33 @@
 <resources>
-
+    <string-array name="messages_array">
+        <item>I\'m going there</item>
+        <item>Meet me here</item>
+    </string-array>    
+    
     <string name="app_name">Friendstivals</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_friendstivals">Friendstivals</string>
-
+    <string name="fest_calendar_text">Date</string>
+	<string name="fest_festival_text">Festival</string>
+	<string name="facebook">Sign in with Facebook</string>
+	<string name="email">Sign in with mail</string>
+	<string name="festivals">Festivals</string>
+	<string name="friend_ok_text">OK</string>
+	<string name="friend_back_text">Cancel</string>
+	<string name="friend_title_text">Meet friends</string>
+	<string name="friend_list_img">Profile Photo</string>
+	<string name="friend_list_name">Friend </string>	
+	<string name="settings_name">Facebook profile Name</string>
+	<string name="select_message">Select a message</string>
+	<string name="write_message">Or write a message</string>
+	<string name="meet_me">Meet me here</string>
+	<string name="friends_in_map">Friends in my map</string>
+	<string name="set_avalaible">Avalaible</string>
+	<string name="blocked_friends">Blocked</string>
+	<string name="invite_friends">Invite</string>
+	<string name="gps">GPS</string>
+	<string name="settings_title">Festival</string>
+	<string name="avalaible_hint">Being avalaible will allow your friends to see your location in their maps.</string>
+	<string name="blocked_hint">Blocked friends won\'t be able to see your location in their maps, even if you are avalaible.</string>
+	<string name="gps_hint">algo con gps</string>
 </resources>

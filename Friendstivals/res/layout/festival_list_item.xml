@@ -1,0 +1,17 @@
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/team_name" 
+	android:layout_height="wrap_content" 
+	android:layout_width="fill_parent"
+	android:orientation="horizontal">
+	<ImageView
+		android:layout_height="20dp"
+        android:layout_width="20dp" 	
+        android:contentDescription="@string/fest_calendar_text"		 
+   	 	android:id="@+id/fest_calendar_icon"/>	
+   	<ImageView
+		android:layout_height="20dp"
+        android:layout_width="120dp" 		
+        android:contentDescription="@string/fest_festival_text"	 
+   	 	android:id="@+id/fest_festival_icon"/>	
+</LinearLayout>

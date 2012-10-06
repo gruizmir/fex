@@ -20,5 +20,8 @@
         </activity>
         
      <activity android:name="com.friendstivals.templates.customDialog" android:screenOrientation="portrait" android:theme="@android:style/Theme.Dialog"></activity>
+     <activity android:name="com.friendstivals.FestivalSelector" android:label="FestivalSelector" />
+     
+    
     </application>
 </manifest>

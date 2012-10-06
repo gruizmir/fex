@@ -1,6 +1,7 @@
 package com.friendstivals;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -14,6 +15,9 @@ public class Friendstivals extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        Intent myIntent = new Intent(this, FestivalSelector.class);
+        this.startActivity(myIntent);
     }
 
     @Override

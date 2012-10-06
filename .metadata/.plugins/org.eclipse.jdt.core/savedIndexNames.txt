@@ -1,2 +1,0 @@
-INDEX VERSION 1.126+C:\Friendstival\.metadata\.plugins\org.eclipse.jdt.core
-186592179.index

@@ -17,11 +17,23 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="Friendstivals" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            
         </activity>
         
-     <activity android:name="com.friendstivals.templates.customDialog" android:screenOrientation="portrait" android:theme="@android:style/Theme.Dialog"></activity>
-     <activity android:name="com.friendstivals.FestivalSelector" android:label="FestivalSelector" />
-     
-    
+        <activity
+            android:name="com.friendstivals.templates.customDialog"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        
+        <activity
+            android:name="com.friendstivals.FestivalSelector"
+            android:label="FestivalSelector" />
+        
     </application>
+
 </manifest>

@@ -13,8 +13,8 @@ public class Friendstivals extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.main);
 
         Intent myIntent = new Intent(this, FestivalSelector.class);
         this.startActivity(myIntent);

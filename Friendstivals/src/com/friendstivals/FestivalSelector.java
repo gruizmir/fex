@@ -34,4 +34,5 @@ public class FestivalSelector extends Activity {
 
 		listView1.setAdapter(adapter);
 	}
+//aa
 }

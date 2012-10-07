@@ -56,6 +56,7 @@ public class FestivalAdapter extends ArrayAdapter<Event> {
 		ImageView imgIcon;
 		ImageView txtTitle;
 	}
+//aaa
 
 }
 

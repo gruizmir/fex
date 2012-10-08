@@ -34,5 +34,17 @@
         <activity
             android:name="com.friendstivals.FriendsList"
             android:label="FriendsList" />
+        <activity
+            android:name="com.friendstivals.CustomMap"
+            android:label="CustomMap" />
+        <activity
+            android:name="com.friendstivals.Settings"
+            android:label="Settings" />
+        <activity
+            android:name="com.friendstivals.BlackList"
+            android:label="BlackList" />
+        <activity
+            android:name="com.friendstivals.AddBlackList"
+            android:label="AddBlackList" />
     </application>
 </manifest>

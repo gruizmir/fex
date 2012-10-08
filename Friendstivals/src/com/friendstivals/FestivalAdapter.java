@@ -22,7 +22,6 @@ public class FestivalAdapter extends ArrayAdapter<Event> {
 		this.layoutResourceId = layoutResourceId;
 		this.context = c;
 		this.eventos = events;
-
 		this.notifyDataSetChanged();
 	} 
 
@@ -32,31 +31,25 @@ public class FestivalAdapter extends ArrayAdapter<Event> {
 		if(convertView == null){
 			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = vi.inflate(R.layout.festival_list_item, null);
-
 			holder = new FestivalHolder();
 			holder.imgIcon = (ImageView)view.findViewById(R.id.fest_calendar_icon);
-			holder.txtTitle = (ImageView)view.findViewById(R.id.fest_festival_icon);
-
+			holder.titleImg= (ImageView)view.findViewById(R.id.fest_festival_icon);
 			view.setTag(holder);
 		}
 		else
 		{
 			holder = (FestivalHolder)view.getTag();
 		}
-
 		Event e = eventos.get(position);
-		holder.txtTitle = e.getPhoto(); 
+		holder.titleImg= e.getPhoto(); 
 		holder.imgIcon =  e.getImg();
-
 		return view;
 	}
 
 	static class FestivalHolder
 	{
 		ImageView imgIcon;
-		ImageView txtTitle;
+		ImageView titleImg;
 	}
-//aaa
-
 }
 

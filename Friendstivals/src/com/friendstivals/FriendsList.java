@@ -6,27 +6,23 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.friendstivals.utils.FriendsGetProfilePics;
 import com.friendstivals.utils.Utility;
 
 public class FriendsList extends Activity implements OnItemClickListener {
-	private Handler mHandler;
-
 	protected ListView friendsList;
 	protected static JSONArray jsonArray;
-	protected String graph_or_fql;
 
 	/*
 	 * Layout the friends' list
@@ -34,10 +30,8 @@ public class FriendsList extends Activity implements OnItemClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		mHandler = new Handler();
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.friend_list);
-
 		Bundle extras = getIntent().getExtras();
 		String apiResponse = extras.getString("API_RESPONSE");
 		try {
@@ -56,13 +50,13 @@ public class FriendsList extends Activity implements OnItemClickListener {
 	 * wall.
 	 */
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-		try {
-			final long friendId;
-			friendId = jsonArray.getJSONObject(position).getLong("uid");
-			String name = jsonArray.getJSONObject(position).getString("name");
-
-		} catch (JSONException e) {
-		}
+//		try {
+//			final long friendId;
+//			friendId = jsonArray.getJSONObject(position).getLong("uid");
+//			String name = jsonArray.getJSONObject(position).getString("name");
+//
+//		} catch (JSONException e) {
+//		}
 	}
 
 	/**

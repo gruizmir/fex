@@ -14,7 +14,7 @@
 	<string name="festivals">Festivals</string>
 	<string name="friend_ok_text">OK</string>
 	<string name="friend_back_text">Cancel</string>
-	<string name="friend_title_text">Meet friends</string>
+	<string name="friend_title">Meet friends</string>
 	<string name="friend_list_img">Profile Photo</string>
 	<string name="friend_list_name">Friend </string>	
 	<string name="settings_name">Facebook profile Name</string>
@@ -24,10 +24,15 @@
 	<string name="friends_in_map">Friends in my map</string>
 	<string name="set_avalaible">Avalaible</string>
 	<string name="blocked_friends">Blocked</string>
+	<string name="add_blocked">Add to Blocked</string>
 	<string name="invite_friends">Invite</string>
 	<string name="gps">GPS</string>
 	<string name="settings_title">Festival</string>
 	<string name="avalaible_hint">Being avalaible will allow your friends to see your location in their maps.</string>
 	<string name="blocked_hint">Blocked friends won\'t be able to see your location in their maps, even if you are avalaible.</string>
 	<string name="gps_hint">algo con gps</string>
+	<string name="me">Me</string>
+	<string name="map">Map</string>
+	<string name="add">Add</string>
+	<string name="profile">Profile</string>
 </resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <ImageView
+        android:id="@+id/friend_list_photo"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:contentDescription="@string/friend_list_img"
+        android:layout_weight="1.0" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button 
+            android:id="@+id/map_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/festivals"
+            android:onClick="openFestivalList"
+            />
+        <Button
+            android:id="@+id/map_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/map"
+            android:onClick="openMap" />
+        <Button 
+            android:id="@+id/map_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/me"
+            android:onClick="openSettings" />
+    </LinearLayout>
+
+</LinearLayout>

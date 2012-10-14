@@ -49,6 +49,34 @@ public class Settings extends Activity {
 		profilePic.setText(Utility.name);
 	}
 	
+	/**
+	 * Debe mostrar la lista de usuarios en la lista negra. Mientras, solo tiene los datos de todos los usuarios.
+	 * @author gabriel
+	 *
+	 */
+	public void openBlackList(View v){
+		if (!Utility.mFacebook.isSessionValid()) {
+			Util.showAlert(this, "Warning", "You must first log in.");
+		} else {
+			String query = "select name, current_location, uid, pic_square from user where uid in (select uid2 from friend where uid1=me()) and is_app_user='true' order by name";
+			Bundle params = new Bundle();
+			params.putString("method", "fql.query");
+			params.putString("query", query);
+			Utility.mAsyncRunner.request(null, params,
+					new BaseRequestListener(){
+				public void onComplete(final String response, final Object state) {
+					Intent myIntent = new Intent(getApplicationContext(), BlackList.class);
+					myIntent.putExtra("API_RESPONSE", response);
+					startActivity(myIntent);
+				}
+			});
+		}
+	}
+	
+	public void openInviteView(View v){
+		
+	}
+	
 	public void openFriendsList(View v){
 		if (!Utility.mFacebook.isSessionValid()) {
 			Util.showAlert(this, "Warning", "You must first log in.");

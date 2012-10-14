@@ -40,7 +40,7 @@ public class Friendstivals extends Activity {
 			fbButton.setClickable(false);
 			openFestivalList();
 		}
-	};;
+	};
 	public String userUID = null;
 
 	@Override
@@ -149,7 +149,7 @@ public class Friendstivals extends Activity {
 	}
 
 	public void fbLogin(View v){
-		Utility.mFacebook.authorize(this, new String[] {"publish_checkins"},new DialogListener() {
+		Utility.mFacebook.authorize(this, new String[] {"publish_checkins", "manage_friendlists", "read_friendlists"},new DialogListener() {
 			public void onComplete(Bundle values) {
 				SessionStore.save(Utility.mFacebook, Friendstivals.this);
 				requestUserData();

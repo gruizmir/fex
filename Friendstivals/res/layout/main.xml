@@ -1,7 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <TextView
         android:id="@+id/app_title"
@@ -9,7 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="46dp"
         android:text="@string/app_name"
-        tools:context=".Friendstivals" />
+        tools:context=".Friendstivals"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        />
 
     <Button
         android:id="@+id/fb_button"

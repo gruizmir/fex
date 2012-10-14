@@ -20,43 +20,42 @@ public final class R {
         public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int amigos=0x7f08000c;
-        public static final int app_title=0x7f08000f;
-        public static final int avalaible_check=0x7f08001c;
-        public static final int avalaible_hint=0x7f08001d;
-        public static final int avalaible_text=0x7f08001b;
-        public static final int blocked_friends=0x7f08001e;
-        public static final int blocked_hint=0x7f08001f;
-        public static final int fb_button=0x7f080010;
+        public static final int app_title=0x7f08000e;
+        public static final int avalaible_check=0x7f08001b;
+        public static final int avalaible_hint=0x7f08001c;
+        public static final int avalaible_text=0x7f08001a;
+        public static final int blocked_friends=0x7f08001d;
+        public static final int blocked_hint=0x7f08001e;
+        public static final int fb_button=0x7f08000f;
         public static final int fest_calendar_icon=0x7f080005;
         public static final int fest_festival_icon=0x7f080006;
         public static final int fest_selector_title=0x7f080007;
         public static final int friend_back=0x7f080009;
-        public static final int friend_check=0x7f08000e;
-        public static final int friend_list_name=0x7f08000d;
+        public static final int friend_check=0x7f08000d;
+        public static final int friend_list_name=0x7f08000c;
         public static final int friend_list_photo=0x7f080000;
         public static final int friend_ok=0x7f08000b;
         public static final int friend_title=0x7f08000a;
-        public static final int gps_hint=0x7f080023;
-        public static final int gps_switch=0x7f080022;
-        public static final int gps_text=0x7f080021;
-        public static final int invite_friends=0x7f080020;
+        public static final int gps_hint=0x7f080022;
+        public static final int gps_switch=0x7f080021;
+        public static final int gps_text=0x7f080020;
+        public static final int invite_friends=0x7f08001f;
         public static final int list_festival=0x7f080008;
-        public static final int mail_button=0x7f080011;
+        public static final int mail_button=0x7f080010;
         public static final int map_calendar=0x7f080001;
-        public static final int map_friends=0x7f08001a;
+        public static final int map_friends=0x7f080019;
         public static final int map_main=0x7f080002;
         public static final int map_me=0x7f080003;
-        public static final int menu_logout=0x7f080025;
-        public static final int menu_settings=0x7f080024;
-        public static final int message_edit=0x7f080014;
-        public static final int message_ok=0x7f080017;
-        public static final int message_spinner=0x7f080016;
-        public static final int message_title=0x7f080012;
-        public static final int message_write_text=0x7f080015;
-        public static final int messagge_select_text=0x7f080013;
-        public static final int settings_name=0x7f080019;
-        public static final int settings_title=0x7f080018;
+        public static final int menu_logout=0x7f080024;
+        public static final int menu_settings=0x7f080023;
+        public static final int message_edit=0x7f080013;
+        public static final int message_ok=0x7f080016;
+        public static final int message_spinner=0x7f080015;
+        public static final int message_title=0x7f080011;
+        public static final int message_write_text=0x7f080014;
+        public static final int messagge_select_text=0x7f080012;
+        public static final int settings_name=0x7f080018;
+        public static final int settings_title=0x7f080017;
         public static final int team_name=0x7f080004;
     }
     public static final class layout {
@@ -65,9 +64,10 @@ public final class R {
         public static final int festival_selector=0x7f030002;
         public static final int friend_list=0x7f030003;
         public static final int friend_list_item=0x7f030004;
-        public static final int main=0x7f030005;
-        public static final int message_dialog=0x7f030006;
-        public static final int settings=0x7f030007;
+        public static final int invite=0x7f030005;
+        public static final int main=0x7f030006;
+        public static final int message_dialog=0x7f030007;
+        public static final int settings=0x7f030008;
     }
     public static final class menu {
         public static final int main=0x7f070000;

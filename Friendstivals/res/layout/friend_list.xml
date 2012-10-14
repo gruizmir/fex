@@ -6,25 +6,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:gravity="center_horizontal">
         <Button 
             android:id="@+id/friend_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@android:string/cancel" />
+            android:text="@android:string/cancel" 
+            android:onClick="leftButtonClick"/>
         <TextView
             android:id="@+id/friend_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/friend_title" />
+            android:text="@string/friend_title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
         <Button 
             android:id="@+id/friend_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@android:string/ok" />
+            android:text="@android:string/ok"
+            android:onClick="rightButtonClick" />
     </LinearLayout>
     <ListView
-        android:id="@+id/amigos"
+        android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1.0" />

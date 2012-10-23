@@ -49,6 +49,7 @@
             android:name="com.friendstivals.AddBlackList"
             android:label="AddBlackList" 
             android:screenOrientation="portrait"/>
+<<<<<<< HEAD
        	<activity
             android:name="com.friendstivals.InviteView"
             android:label="InviteView" 
@@ -56,6 +57,11 @@
        	<activity
             android:name="com.friendstivals.Extras"
             android:label="Extras" 
+=======
+        <activity
+            android:name="com.friendstivals.InviteView"
+            android:label="AddInviteView" 
+>>>>>>> 18ff50117e0362e6c8a1a93f9e97199ef0f86aa5
             android:screenOrientation="portrait"/>
     </application>
 </manifest>

@@ -35,4 +35,10 @@
 	<string name="map">Map</string>
 	<string name="add">Add</string>
 	<string name="profile">Profile</string>
+	
+	<!-- Invite View -->
+	<string name="send_invitation">Send invitations</string>
+	<string name="send_later">Later</string>
+	<string name="send">Send</string>
+	
 </resources>

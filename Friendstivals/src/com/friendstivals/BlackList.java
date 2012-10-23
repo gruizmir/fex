@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,20 +33,21 @@ import com.friendstivals.utils.FriendsGetProfilePics;
 import com.friendstivals.utils.FriendsViewActions;
 import com.friendstivals.utils.Utility;
 
+@SuppressLint("HandlerLeak")
 public class BlackList extends ListActivity implements FriendsViewActions{
 	protected static JSONArray jsonArray;
 	private Handler mHandler= new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			if(msg.what == 1){
-				
+
 			}
 			if(msg.what == 0){
-				
+
 			}
 		}
 	};
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,16 +61,16 @@ public class BlackList extends ListActivity implements FriendsViewActions{
 			Log.e("json_fail", e.getMessage());
 		}
 		setListAdapter(new FriendListAdapter(this));
-		
+
 		TextView title = (TextView) findViewById(R.id.friend_title);
 		title.setText(R.string.blocked_friends);
-		
+
 		Button blockedBlock= (Button) findViewById(R.id.friend_ok);
 		blockedBlock.setText(R.string.add);
-		
+
 		Button blockedBack = (Button) findViewById(R.id.friend_back);
 		blockedBack.setText(R.string.profile);
-		
+
 		SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
 
 		/*
@@ -102,12 +104,12 @@ public class BlackList extends ListActivity implements FriendsViewActions{
 		}
 	}
 
-	
-	
+
+
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		
+
 	}
-	
+
 	/**
 	 * Definition of the list adapter
 	 */
@@ -181,7 +183,7 @@ public class BlackList extends ListActivity implements FriendsViewActions{
 
 
 	public void rightButtonClick(View v) {
-		
+
 		if (!Utility.mFacebook.isSessionValid()) {
 			Util.showAlert(this, "Warning", "You must first log in.");
 		} else {

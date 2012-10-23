@@ -12,7 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:gravity="center_horizontal" >
         <Button 
             android:id="@+id/map_calendar"
             android:layout_width="wrap_content"
@@ -26,6 +27,12 @@
             android:layout_height="wrap_content"
             android:text="@string/map"
             android:onClick="openMap" />
+        <Button
+            android:id="@+id/map_extras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/map_extras"
+            android:onClick="openExtras" />
         <Button 
             android:id="@+id/map_me"
             android:layout_width="wrap_content"

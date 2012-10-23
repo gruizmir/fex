@@ -21,7 +21,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
         </activity>
         <activity
             android:name="com.friendstivals.templates.customDialog"
@@ -33,18 +32,22 @@
             android:label="FestivalSelector" />
         <activity
             android:name="com.friendstivals.FriendsList"
-            android:label="FriendsList" />
+            android:label="FriendsList" 
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.friendstivals.CustomMap"
             android:label="CustomMap" />
         <activity
             android:name="com.friendstivals.Settings"
-            android:label="Settings" />
+            android:label="Settings" 
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.friendstivals.BlackList"
-            android:label="BlackList" />
+            android:label="BlackList" 
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.friendstivals.AddBlackList"
-            android:label="AddBlackList" />
+            android:label="AddBlackList" 
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

@@ -57,6 +57,9 @@ public class SessionStore {
         Editor editor = context.getSharedPreferences(KEY, Context.MODE_PRIVATE).edit();
         editor.clear();
         editor.commit();
+        Editor blockEditor = context.getSharedPreferences("blocked", Context.MODE_PRIVATE).edit();
+        blockEditor.clear();
+        blockEditor.commit();
     }
 
 }

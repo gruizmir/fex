@@ -31,7 +31,10 @@ public class FriendListAdapter extends BaseAdapter {
 	}
 
 	public int getCount() {
-		return jsonArray.length();
+		if(jsonArray==null)
+			return 0;
+		else
+			return jsonArray.length();
 	}
 
 	public Object getItem(int position) {
@@ -53,28 +56,27 @@ public class FriendListAdapter extends BaseAdapter {
 		View hView = convertView;
 		if (convertView == null) {
 			hView = mInflater.inflate(R.layout.friend_list_item, null);
+			holder.setProfile_pic((ImageView) hView.findViewById(R.id.friend_list_photo));
+			holder.setName((TextView) hView.findViewById(R.id.friend_list_name));
+			holder.setBox((CheckBox) hView.findViewById(R.id.friend_check));
 			
-			holder.profile_pic = (ImageView) hView.findViewById(R.id.friend_list_photo);
-			holder.name = (TextView) hView.findViewById(R.id.friend_list_name);
-			holder.box = (CheckBox) hView.findViewById(R.id.friend_check);
-			hView.setTag(holder);
 		}
-		Friend holder = (Friend) hView.getTag();
 		try {
-			holder.profile_pic.setImageBitmap(Utility.model.getImage(
-					jsonObject.getString("uid"), jsonObject.getString("pic_square")));
+			holder.getProfile_pic().setImageBitmap(Utility.model.getBitmap(jsonObject.getString("pic_square")));
 		} catch (JSONException e) {
 		}
 		try {
-			holder.name.setText(jsonObject.getString("name"));
+			holder.getName().setText(jsonObject.getString("name"));
 		} catch (JSONException e) {
-			holder.name.setText("");
+			holder.getName().setText("");
 		}
+		holder.getBox().setChecked(false);
 		try {
-			holder.id = jsonObject.getString("uid");
+			holder.setId(jsonObject.getString("uid"));
 		} catch (JSONException e) {
-			holder.id = "1";
+			holder.setId("1");
 		}
+		hView.setTag(holder);
 		return hView;
 	}
 }

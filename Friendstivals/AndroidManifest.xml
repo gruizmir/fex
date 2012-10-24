@@ -29,14 +29,16 @@
         </activity>
         <activity
             android:name="com.friendstivals.FestivalSelector"
-            android:label="FestivalSelector" />
+            android:label="FestivalSelector"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.friendstivals.FriendsList"
             android:label="FriendsList" 
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.friendstivals.CustomMap"
-            android:label="CustomMap" />
+            android:label="CustomMap"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.friendstivals.Settings"
             android:label="Settings" 
@@ -49,9 +51,25 @@
             android:name="com.friendstivals.AddBlackList"
             android:label="AddBlackList" 
             android:screenOrientation="portrait"/>
-        <activity
+       	<activity
             android:name="com.friendstivals.InviteView"
-            android:label="AddInviteView" 
+            android:label="InviteView" 
+            android:screenOrientation="portrait"/>
+       	<activity
+            android:name="com.friendstivals.Extras"
+            android:label="Extras" 
+            android:screenOrientation="portrait"/>
+       	<activity
+            android:name="com.friendstivals.artist.LineUp"
+            android:label="LineUp" 
+            android:screenOrientation="portrait"/>
+       	<activity
+            android:name="com.friendstivals.playlist.Playlist"
+            android:label="Playlist" 
+            android:screenOrientation="portrait"/>
+       	<activity
+            android:name="com.friendstivals.Info"
+            android:label="Info" 
             android:screenOrientation="portrait"/>
     </application>
 </manifest>

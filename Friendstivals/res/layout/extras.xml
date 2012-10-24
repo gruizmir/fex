@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/extras_invite_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/extras_invite_btn" />
+
+        <TextView
+            android:id="@+id/extras_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/extras_title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/extras_msg_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/extras_msg_btn" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/extras_lineup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="openLineup"
+        android:clickable="true"
+        android:text="@string/extras_lineup"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/extras_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="openPlaylist"
+        android:clickable="true"
+        android:text="@string/extras_playlist"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/extras_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="openInfo"
+        android:clickable="true"
+        android:text="@string/extras_info"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/extras_anteriores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="openAnteriores"
+        android:text="@string/extras_anteriores"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</LinearLayout>

@@ -29,6 +29,14 @@ public class CustomMap extends Activity {
 	public void openMap(View v){
 
 	}
+	
+	public void openExtras(View v){
+		Intent i = new Intent(getApplicationContext(), Extras.class);
+		Bundle b = new Bundle();
+		b.putString("festival_name", festivalName);
+		i.putExtras(b);
+		startActivity(i);
+	}
 
 	public void openSettings(View v){
 		Intent i = new Intent(getApplicationContext(), Settings.class);

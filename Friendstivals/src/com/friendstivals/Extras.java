@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.friendstivals.artist.LineUp;
+import com.friendstivals.playlist.Playlist;
 
 public class Extras extends Activity {
 	
@@ -22,11 +23,13 @@ public class Extras extends Activity {
 	}
 	
 	public void openPlaylist(View v){
-		
+		Intent i = new Intent(this, Playlist.class);
+		startActivity(i);
 	}
 	
 	public void openInfo(View v){
-		
+		Intent i = new Intent(this, Info.class);
+		startActivity(i);
 	} 
 	
 	public void openAnteriores(View v){

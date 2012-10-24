@@ -60,7 +60,7 @@ public class BlackList extends ListActivity implements FriendsViewActions{
 		} catch (JSONException e) {
 			Log.e("json_fail", e.getMessage());
 		}
-		setListAdapter(new FriendListAdapter(this));
+		setListAdapter(new BlackListAdapter(this));
 
 		TextView title = (TextView) findViewById(R.id.friend_title);
 		title.setText(R.string.blocked_friends);
@@ -104,8 +104,6 @@ public class BlackList extends ListActivity implements FriendsViewActions{
 		}
 	}
 
-
-
 	public void onListItemClick(ListView l, View v, int position, long id) {
 
 	}
@@ -113,12 +111,10 @@ public class BlackList extends ListActivity implements FriendsViewActions{
 	/**
 	 * Definition of the list adapter
 	 */
-	public class FriendListAdapter extends BaseAdapter {
+	public class BlackListAdapter extends BaseAdapter {
 		private LayoutInflater mInflater;
-		BlackList friendsList;
 
-		public FriendListAdapter(BlackList friendsList) {
-			this.friendsList = friendsList;
+		public BlackListAdapter(BlackList friendsList) {
 			if (Utility.model == null) {
 				Utility.model = new FriendsGetProfilePics();
 			}
@@ -181,9 +177,7 @@ public class BlackList extends ListActivity implements FriendsViewActions{
 		finish();
 	}
 
-
 	public void rightButtonClick(View v) {
-
 		if (!Utility.mFacebook.isSessionValid()) {
 			Util.showAlert(this, "Warning", "You must first log in.");
 		} else {

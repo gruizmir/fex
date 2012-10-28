@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -25,13 +26,14 @@ import android.widget.Toast;
 
 import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
+import com.friendstivals.blacklist.BlackList;
 import com.friendstivals.utils.BaseRequestListener;
 import com.friendstivals.utils.Utility;
 
 public class Settings extends Activity {
 	private String festivalName;
 	protected Bitmap pic=null;
-
+	private ProgressDialog progressDialog;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -97,7 +99,7 @@ public class Settings extends Activity {
 	 *
 	 */
 	public void openBlackList(View v){
-		
+		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
 		if (!Utility.mFacebook.isSessionValid()) {
 			Util.showAlert(this, "Warning", "You must first log in.");
 		} else {
@@ -114,6 +116,7 @@ public class Settings extends Activity {
 			Utility.mAsyncRunner.request(null, params,
 					new BaseRequestListener(){
 				public void onComplete(final String response, final Object state) {
+					progressDialog.dismiss();
 					Intent myIntent = new Intent(getApplicationContext(), BlackList.class);
 					myIntent.putExtra("API_RESPONSE", response);
 					startActivity(myIntent);

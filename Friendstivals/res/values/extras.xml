@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="extras_invite_btn">Invitar</string>
-    <string name="extras_title">Extras</string>
-    <string name="extras_msg_btn">Mensajes</string>
-    <string name="extras_lineup">Line up</string>
-    <string name="extras_playlist">Playlist</string>
-    <string name="extras_info">Info</string>
-    <string name="extras_anteriores">Previous versions</string>
-    <string name="map_extras">Extras</string>
-    <string name="info_dates">Dates and times</string>
-    <string name="info_tickets">Tickets</string>
-    <string name="info_location">Ubicación</string>
-    <string name="unblock">unblock</string>
+
 </resources>

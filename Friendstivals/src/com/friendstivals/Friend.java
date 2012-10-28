@@ -1,5 +1,6 @@
 package com.friendstivals;
 
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ public class Friend{
 	private ImageView profile_pic;
 	private TextView name;
 	private CheckBox box;
+	private Button btn;
 	private String id;
 	
 	public TextView getName() {
@@ -33,5 +35,11 @@ public class Friend{
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public Button getBtn() {
+		return btn;
+	}
+	public void setBtn(Button btn) {
+		this.btn = btn;
 	}	
 }

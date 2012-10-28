@@ -10,10 +10,12 @@ import com.friendstivals.artist.LineUp;
 import com.friendstivals.playlist.Playlist;
 
 public class Extras extends Activity {
+	private String festivalId;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		festivalId = getIntent().getExtras().getString("festival_id");
 		setContentView(R.layout.extras);		
 	}
 	
@@ -29,6 +31,9 @@ public class Extras extends Activity {
 	
 	public void openInfo(View v){
 		Intent i = new Intent(this, Info.class);
+		Bundle b = new Bundle();
+		b.putString("festival_id", festivalId);
+		i.putExtras(b);
 		startActivity(i);
 	} 
 	

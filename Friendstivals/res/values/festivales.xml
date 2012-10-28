@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="fests">
-        <item >Maquinaria/Santiago/10&#8211;11/Club de campo Las Vizcachas</item>
-        <item >Misteryland/Mostazal/14&#8211;12/Picarquín</item>
-        <item >Lollapalooza/Santiago/06&#8211; 04/Parque O\'Higgins</item>
-        <item >Ultra Music Festival/Santiago/22&#8211;02/Espacio Broadway</item>
+        <item >maquinaria</item>
+        <item >misteryland</item>
+        <item >lollapalooza</item>
+        <item >ultra</item>
     </string-array>
+    <string name="maquinaria">Maquinaria/Santiago/10&#8211;11/Club de campo Las Vizcachas/null/null</string>
+    <string name="misteryland">Misteryland/Mostazal/14&#8211;12/Picarquín/null/null</string>
+    <string name="lollapalooza">Lollapalooza/Santiago/06&#8211; 04/Parque O\'Higgins/null/null</string>
+    <string name="ultra">Ultra Music Festival/Santiago/22&#8211;02/Espacio Broadway/null/null</string>
 </resources>

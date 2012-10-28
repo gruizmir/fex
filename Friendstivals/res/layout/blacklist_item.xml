@@ -7,6 +7,7 @@
         android:id="@+id/blacklist_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
         android:clickable="false"
         android:focusable="false" />
 
@@ -19,12 +20,17 @@
     <TextView
         android:id="@+id/blacklist_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
         android:text="@string/friend_list_name" />
-	<TextView
+
+    <Button
         android:id="@+id/blacklist_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/unblock"
-        android:enabled="false"/>
+        android:layout_gravity="center_vertical"
+        android:focusable="false"
+        android:gravity="center_vertical"
+        android:text="@string/unblock" />
+
 </LinearLayout>

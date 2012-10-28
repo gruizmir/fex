@@ -1,17 +1,25 @@
 package com.friendstivals;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 
+import com.friendstivals.utils.Festival;
 import com.friendstivals.utils.FriendsViewActions;
 
 public class Info extends Activity implements FriendsViewActions{
+	private String festivalId;
+	private Festival fest;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		festivalId = getIntent().getExtras().getString("festival_id");
+		fest = new Festival(this, festivalId);
 		setContentView(R.layout.info);
 	}
 
@@ -22,5 +30,38 @@ public class Info extends Activity implements FriendsViewActions{
 	public void rightButtonClick(View v) {
 		
 	}
+	
+	public void showDates(View v){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Fechas y horarios");
+		builder.setMessage(" Fecha: "+ fest.getDate() +  
+				"\n Apertura de puertas: " + fest.getStart() + 
+				"\n Finalización conciertos:" + fest.getEnd());
+		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
 
+			public void onClick(DialogInterface dialog, int which) {
+			}
+
+		});
+		builder.show();
+	}
+	
+	public void showTickets(View v){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Entradas");
+		builder.setMessage(" Fecha: "+ fest.getDate() +  
+				"\n Apertura de puertas: " + fest.getStart() + 
+				"\n Finalización conciertos:" + fest.getEnd());
+		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+
+			public void onClick(DialogInterface dialog, int which) {
+			}
+
+		});
+		builder.show();
+	}
+	
+	public void showLocation(View v){
+		
+	}
 }

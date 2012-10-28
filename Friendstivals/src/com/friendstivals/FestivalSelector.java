@@ -42,7 +42,7 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
 		Intent mapIntent = new Intent(getApplicationContext(), CustomMap.class);
 		Bundle mapBundle = new Bundle();
-		mapBundle.putString("festival_name", "maquinaria");
+		mapBundle.putString("festival_id", "misteryland");
 		mapBundle.putString("festival_key", "key");
 		mapIntent.putExtras(mapBundle);
 		startActivity(mapIntent);

@@ -14,16 +14,13 @@ import com.friendstivals.utils.BaseRequestListener;
 import com.friendstivals.utils.Utility;
 
 public class CustomMap extends Activity {
-	private String festivalName;
-//	private String festivalKey;
+	private String festivalId;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.custom_map);
-		Bundle extras = getIntent().getExtras();
-		festivalName = extras.getString("festival_name");
-//		festivalKey = extras.getString("festival_key");
+		festivalId = getIntent().getExtras().getString("festival_id");
 	}
 
 	public void openMap(View v){
@@ -33,7 +30,7 @@ public class CustomMap extends Activity {
 	public void openExtras(View v){
 		Intent i = new Intent(getApplicationContext(), Extras.class);
 		Bundle b = new Bundle();
-		b.putString("festival_name", festivalName);
+		b.putString("festival_id", festivalId);
 		i.putExtras(b);
 		startActivity(i);
 	}
@@ -41,7 +38,7 @@ public class CustomMap extends Activity {
 	public void openSettings(View v){
 		Intent i = new Intent(getApplicationContext(), Settings.class);
 		Bundle b = new Bundle();
-		b.putString("festival_name", festivalName);
+		b.putString("festival_id", festivalId);
 		i.putExtras(b);
 		startActivity(i);
 	}

@@ -23,52 +23,52 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.friendstivals.templates.customDialog"
+            android:name=".templates.customDialog"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="com.friendstivals.FestivalSelector"
+            android:name=".FestivalSelector"
             android:label="FestivalSelector"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.friendstivals.FriendsList"
+            android:name=".FriendsList"
             android:label="FriendsList" 
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.friendstivals.CustomMap"
+            android:name=".CustomMap"
             android:label="CustomMap"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.friendstivals.Settings"
+            android:name=".Settings"
             android:label="Settings" 
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.friendstivals.BlackList"
+            android:name=".blacklist.BlackList"
             android:label="BlackList" 
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.friendstivals.AddBlackList"
+            android:name=".blacklist.AddBlackList"
             android:label="AddBlackList" 
             android:screenOrientation="portrait"/>
        	<activity
-            android:name="com.friendstivals.InviteView"
+            android:name=".InviteView"
             android:label="InviteView" 
             android:screenOrientation="portrait"/>
        	<activity
-            android:name="com.friendstivals.Extras"
+            android:name=".Extras"
             android:label="Extras" 
             android:screenOrientation="portrait"/>
        	<activity
-            android:name="com.friendstivals.artist.LineUp"
+            android:name=".artist.LineUp"
             android:label="LineUp" 
             android:screenOrientation="portrait"/>
        	<activity
-            android:name="com.friendstivals.playlist.Playlist"
+            android:name=".playlist.Playlist"
             android:label="Playlist" 
             android:screenOrientation="portrait"/>
        	<activity
-            android:name="com.friendstivals.Info"
+            android:name=".Info"
             android:label="Info" 
             android:screenOrientation="portrait"/>
     </application>

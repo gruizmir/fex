@@ -110,6 +110,7 @@ public class AddBlackList extends ListActivity implements FriendsViewActions {
 	}
 
 	public void leftButtonClick(View v) {
+		setResult(RESULT_CANCELED);
 		finish();
 	}
 
@@ -124,9 +125,9 @@ public class AddBlackList extends ListActivity implements FriendsViewActions {
 					Iterator<String> it = ids.iterator();
 					while(it.hasNext()){
 						params.putString("members", it.next());
+						response = Utility.mFacebook.request(id + "/members", params, "POST");
+						Log.e("response", response);
 					}
-					response = Utility.mFacebook.request(id + "/members", params, "POST");
-					Log.e("response", response);
 					mHandler.sendEmptyMessage(1);
 				} catch (FileNotFoundException e) {
 				} catch (MalformedURLException e) {
@@ -142,6 +143,7 @@ public class AddBlackList extends ListActivity implements FriendsViewActions {
 			Toast.makeText(getApplicationContext(), "Tus amigos han sido bloqueados.", Toast.LENGTH_LONG).show();
 		else
 			Toast.makeText(getApplicationContext(), "No se pudo realizar el bloqueo.", Toast.LENGTH_LONG).show();
+		setResult(RESULT_OK);
 		finish();
 	}
 }

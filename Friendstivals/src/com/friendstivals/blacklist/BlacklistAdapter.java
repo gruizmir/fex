@@ -8,7 +8,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,23 +32,25 @@ import com.friendstivals.R;
 import com.friendstivals.utils.FriendsGetProfilePics;
 import com.friendstivals.utils.Utility;
 
+@SuppressLint("HandlerLeak")
 public class BlacklistAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private JSONArray jsonArray;
 	private Friend holder;
 	private String blockedId;
+	private String userId;
+	private ProgressDialog progressDialog;
+	private Context cont;
 	private Handler mHandler= new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-//			if(msg.what == 1)
-//				showToast(true);
-//			if(msg.what == 0)
-//				showToast(false);			
+			progressDialog.dismiss();
 		}
 	};
 	
 	
 	public BlacklistAdapter(Context cont, JSONArray jsonArray) {
+		this.cont = cont;
 		SharedPreferences pref = cont.getSharedPreferences("blocked", Activity.MODE_PRIVATE);
 		blockedId = pref.getString("blocked_list_id", null);
 		this.jsonArray = jsonArray;
@@ -100,7 +104,8 @@ public class BlacklistAdapter extends BaseAdapter {
 		}
 		holder.getBox().setChecked(false);
 		try {
-			holder.setId(jsonObject.getString("uid"));
+			userId = jsonObject.getString("uid");
+			holder.setId(userId);
 		} catch (JSONException e) {
 			holder.setId("1");
 		}
@@ -111,12 +116,13 @@ public class BlacklistAdapter extends BaseAdapter {
 		 */
 		holder.getBtn().setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
+				progressDialog = ProgressDialog.show(cont, "", cont.getString(R.string.loading),true);
 				new Thread(new Runnable(){
 					public void run(){
 						String response=null;
 						Bundle params = new Bundle();
 						try {
-							params.putString("members", holder.getId());
+							params.putString("members", userId);
 							response = Utility.mFacebook.request(blockedId + "/members", params, "DELETE");
 							Log.e("response", response);
 							mHandler.sendEmptyMessage(1);

@@ -31,7 +31,7 @@ import com.friendstivals.utils.BaseRequestListener;
 import com.friendstivals.utils.Utility;
 
 public class Settings extends Activity {
-	private String festivalName;
+	private String festivalId;
 	protected Bitmap pic=null;
 	private ProgressDialog progressDialog;
 	@Override
@@ -40,9 +40,10 @@ public class Settings extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.settings);
 		Bundle extras = getIntent().getExtras();
-		festivalName = extras.getString("festival_name");
+		festivalId = extras.getString("festival_id");
+		String[] data = getString(getResources().getIdentifier(festivalId, "string", "com.friendstivals")).split("/");  
 		TextView title = (TextView) findViewById(R.id.settings_title);
-		title.setText(festivalName);
+		title.setText(data[0]);
 //		Bitmap pic = null;
 		try {
 			new Thread(new Runnable(){

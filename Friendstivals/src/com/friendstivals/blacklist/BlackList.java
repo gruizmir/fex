@@ -36,12 +36,15 @@ import com.friendstivals.utils.Utility;
 public class BlackList extends ListActivity implements FriendsViewActions{
 	protected static JSONArray jsonArray;
 	private ArrayList<String> ids;
+	protected String apiResponse=null;
 	private ProgressDialog progressDialog;
 	private Handler mHandler= new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			// Se cargo la data de AddBlackList
 			if(msg.what == 1){
+				setData(apiResponse);
+				progressDialog.dismiss();
 			}
 			//No se pudo cargar la data
 			if(msg.what == 0){
@@ -55,15 +58,8 @@ public class BlackList extends ListActivity implements FriendsViewActions{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.friend_list);
 		Bundle extras = getIntent().getExtras();
-		ids = new ArrayList<String>();
 		String apiResponse = extras.getString("API_RESPONSE");
-		try {
-			jsonArray = new JSONArray(apiResponse);
-		} catch (JSONException e) {
-			Log.e("json_fail", e.getMessage());
-		}
-		setListAdapter(new BlacklistAdapter(this, jsonArray));
-//		setListAdapter(new FriendListAdapter(this, jsonArray));
+		setData(apiResponse);
 
 		TextView title = (TextView) findViewById(R.id.friend_title);
 		title.setText(R.string.blocked_friends);
@@ -152,9 +148,50 @@ public class BlackList extends ListActivity implements FriendsViewActions{
 					progressDialog.dismiss();
 					Intent myIntent = new Intent(getApplicationContext(), AddBlackList.class);
 					myIntent.putExtra("API_RESPONSE", response);
-					startActivity(myIntent);
+					startActivityForResult(myIntent,0);
 				}
 			});
 		}
+	}
+
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		if(resultCode==RESULT_OK){
+			reload();
+		}
+	}
+
+	private void reload(){
+		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
+		if (!Utility.mFacebook.isSessionValid()) {
+			Util.showAlert(this, "Warning", "You must first log in.");
+		} else {
+			String query;
+			SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
+			if(!pref.contains("blocked_list_id"))
+				query = "select name, uid, pic_square from user where uid in (select uid2 from friend where uid1=me()) and is_app_user='true' order by name";
+			else{
+				query = "select name, uid, pic_square from user where uid in (select flid, uid from friendlist_member where flid="+ pref.getString("blocked_list_id", null) + ") and is_app_user='true' order by name";
+			}
+			Bundle params = new Bundle();
+			params.putString("method", "fql.query");
+			params.putString("query", query);
+			Utility.mAsyncRunner.request(null, params,
+					new BaseRequestListener(){
+				public void onComplete(final String response, final Object state) {
+					apiResponse = response;
+					mHandler.sendEmptyMessage(1);
+				}
+			});
+		}
+	}
+
+	private void setData(String apiResponse){
+		ids = new ArrayList<String>();
+		try {
+			jsonArray = new JSONArray(apiResponse);
+		} catch (JSONException e) {
+			Log.e("json_fail", e.getMessage());
+		}
+		setListAdapter(new BlacklistAdapter(this, jsonArray));
 	}
 }

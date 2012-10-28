@@ -2,8 +2,6 @@ package com.friendstivals.utils;
 
 import java.util.ArrayList;
 
-import com.friendstivals.R;
-
 import android.content.Context;
 import android.util.Log;
 

@@ -24,7 +24,6 @@ public class CustomMap extends Activity {
 	}
 
 	public void openMap(View v){
-
 	}
 	
 	public void openExtras(View v){

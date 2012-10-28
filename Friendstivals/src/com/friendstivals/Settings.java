@@ -28,6 +28,7 @@ import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
 import com.friendstivals.blacklist.BlackList;
 import com.friendstivals.utils.BaseRequestListener;
+import com.friendstivals.utils.Festival;
 import com.friendstivals.utils.Utility;
 
 public class Settings extends Activity {
@@ -41,9 +42,9 @@ public class Settings extends Activity {
 		setContentView(R.layout.settings);
 		Bundle extras = getIntent().getExtras();
 		festivalId = extras.getString("festival_id");
-		String[] data = getString(getResources().getIdentifier(festivalId, "string", "com.friendstivals")).split("/");  
+		Festival f = new Festival(this, festivalId);  
 		TextView title = (TextView) findViewById(R.id.settings_title);
-		title.setText(data[0]);
+		title.setText(f.getName());
 //		Bitmap pic = null;
 		try {
 			new Thread(new Runnable(){

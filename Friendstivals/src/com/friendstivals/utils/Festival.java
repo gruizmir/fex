@@ -2,6 +2,8 @@ package com.friendstivals.utils;
 
 import java.util.ArrayList;
 
+import com.friendstivals.R;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -17,21 +19,24 @@ public class Festival {
 	
 	public Festival(Context cont, String id){
 		this.id = id;
-		String datos=null;
+		String[] data=null;
 		try{
-			datos = cont.getString(cont.getResources().getIdentifier(id, "string", "com.friendstivals"));
+			data = cont.getResources().getStringArray(cont.getResources().getIdentifier(id, "array", "com.friendstivals"));
 		}catch(Exception e){
 			Log.e("problema", e.getMessage());
 		}
-		if(datos != null){
-			String[] att = datos.split("/");
-			name = att[0];
-			setGenLocation(att[1]);
-			date = att[2];
-			location = att[3];
-			if(att[4].equals("null")){
+		if(data != null){
+			name = data[0];
+			genLocation=data[1];
+			date = data[2];
+			location = data[3];
+			if(data[4].equals("null")){
 				start = "No disponible";
 				end = "No disponible";
+			}
+			else{
+				start = data[4];
+				end = data[5];
 			}
 				
 		}

@@ -62,6 +62,9 @@ public class Friendstivals extends Activity {
 		else{
 			fbButton.setClickable(true);
 		}
+		
+		Intent i = new Intent(this, InviteView.class);
+		this.startActivityForResult(i, 0);
 	}
 
 	/*

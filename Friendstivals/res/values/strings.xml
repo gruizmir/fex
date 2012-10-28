@@ -38,9 +38,11 @@
 	<string name="loading">Loading</string>
 	
 	<!-- Invite View -->
-	<string name="send_invitation">Send invitations</string>
-	<string name="send_later">Later</string>
-	<string name="send">Send</string>
+	<string name="invite_button_later">Later</string>
+	<string name="invite_button_send">Send</string>
+	<string name="invite_message_tittle">Send invitations</string>
+	<string name="invite_message_invitation">Invite your friends to download\nFriendstival so you can enjoy\n all the festivals together</string>
+	<string name="invite_textfield_hint">type the name or e-mail address</string>
 	
 	
 	<string name="extras_invite_btn">Invitar</string>

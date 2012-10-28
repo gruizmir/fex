@@ -17,7 +17,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#FFFFFF"
-            android:text="@string/invite_button_later" />
+            android:text="@string/invite_button_later" 
+            android:onClick="onClickLater"
+            />
 
         <TextView
             android:id="@+id/textView1"
@@ -36,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onClickSend"
             android:text="@string/invite_button_send" />
 
     </LinearLayout>
@@ -51,9 +54,35 @@
 
             <LinearLayout
                 android:id="@+id/customInviteList"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/inviteButtonsMoreFriends"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" 
+                    android:orientation="horizontal"
+                    >
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onClickAdd"
+                        android:text="@string/invite_button_add" />
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onClickFacebook"
+                        android:text="@string/invite_button_facebook" />
+
+                </LinearLayout>
+
             </LinearLayout>
             
         </ScrollView>

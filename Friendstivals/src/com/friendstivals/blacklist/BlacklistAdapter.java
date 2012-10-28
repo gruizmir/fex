@@ -3,11 +3,9 @@ package com.friendstivals.blacklist;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -135,9 +133,7 @@ public class BlacklistAdapter extends BaseAdapter {
 					}}).start();
 			}
 		});
-		
 		hView.setTag(holder);
 		return hView;
 	}
-
 }

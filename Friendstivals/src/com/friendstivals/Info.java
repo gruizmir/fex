@@ -49,9 +49,13 @@ public class Info extends Activity implements FriendsViewActions{
 	public void showTickets(View v){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Entradas");
-		builder.setMessage(" Fecha: "+ fest.getDate() +  
-				"\n Apertura de puertas: " + fest.getStart() + 
-				"\n Finalización conciertos:" + fest.getEnd());
+		String message = "";
+		for(int i=0; i<fest.getCantEntradas();i++){
+			String[] data = fest.getEntradas(i);
+			message = message + "Venta: " + data[0] + "\nTipo: " + data[1]
+					+ "\nPrecio: $" + data[2] + "\n\n";
+		}
+		builder.setMessage(message);
 		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
 
 			public void onClick(DialogInterface dialog, int which) {

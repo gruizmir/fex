@@ -8,6 +8,7 @@ import java.net.URL;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,6 +19,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -35,35 +38,25 @@ public class Settings extends Activity {
 	private String festivalId;
 	protected Bitmap pic=null;
 	private ProgressDialog progressDialog;
+	private Handler mHandler= new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			setImage();
+			progressDialog.dismiss();
+		}
+	};
+
+	@SuppressLint("HandlerLeak")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.settings);
+		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
 		Bundle extras = getIntent().getExtras();
 		festivalId = extras.getString("festival_id");
 		Festival f = new Festival(this, festivalId);  
-		TextView title = (TextView) findViewById(R.id.settings_title);
-		title.setText(f.getName());
-//		Bitmap pic = null;
-		try {
-			new Thread(new Runnable(){
-				public void run() {
-					URL img_value = null;
-					try {
-						img_value = new URL("http://graph.facebook.com/"+Utility.userUID+"/picture?type=small");
-						pic = BitmapFactory.decodeStream(img_value.openConnection().getInputStream());
-					} catch (MalformedURLException e) {
-					} catch (IOException e){
-					}
-				}}).start();
-		}catch (FacebookError e) {
-		} 
 
-		TextView profilePic = (TextView) findViewById(R.id.settings_name);
-		Drawable d = new BitmapDrawable(getResources(), pic);
-		profilePic.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
-		profilePic.setText(Utility.name);
 		SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
 		/*
 		 * Falta verificar que la lista este en facebook aun.
@@ -93,8 +86,31 @@ public class Settings extends Activity {
 				}
 			}).start();
 		}
+
+		TextView title = (TextView) findViewById(R.id.settings_title);
+		title.setText(f.getName());
+		try {
+			new Thread(new Runnable(){
+				public void run() {
+					URL img_value = null;
+					try {
+						img_value = new URL("http://graph.facebook.com/"+Utility.userUID+"/picture?type=small");
+						pic = BitmapFactory.decodeStream(img_value.openConnection().getInputStream());
+						mHandler.sendEmptyMessage(1);
+					} catch (MalformedURLException e) {
+					} catch (IOException e){
+					}
+				}}).start();
+		}catch (FacebookError e) {
+		} 
 	}
 
+	private void setImage(){
+		TextView profilePic = (TextView) findViewById(R.id.settings_name);
+		Drawable d = new BitmapDrawable(getResources(), pic);
+		profilePic.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
+		profilePic.setText(Utility.name);
+	}
 	/**
 	 * Debe mostrar la lista de usuarios en la lista negra. Mientras, solo tiene los datos de todos los usuarios.
 	 * @author gabriel

@@ -10,34 +10,54 @@
     <string-array name="maquinaria">
         <item>Maquinaria</item>
         <item>Santiago</item>
-        <item>10&#8211;11</item>
+        <item>10 y 11 de Noviembre</item>
         <item>Club de campo Las Vizcachas</item>
         <item>null</item>
         <item>null</item>
+        <item>entrada:Venta Normal Abonos/General/70.000</item>
+        <item>entrada:Venta Normal Abonos/Vip/150.000</item>
+        <item>entrada:Ticket por Día/General/46.000</item>
+        <item>entrada:Ticket por Día/Vip/95.000</item>
     </string-array>
     <string-array name="misteryland">
         <item>Misteryland</item>
         <item>Mostazal</item>
-        <item>14&#8211;12</item>
-        <item>Picarquín</item>
+        <item>14, 15 y 16 de Diciembre</item>
+        <item>Picarquín</item>.
         <item>null</item>
         <item>null</item>
-    </string-array>
-    <string-array name="lollapalooza">
-        <item>Lollapalooza</item>
-        <item>Santiago</item>
-        <item>06&#8211; 04</item>
-        <item>Parque O\'Higgins</item>
-        <item>null</item>
-        <item>null</item>
+        <item>entrada:Preventa/General/65.000</item>
+        <item>entrada:Preventa/Zona Entel/52.000</item>
+        <item>entrada:Preventa/Entel Visa/45.5000</item>
+        <item>entrada:Normal/General/77.500</item>
+        <item>entrada:Normal/Zona Entel/62.000</item>
+        <item>entrada:Normal/Entel Visa/54.250</item>
     </string-array>
     <string-array name="ultra">
         <item>Ultra Music Festival</item>
         <item>Santiago</item>
-        <item>22&#8211;02</item>
+        <item>22 y 23 de Febrero</item>
         <item>Espacio Broadway</item>
         <item>null</item>
         <item>null</item>
+        <item>entrada:Preventa/2 días/No disponible</item>
+        <item>entrada:Preventa/Diario/No disponible</item>
+        <item>entrada:Normal/2 días/No disponible</item>
+        <item>entrada:Normal/Diario/No disponible</item>
     </string-array>
-
+    <string-array name="lollapalooza">
+        <item>Lollapalooza</item>
+        <item>Santiago</item>
+        <item>6 y 7 de Abril </item>
+        <item>Parque O\'Higgins</item>
+        <item>null</item>
+        <item>null</item>
+        <item>entrada:Preventa/General 2 días/75.000</item>
+        <item>entrada:Preventa/General Diario/55.000</item>
+        <item>entrada:Preventa/VIP 2 días/160.000</item>
+        <item>entrada:Normal/General 2 días/90.000</item>
+        <item>entrada:Normal/General Diario/65.000</item>
+        <item>entrada:Normal/VIP 2 días/190.000</item>
+        <item>entrada:Normal/VIP Diario/120.000</item>
+    </string-array>
 </resources>

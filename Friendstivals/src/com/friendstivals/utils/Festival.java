@@ -17,6 +17,7 @@ public class Festival {
 	
 	public Festival(Context cont, String id){
 		this.id = id;
+		entradas = new ArrayList<Entradas>();
 		String[] data=null;
 		try{
 			data = cont.getResources().getStringArray(cont.getResources().getIdentifier(id, "array", "com.friendstivals"));
@@ -36,7 +37,14 @@ public class Festival {
 				start = data[4];
 				end = data[5];
 			}
-				
+			for(int i=6; i<data.length; i++){
+				String[] temp = data[i].split(":")[1].split("/");
+				Entradas e = new Entradas();
+				e.setTipoVenta(temp[0]);
+				e.setType(temp[1]);
+				e.setValue(temp[2]);
+				entradas.add(e);
+			}
 		}
 	}
 	
@@ -72,15 +80,21 @@ public class Festival {
 	}	
 	
 	public String[] getEntradas(int position){
-		String ent[]= new String[2];
+		String ent[]= new String[3];
 		if(position<entradas.size()){
-			ent[0] = entradas.get(position).getType();
-			ent[1] = entradas.get(position).getValue();
+			ent[0] = entradas.get(position).getTipoVenta();
+			ent[1] = entradas.get(position).getType();
+			ent[2] = entradas.get(position).getValue();
 			return ent;
 		}
 		else
 			return null;
 	}
+	
+	public int getCantEntradas(){
+		return entradas.size();
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -98,9 +112,10 @@ public class Festival {
 }
 
 class Entradas{
+	private String tipoVenta;
 	private String type;
 	private String value;
-	private ArrayList<String> places;
+//	private ArrayList<String> places;
 	
 	public String getType() {
 		return type;
@@ -114,10 +129,16 @@ class Entradas{
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public ArrayList<String> getPlaces() {
-		return places;
+//	public ArrayList<String> getPlaces() {
+//		return places;
+//	}
+//	public void setPlaces(ArrayList<String> places) {
+//		this.places = places;
+//	}
+	public String getTipoVenta() {
+		return tipoVenta;
 	}
-	public void setPlaces(ArrayList<String> places) {
-		this.places = places;
+	public void setTipoVenta(String tipoVenta) {
+		this.tipoVenta = tipoVenta;
 	}
 }

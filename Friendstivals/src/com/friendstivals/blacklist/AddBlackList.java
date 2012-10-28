@@ -1,4 +1,4 @@
-package com.friendstivals;
+package com.friendstivals.blacklist;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,6 +25,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.android.R;
+import com.friendstivals.Friend;
+import com.friendstivals.FriendListAdapter;
 import com.friendstivals.utils.FriendsViewActions;
 import com.friendstivals.utils.Utility;
 

@@ -40,7 +40,7 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 	 * Los datos del festival se pasan como Bundle.
 	 */
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-		Intent mapIntent = new Intent(getApplicationContext(), CustomMap.class);
+		Intent mapIntent = new Intent(getApplicationContext(), SplashScreen.class);
 		Bundle mapBundle = new Bundle();
 		mapBundle.putString("festival_id", "misteryland");
 		mapBundle.putString("festival_key", "key");

@@ -13,27 +13,29 @@ import android.widget.LinearLayout;
  *
  */
 public class InviteView extends Activity {
-	
+
 	LinearLayout customList;
-	
+
 	//Cambiar a visible si es que se quiere mostrar los botones.
-	int VISIBILITY_ADD_BUTTONS = LinearLayout.INVISIBLE;
+	boolean INVISIBLE_ADD_BUTTONS = true;
 	//Cantidad inicial de textbox a mostrar
 	int POPULATE_LIST = 5;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.festival_invite_list);
 		customList = (LinearLayout)findViewById(R.id.customInviteList);
-		
+
 		populateList(POPULATE_LIST);
-		customList = (LinearLayout)findViewById(R.id.inviteButtonsMoreFriends);
-		customList.setVisibility(VISIBILITY_ADD_BUTTONS);
-		
+		if(INVISIBLE_ADD_BUTTONS){
+			customList = (LinearLayout)findViewById(R.id.inviteButtonsMoreFriends);
+			customList.setVisibility(LinearLayout.INVISIBLE);
+		}
+
 	}
-	
+
 	/**
 	 * Rellena la lista con una cierta cantidad de textboxs
 	 * @param cantidad : Cantidad inicial de textboxs
@@ -43,16 +45,16 @@ public class InviteView extends Activity {
 			addItemToList();
 		}
 	}
-	
+
 	/**
 	 * Logica asociada al envio de las invitaciones a cada persona especificada
 	 * en los textboxs.
 	 * @param view
 	 */
 	public void onClickSend(View view){
-		
+
 	}
-	
+
 	/**
 	 * Se cierra la ventana si es que el usuario no desea enviar invitaciones.
 	 * @param view
@@ -60,7 +62,7 @@ public class InviteView extends Activity {
 	public void onClickLater(View view){
 		this.finish();
 	}
-	
+
 	/**
 	 * Agrega un textbox o mas si es que el usario desea enviar mas invitaciones
 	 * @param view
@@ -68,15 +70,15 @@ public class InviteView extends Activity {
 	public void onClickAdd(View view){
 		addItemToList();
 	}
-	
+
 	/**
 	 * Se agrega una invitacion seleccionando a una persona en facebook
 	 * @param view
 	 */
 	public void onClickFacebook(View view){
-		
+
 	}
-	
+
 	/**
 	 * Logica asociada a agregar textbox a la lista de invitaciones
 	 */

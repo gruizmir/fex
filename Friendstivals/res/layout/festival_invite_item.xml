@@ -10,6 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dip"
+        android:gravity="center"
         android:hint="@string/invite_textfield_hint"
         android:singleLine="true" >
     </EditText>

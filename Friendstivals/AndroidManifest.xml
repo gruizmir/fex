@@ -60,7 +60,7 @@
             android:name=".InviteView"
             android:label="InviteView"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".Extras"
             android:label="Extras"

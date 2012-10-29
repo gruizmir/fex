@@ -3,6 +3,7 @@ package com.friendstivals;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -66,6 +67,11 @@ public class Info extends Activity implements FriendsViewActions{
 	}
 	
 	public void showLocation(View v){
-		
+		Intent i = new Intent(getApplicationContext(), LocationMap.class);
+		Bundle b = new Bundle();
+		b.putString("address", fest.getLocation() + ", " + fest.getGenLocation());
+		b.putString("festival_name", fest.getName());
+		i.putExtras(b);
+		startActivity(i);
 	}
 }

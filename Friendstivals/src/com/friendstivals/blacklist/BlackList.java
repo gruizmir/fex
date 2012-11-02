@@ -29,11 +29,11 @@ import com.facebook.android.Util;
 import com.friendstivals.Friend;
 import com.friendstivals.R;
 import com.friendstivals.utils.BaseRequestListener;
-import com.friendstivals.utils.FriendsViewActions;
+import com.friendstivals.utils.TopButtonActions;
 import com.friendstivals.utils.Utility;
 
 @SuppressLint("HandlerLeak")
-public class BlackList extends ListActivity implements FriendsViewActions{
+public class BlackList extends ListActivity implements TopButtonActions{
 	protected static JSONArray jsonArray;
 	private ArrayList<String> ids;
 	protected String apiResponse=null;

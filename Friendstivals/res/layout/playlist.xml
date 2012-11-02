@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="horizontal" >
+        android:background="#000000" >
 
         <Button
             android:id="@+id/playlist_back"
@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"
             android:text="@string/extras_playlist"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:gravity="center_vertical" />
+            android:gravity="center_vertical"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <ListView

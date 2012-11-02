@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ListView;
 
-import com.friendstivals.utils.FriendsViewActions;
+import com.friendstivals.utils.TopButtonActions;
 
-public class FriendsList extends ListActivity implements FriendsViewActions {
+public class FriendsList extends ListActivity implements TopButtonActions {
 	protected static JSONArray jsonArray;
 
 	@Override
@@ -41,7 +41,7 @@ public class FriendsList extends ListActivity implements FriendsViewActions {
 	}
 
 	public void leftButtonClick(View v) {
-		
+		finish();
 	}
 
 	public void rightButtonClick(View v) {

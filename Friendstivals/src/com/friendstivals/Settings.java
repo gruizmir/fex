@@ -144,10 +144,12 @@ public class Settings extends Activity {
 	}
 
 	public void openInviteView(View v){
-
+		Intent i = new Intent(this, InviteView.class);
+		this.startActivityForResult(i, 0);
 	}
 
 	public void openFriendsList(View v){
+		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
 		if (!Utility.mFacebook.isSessionValid()) {
 			Util.showAlert(this, "Warning", "You must first log in.");
 		} else {
@@ -166,6 +168,7 @@ public class Settings extends Activity {
 	public class FriendsRequestListener extends BaseRequestListener {
 
 		public void onComplete(final String response, final Object state) {
+			progressDialog.dismiss();
 			Intent myIntent = new Intent(getApplicationContext(), FriendsList.class);
 			myIntent.putExtra("API_RESPONSE", response);
 			startActivity(myIntent);

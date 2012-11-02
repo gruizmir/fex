@@ -8,21 +8,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_horizontal" >
-
+        android:background="#000000" 
+        >
         <Button
             android:id="@+id/info_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/extras_title"
+            android:layout_weight="1"
             android:layout_gravity="left"
             android:onClick="leftButtonClick" />
 
         <TextView
             android:id="@+id/info_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/extras_info"
+            android:layout_weight="1"
+            android:textColor="#FFFFFF"
             android:gravity="center_horizontal|center_vertical"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>

@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.Window;
 
 import com.friendstivals.R;
-import com.friendstivals.utils.FriendsViewActions;
+import com.friendstivals.utils.TopButtonActions;
 
-public class LineUp extends ListActivity implements FriendsViewActions{
+public class LineUp extends ListActivity implements TopButtonActions{
 	ArrayList<Artist> artistList;
 	
 	@Override

@@ -11,25 +11,32 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.friendstivals.utils.Event;
+import com.friendstivals.utils.Festival;
 
 public class FestivalSelector extends Activity implements OnItemClickListener{
 	private ListView listView1;
-
+	protected ArrayList<Festival> eventos;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.festival_selector);
-		ArrayList<Event> eventos = new ArrayList<Event>();
-		Event evento = new Event(null, null, null, null, null);
-		eventos.add(evento);
-		FestivalAdapter adapter = new FestivalAdapter(this,
-                R.layout.festival_list_item, eventos);
+//		ArrayList<F> eventos = new ArrayList<Event>();
+//		Event evento = new Event(null, null, null, null, null);
+//		eventos.add(evento);
 		
+//		FestivalAdapter adapter = new FestivalAdapter(this,
+//                R.layout.festival_list_item, eventos);
+		eventos= new ArrayList<Festival>();
+		String[] fest_list = getResources().getStringArray(R.array.fests);
+		for(int i=0; i<fest_list.length; i++){
+			Festival f = new Festival(this, fest_list[i]);
+			eventos.add(f);
+		}
+		FestivalAdapter adapter = new FestivalAdapter(this,R.layout.festival_list_item, eventos);
 		listView1 = (ListView)findViewById(R.id.list_festival);
-		View header = (View)getLayoutInflater().inflate(R.layout.festival_list_item, null);
-		listView1.addHeaderView(header);
+//		View header = (View)getLayoutInflater().inflate(R.layout.festival_list_item, null);
+//		listView1.addHeaderView(header);
 		listView1.setAdapter(adapter);
 		listView1.setOnItemClickListener(this);
 	}
@@ -42,7 +49,8 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
 		Intent mapIntent = new Intent(getApplicationContext(), CustomMap.class);
 		Bundle mapBundle = new Bundle();
-		mapBundle.putString("festival_id", "misteryland");
+		Festival f = eventos.get(position);
+		mapBundle.putString("festival_id", f.getId());
 		mapBundle.putString("festival_key", "key");
 		mapIntent.putExtras(mapBundle);
 		startActivity(mapIntent);

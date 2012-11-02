@@ -8,8 +8,9 @@ import android.view.Window;
 
 import com.friendstivals.artist.LineUp;
 import com.friendstivals.playlist.Playlist;
+import com.friendstivals.utils.TopButtonActions;
 
-public class Extras extends Activity {
+public class Extras extends Activity implements TopButtonActions{
 	private String festivalId;
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,16 @@ public class Extras extends Activity {
 	} 
 	
 	public void openAnteriores(View v){
+		
+	}
+
+	public void leftButtonClick(View v) {
+		Intent i = new Intent(this, InviteView.class);
+		this.startActivityForResult(i, 0);
+	}
+
+	public void rightButtonClick(View v) {
+		// TODO Auto-generated method stub
 		
 	}
 }

@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.Window;
 
 import com.friendstivals.utils.Festival;
-import com.friendstivals.utils.FriendsViewActions;
+import com.friendstivals.utils.TopButtonActions;
 
-public class Info extends Activity implements FriendsViewActions{
+public class Info extends Activity implements TopButtonActions{
 	private String festivalId;
 	private Festival fest;
 	

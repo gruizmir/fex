@@ -1,6 +1,7 @@
 package com.friendstivals;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,9 @@ public class InviteView extends Activity {
 	 * @param view
 	 */
 	public void onClickSend(View view){
-
+		//Aqui debe intentar enviar los correos.
+		Intent myIntent = new Intent(this, FestivalSelector.class);
+		startActivity(myIntent);
 	}
 
 	/**

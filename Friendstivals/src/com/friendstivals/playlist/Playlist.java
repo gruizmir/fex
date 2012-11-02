@@ -10,9 +10,9 @@ import android.view.Window;
 import com.friendstivals.R;
 import com.friendstivals.artist.Artist;
 import com.friendstivals.artist.ArtistAdapter;
-import com.friendstivals.utils.FriendsViewActions;
+import com.friendstivals.utils.TopButtonActions;
 
-public class Playlist extends ListActivity implements FriendsViewActions{
+public class Playlist extends ListActivity implements TopButtonActions{
 	ArrayList<Artist> songList;
 	
 	@Override

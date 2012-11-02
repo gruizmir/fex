@@ -28,11 +28,11 @@ import android.widget.Toast;
 import com.facebook.android.R;
 import com.friendstivals.Friend;
 import com.friendstivals.FriendListAdapter;
-import com.friendstivals.utils.FriendsViewActions;
+import com.friendstivals.utils.TopButtonActions;
 import com.friendstivals.utils.Utility;
 
 @SuppressLint("HandlerLeak")
-public class AddBlackList extends ListActivity implements FriendsViewActions {
+public class AddBlackList extends ListActivity implements TopButtonActions {
 	protected static JSONArray jsonArray;
 	private ArrayList<String> ids;
 	private Handler mHandler= new Handler() {

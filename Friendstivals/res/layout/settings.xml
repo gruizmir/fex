@@ -8,6 +8,8 @@
         android:id="@+id/settings_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#000000"
+        android:textColor="#FFFFFF"
         android:gravity="center_horizontal"
         android:text="@string/settings_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />

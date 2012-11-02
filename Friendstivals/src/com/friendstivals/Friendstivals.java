@@ -37,8 +37,15 @@ public class Friendstivals extends Activity {
 	private Handler mHandler= new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			fbButton.setClickable(false);
-			openFestivalList();
+			//Significa que es la primera vez que se loguea
+			if(fbButton.isClickable()){
+				fbButton.setClickable(false);
+				openInviteView();
+			}
+			else{
+				fbButton.setClickable(false);
+				openFestivalList();
+			}
 		}
 	};
 	public String userUID = null;
@@ -62,9 +69,6 @@ public class Friendstivals extends Activity {
 		else{
 			fbButton.setClickable(true);
 		}
-		
-//		Intent i = new Intent(this, InviteView.class);
-//		this.startActivityForResult(i, 0);
 	}
 
 	/*
@@ -107,7 +111,10 @@ public class Friendstivals extends Activity {
 		startActivity(myIntent);
 	}
 
-
+	private void openInviteView(){
+		Intent i = new Intent(this, InviteView.class);
+		this.startActivityForResult(i, 0);
+	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {

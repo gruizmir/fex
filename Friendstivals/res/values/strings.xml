@@ -46,6 +46,9 @@
 	<string name="invite_message_invitation">Invite your friends to download\nFriendstival so you can enjoy\n all the festivals together</string>
 	<string name="invite_textfield_hint">type the name or e-mail address</string>
 	
+	<!-- Splash view -->
+	<string name="splash_button_festivals">Festivals</string>
+	
 	<string name="extras_invite_btn">Invitar</string>
     <string name="extras_title">Extras</string>
     <string name="extras_msg_btn">Mensajes</string>

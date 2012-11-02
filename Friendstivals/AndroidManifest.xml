@@ -81,6 +81,11 @@
             android:name=".LocationMap"
             android:label="LocationMap"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".SplashScreen"
+            android:label="SplashScreen"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
 
         <uses-library android:name="com.google.android.maps" >
         </uses-library>

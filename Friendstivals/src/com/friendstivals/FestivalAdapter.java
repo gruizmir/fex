@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.friendstivals.utils.Event;
 import com.friendstivals.utils.Festival;
 
 public class FestivalAdapter extends ArrayAdapter<Festival> {

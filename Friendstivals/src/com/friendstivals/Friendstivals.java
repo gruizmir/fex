@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.friendstivals.utils.BaseRequestListener;
 import com.friendstivals.utils.SessionStore;
 import com.friendstivals.utils.Utility;
 
+@SuppressLint("HandlerLeak")
 public class Friendstivals extends Activity {
 	private Button fbButton; 
 	private Button mailButton;

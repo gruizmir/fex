@@ -13,6 +13,7 @@ public class Festival {
 	private String end;
 	private String location;
 	private String genLocation;
+	private String splashMessage;
 	private ArrayList<Entradas> entradas;
 	
 	public Festival(Context cont, String id){
@@ -37,7 +38,8 @@ public class Festival {
 				start = data[4];
 				end = data[5];
 			}
-			for(int i=6; i<data.length; i++){
+			splashMessage = data[6];
+			for(int i=7; i<data.length; i++){
 				String[] temp = data[i].split(":")[1].split("/");
 				Entradas e = new Entradas();
 				e.setTipoVenta(temp[0]);
@@ -109,13 +111,20 @@ public class Festival {
 	public void setGenLocation(String genLocation) {
 		this.genLocation = genLocation;
 	}
+
+	public String getSplashMessage() {
+		return splashMessage;
+	}
+
+	public void setSplashMessage(String splashMessage) {
+		this.splashMessage = splashMessage;
+	}
 }
 
 class Entradas{
 	private String tipoVenta;
 	private String type;
 	private String value;
-//	private ArrayList<String> places;
 	
 	public String getType() {
 		return type;
@@ -129,12 +138,6 @@ class Entradas{
 	public void setValue(String value) {
 		this.value = value;
 	}
-//	public ArrayList<String> getPlaces() {
-//		return places;
-//	}
-//	public void setPlaces(ArrayList<String> places) {
-//		this.places = places;
-//	}
 	public String getTipoVenta() {
 		return tipoVenta;
 	}

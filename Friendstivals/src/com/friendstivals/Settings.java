@@ -34,6 +34,7 @@ import com.friendstivals.utils.BaseRequestListener;
 import com.friendstivals.utils.Festival;
 import com.friendstivals.utils.Utility;
 
+@SuppressLint("HandlerLeak")
 public class Settings extends Activity {
 	private String festivalId;
 	protected Bitmap pic=null;
@@ -46,7 +47,6 @@ public class Settings extends Activity {
 		}
 	};
 
-	@SuppressLint("HandlerLeak")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

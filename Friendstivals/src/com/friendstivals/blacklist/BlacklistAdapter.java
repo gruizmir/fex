@@ -3,14 +3,8 @@ package com.friendstivals.blacklist;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +13,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.friendstivals.Friend;
 import com.friendstivals.R;
 import com.friendstivals.utils.FriendsGetProfilePics;
@@ -31,20 +24,8 @@ public class BlacklistAdapter extends BaseAdapter {
 	private JSONArray jsonArray;
 	private Friend holder;
 	private String userId;
-	private ProgressDialog progressDialog;
-	private Context cont;
-	private Handler mHandler= new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			progressDialog.dismiss();
-		}
-	};
-	
 	
 	public BlacklistAdapter(Context cont, JSONArray jsonArray) {
-		this.cont = cont;
-		SharedPreferences pref = cont.getSharedPreferences("blocked", Activity.MODE_PRIVATE);
-		blockedId = pref.getString("blocked_list_id", null);
 		this.jsonArray = jsonArray;
 		if (Utility.model == null) {
 			Utility.model = new FriendsGetProfilePics();

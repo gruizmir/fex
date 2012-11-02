@@ -1,15 +1,24 @@
 package com.friendstivals;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
 
+import com.friendstivals.blacklist.BlackList;
 import com.friendstivals.utils.TopButtonActions;
+import com.friendstivals.utils.Utility;
 
 public class FriendsList extends ListActivity implements TopButtonActions {
 	protected static JSONArray jsonArray;
@@ -31,13 +40,14 @@ public class FriendsList extends ListActivity implements TopButtonActions {
 	}
 
 	public void onListItemClick(ListView l, View v, int position, long id) {
-//		try {
-//			final long friendId;
-//			friendId = jsonArray.getJSONObject(position).getLong("uid");
-//			String name = jsonArray.getJSONObject(position).getString("name");
-//
-//		} catch (JSONException e) {
-//		}
+		super.onListItemClick(l, v, position, id);
+		Friend f = (Friend)v.getTag();
+		if(!f.getBox().isChecked()){
+			f.getBox().setChecked(true);
+		}
+		else{
+			f.getBox().setChecked(false);
+		}
 	}
 
 	public void leftButtonClick(View v) {

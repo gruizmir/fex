@@ -3,6 +3,7 @@ package com.friendstivals;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class FestivalAdapter extends ArrayAdapter<Festival> {
 		}
 		Festival e = eventos.get(position);
 		holder.title.setText(e.getName()); 
-		holder.imgIcon = new ImageView(context);
+		holder.imgIcon.setBackgroundResource(R.drawable.happy_face);
 		return view;
 	}
 

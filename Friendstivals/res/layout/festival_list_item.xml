@@ -6,9 +6,11 @@
 
     <ImageView
         android:id="@+id/fest_calendar_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:contentDescription="@string/fest_calendar_text" />
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/fest_calendar_text"
+        android:drawable="@drawable/happy_face"
+        android:gravity="center_vertical" />
 
     <TextView
         android:id="@+id/fest_festival_icon"

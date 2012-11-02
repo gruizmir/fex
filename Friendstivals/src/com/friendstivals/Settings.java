@@ -24,6 +24,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class Settings extends Activity {
 	private String festivalId;
 	protected Bitmap pic=null;
 	private ProgressDialog progressDialog;
+	private CheckBox avail;
 	private Handler mHandler= new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -47,10 +49,8 @@ public class Settings extends Activity {
 				setImage();
 			}
 			if(msg.what == 0){
-				
+
 			}
-				
-			
 		}
 	};
 
@@ -112,6 +112,11 @@ public class Settings extends Activity {
 				}}).start();
 		}catch (FacebookError e) {
 		} 
+		avail = (CheckBox)findViewById(R.id.avalaible_check);
+		SharedPreferences sets = getSharedPreferences("settings", MODE_PRIVATE);
+		if(sets.contains("available")){
+			avail.setChecked(sets.getBoolean("available", false));
+		}
 	}
 
 	private void setImage(){
@@ -186,6 +191,29 @@ public class Settings extends Activity {
 		public void onFacebookError(FacebookError error) {
 			Toast.makeText(getApplicationContext(), "Facebook Error: " + error.getMessage(),
 					Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	@Override
+	protected void onDestroy(){
+		super.onDestroy();
+		SharedPreferences pref = this.getSharedPreferences("settings", MODE_PRIVATE);
+		if(!pref.contains("available")){
+			Editor ed = pref.edit();
+			if(avail.isChecked())
+				ed.putBoolean("available", true);
+			else{
+				ed.putBoolean("available", false);
+			}
+			ed.commit();
+		}else{
+			Editor ed = pref.edit();
+			if(avail.isChecked())
+				ed.putBoolean("available", true);
+			else{
+				ed.putBoolean("available", false);
+			}
+			ed.commit();
 		}
 	}
 }

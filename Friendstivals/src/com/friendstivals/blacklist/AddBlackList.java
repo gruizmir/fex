@@ -61,7 +61,7 @@ public class AddBlackList extends ListActivity implements TopButtonActions {
 		} catch (JSONException e) {
 			Log.e("JSON_fail", e.getMessage());
 		}
-		setListAdapter(new FriendListAdapter(this, jsonArray));
+		setListAdapter(new FriendListAdapter(this, jsonArray, false));
 		SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
 
 		/*

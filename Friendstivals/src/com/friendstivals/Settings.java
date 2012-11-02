@@ -42,8 +42,15 @@ public class Settings extends Activity {
 	private Handler mHandler= new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			setImage();
 			progressDialog.dismiss();
+			if(msg.what == 1){
+				setImage();
+			}
+			if(msg.what == 0){
+				
+			}
+				
+			
 		}
 	};
 
@@ -98,7 +105,9 @@ public class Settings extends Activity {
 						pic = BitmapFactory.decodeStream(img_value.openConnection().getInputStream());
 						mHandler.sendEmptyMessage(1);
 					} catch (MalformedURLException e) {
+						mHandler.sendEmptyMessage(0);
 					} catch (IOException e){
+						mHandler.sendEmptyMessage(0);
 					}
 				}}).start();
 		}catch (FacebookError e) {

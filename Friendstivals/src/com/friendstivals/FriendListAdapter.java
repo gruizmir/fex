@@ -20,8 +20,10 @@ public class FriendListAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private JSONArray jsonArray;
 	private Friend holder;
+	private boolean checked;
 	
-	public FriendListAdapter(Context cont, JSONArray jsonArray) {
+	public FriendListAdapter(Context cont, JSONArray jsonArray, boolean checked) {
+		this.checked = checked;
 		this.jsonArray = jsonArray;
 		if (Utility.model == null) {
 			Utility.model = new FriendsGetProfilePics();
@@ -70,7 +72,7 @@ public class FriendListAdapter extends BaseAdapter {
 		} catch (JSONException e) {
 			holder.getName().setText("");
 		}
-		holder.getBox().setChecked(false);
+		holder.getBox().setChecked(checked);
 		try {
 			holder.setId(jsonObject.getString("uid"));
 		} catch (JSONException e) {

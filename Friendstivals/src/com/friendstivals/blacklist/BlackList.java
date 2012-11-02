@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
@@ -35,19 +36,27 @@ import com.friendstivals.utils.Utility;
 @SuppressLint("HandlerLeak")
 public class BlackList extends ListActivity implements TopButtonActions{
 	protected static JSONArray jsonArray;
+	private String blockedId;
 	private ArrayList<String> ids;
 	protected String apiResponse=null;
 	private ProgressDialog progressDialog;
 	private Handler mHandler= new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
+			progressDialog.dismiss();
 			// Se cargo la data de AddBlackList
 			if(msg.what == 1){
 				setData(apiResponse);
-				progressDialog.dismiss();
 			}
 			//No se pudo cargar la data
 			if(msg.what == 0){
+			}
+			if(msg.what == 2){
+				reloadData();
+			}
+			if(msg.what == 3){
+				String response = msg.getData().getString("api_response");
+				setData(response);
 			}
 		}
 	};
@@ -101,6 +110,7 @@ public class BlackList extends ListActivity implements TopButtonActions{
 				}
 			}).start();
 		}
+		blockedId = pref.getString("blocked_list_id", null);
 	}
 
 	public void onListItemClick(ListView l, View v, int position, long id) {
@@ -110,6 +120,30 @@ public class BlackList extends ListActivity implements TopButtonActions{
 			f.getBox().setChecked(true);
 			ids.add(f.getId());
 			f.getBtn().setVisibility(View.VISIBLE);
+			/*
+			 * Funcionara esto?
+			 */
+			f.getBtn().setOnClickListener(new OnClickListener(){
+ 				public void onClick(View arg0) {
+					progressDialog = ProgressDialog.show(BlackList.this, "", getString(R.string.loading),true);
+					new Thread(new Runnable(){
+						public void run(){
+							String response=null;
+							Bundle params = new Bundle();
+							try {
+								params.putString("members", ids.get(ids.size()-1));
+								response = Utility.mFacebook.request(blockedId + "/members", params, "DELETE");
+								Log.e("response", response);
+								mHandler.sendEmptyMessage(2);
+							} catch (FileNotFoundException e) {
+							} catch (MalformedURLException e) {
+								mHandler.sendEmptyMessage(0);
+							} catch (IOException e) {
+							} catch (NullPointerException e){
+							}
+						}}).start();
+				}
+			});
 		}
 		else{
 			f.getBox().setChecked(false);
@@ -193,5 +227,36 @@ public class BlackList extends ListActivity implements TopButtonActions{
 			Log.e("json_fail", e.getMessage());
 		}
 		setListAdapter(new BlacklistAdapter(this, jsonArray));
+	}
+	
+	private void reloadData(){
+		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
+		if (!Utility.mFacebook.isSessionValid()) {
+			Util.showAlert(this, "Warning", "You must first log in.");
+		} else {
+			String query;
+			SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
+			if(!pref.contains("blocked_list_id"))
+				query = "select name, uid, pic_square from user where uid in (select uid2 from friend where uid1=me()) and is_app_user='true' order by name";
+			else{
+				query = "select name, uid, pic_square from user where uid in (select flid, uid from friendlist_member where flid="+ pref.getString("blocked_list_id", null) + ") and is_app_user='true' order by name";
+			}
+			Bundle params = new Bundle();
+			params.putString("method", "fql.query");
+			params.putString("query", query);
+			Utility.mAsyncRunner.request(null, params,
+					new BaseRequestListener(){
+				public void onComplete(final String response, final Object state) {
+					progressDialog.dismiss();
+					Message m = new Message();
+					Bundle data = new Bundle();
+					data.putString("api_response", response);
+					m.setData(data);
+					m.what = 3;
+					mHandler.sendMessage(m);
+//					mHandler.sendEmptyMessage(1);
+				}
+			});
+		}
 	}
 }

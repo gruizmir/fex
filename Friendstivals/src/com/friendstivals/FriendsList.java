@@ -26,7 +26,7 @@ public class FriendsList extends ListActivity implements TopButtonActions {
 		} catch (JSONException e) {
 			return;
 		}
-		setListAdapter(new FriendListAdapter(this, jsonArray));
+		setListAdapter(new FriendListAdapter(this, jsonArray, true));
 
 	}
 

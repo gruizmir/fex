@@ -1,23 +1,18 @@
 package com.friendstivals.blacklist;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -35,7 +30,6 @@ public class BlacklistAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private JSONArray jsonArray;
 	private Friend holder;
-	private String blockedId;
 	private String userId;
 	private ProgressDialog progressDialog;
 	private Context cont;
@@ -108,31 +102,6 @@ public class BlacklistAdapter extends BaseAdapter {
 			holder.setId("1");
 		}
 		holder.getBtn().setVisibility(View.GONE);
-		
-		/*
-		 * Funcionara esto?
-		 */
-		holder.getBtn().setOnClickListener(new OnClickListener(){
-			public void onClick(View arg0) {
-				progressDialog = ProgressDialog.show(cont, "", cont.getString(R.string.loading),true);
-				new Thread(new Runnable(){
-					public void run(){
-						String response=null;
-						Bundle params = new Bundle();
-						try {
-							params.putString("members", userId);
-							response = Utility.mFacebook.request(blockedId + "/members", params, "DELETE");
-							Log.e("response", response);
-							mHandler.sendEmptyMessage(1);
-						} catch (FileNotFoundException e) {
-						} catch (MalformedURLException e) {
-							mHandler.sendEmptyMessage(0);
-						} catch (IOException e) {
-						} catch (NullPointerException e){
-						}
-					}}).start();
-			}
-		});
 		hView.setTag(holder);
 		return hView;
 	}

@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onClickLater"
+            android:onClick="leftButtonClick"
             android:text="@string/invite_button_later"
             android:textColor="#FFFFFF" />
 
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onClickSend"
+            android:onClick="rightButtonClick"
             android:text="@string/invite_button_send"
             android:textColor="#FFFFFF" />
     </LinearLayout>

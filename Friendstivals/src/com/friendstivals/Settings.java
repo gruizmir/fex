@@ -18,11 +18,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -38,6 +40,7 @@ import com.friendstivals.utils.Utility;
 @SuppressLint("HandlerLeak")
 public class Settings extends Activity {
 	private String festivalId;
+	private CheckBox check; 
 	protected Bitmap pic=null;
 	private ProgressDialog progressDialog;
 	private CheckBox avail;
@@ -117,8 +120,32 @@ public class Settings extends Activity {
 		if(sets.contains("available")){
 			avail.setChecked(sets.getBoolean("available", false));
 		}
-	}
 
+		check = (CheckBox)findViewById(R.id.gps_switch);
+		check.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View v) {
+				Intent actividad = new Intent(
+						android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+				startActivity(actividad);
+			}
+
+		});
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		LocationManager servicio = (LocationManager) getSystemService(LOCATION_SERVICE);
+		Boolean activado = servicio
+				.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		if (!activado) {
+			check.setChecked(false);
+		} else {
+			check.setChecked(true);
+		}
+	}
+	
 	private void setImage(){
 		TextView profilePic = (TextView) findViewById(R.id.settings_name);
 		Drawable d = new BitmapDrawable(getResources(), pic);

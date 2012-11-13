@@ -1,19 +1,27 @@
 package com.friendstivals;
 
+import java.util.regex.Pattern;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.friendstivals.utils.TopButtonActions;
 
 /**
  * Vista asociada al envio de invitaciones a otras personas.
  * @author astom
  *
  */
-public class InviteView extends Activity {
+public class InviteView extends Activity implements TopButtonActions{
 
 	LinearLayout customList;
 
@@ -48,25 +56,6 @@ public class InviteView extends Activity {
 	}
 
 	/**
-	 * Logica asociada al envio de las invitaciones a cada persona especificada
-	 * en los textboxs.
-	 * @param view
-	 */
-	public void onClickSend(View view){
-		//Aqui debe intentar enviar los correos.
-		Intent myIntent = new Intent(this, FestivalSelector.class);
-		startActivity(myIntent);
-	}
-
-	/**
-	 * Se cierra la ventana si es que el usuario no desea enviar invitaciones.
-	 * @param view
-	 */
-	public void onClickLater(View view){
-		this.finish();
-	}
-
-	/**
 	 * Agrega un textbox o mas si es que el usario desea enviar mas invitaciones
 	 * @param view
 	 */
@@ -92,4 +81,43 @@ public class InviteView extends Activity {
 		customList.addView(newItem,customList.getChildCount()-1);
 	}
 
+	private boolean isValidEmail(String email) {
+		Pattern pattern = Patterns.EMAIL_ADDRESS;
+		return pattern.matcher(email).matches();
+	}
+
+	public void leftButtonClick(View v) {
+		this.finish();		
+	}
+
+	public void rightButtonClick(View v) {
+		LinearLayout customList = (LinearLayout)findViewById(R.id.customInviteList); 
+		int count = customList.getChildCount();
+		String dest = "";
+		for(int i=0; i<count-1; i++){
+			Log.w("a", ((LinearLayout)((LinearLayout)customList.getChildAt(i)).getChildAt(0)).getChildAt(0).toString());
+			EditText et = (EditText)((LinearLayout)((LinearLayout)customList.getChildAt(i)).getChildAt(0)).getChildAt(0);
+			if(!et.getText().equals("")){
+				String aux = et.getText().toString();
+				if(isValidEmail(aux)){
+					dest += ","+aux;
+				}
+			}
+		}
+		if(!dest.equals("")){
+			String[] destinatarios = dest.split(",");
+			if(destinatarios.length>0){
+				Intent i = new Intent(Intent.ACTION_SEND);
+				i.setType("message/rfc822");
+				i.putExtra(Intent.EXTRA_EMAIL  , destinatarios);
+				i.putExtra(Intent.EXTRA_SUBJECT, "Juntémonos en Fex");
+				i.putExtra(Intent.EXTRA_TEXT   , "Te invito a Fex");
+				try {
+					startActivity(Intent.createChooser(i, "Send mail..."));
+				} catch (android.content.ActivityNotFoundException ex) {
+					Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+				}
+			}
+		}
+	}
 }

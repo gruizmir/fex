@@ -1,19 +1,33 @@
 package com.friendstivals;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +50,13 @@ import com.friendstivals.utils.Utility;
 public class Friendstivals extends Activity {
 	private Button fbButton; 
 	private Button mailButton;
+	private HttpClient httpclient;
+	private HttpPost httppost;
+	//Direccion para realizar la conexion
+	private static final String DIRECCION = "http://23.23.170.228/save.php?action=register";
+	//D = true si se esta haciendo debug por logCat, DT = true si se esta haciendo debug por toast
+	private static final boolean D = true;
+
 	private Handler mHandler= new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -61,7 +82,7 @@ public class Friendstivals extends Activity {
 		fbButton.setClickable(false);
 		mailButton = (Button) this.findViewById(R.id.mail_button);
 		mailButton.setClickable(false);
-
+		
 		Utility.mFacebook = new Facebook(getString(R.string.fb_id));
 		Utility.mAsyncRunner = new AsyncFacebookRunner(Utility.mFacebook);
 		SessionStore.restore(Utility.mFacebook, this);
@@ -71,6 +92,7 @@ public class Friendstivals extends Activity {
 		else{
 			fbButton.setClickable(true);
 		}
+
 	}
 
 	/*
@@ -97,10 +119,12 @@ public class Friendstivals extends Activity {
 			try {
 				jsonObject = new JSONObject(response);
 				Utility.picURL = jsonObject.getString("picture");
-                Utility.name = jsonObject.getString("name");
+				Utility.name = jsonObject.getString("name");
 				Utility.userUID = jsonObject.getString("id");
 				mHandler.post(new Runnable() {
-					public void run() {	}
+					public void run() {
+						createConexion();
+					}
 				});
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -165,6 +189,7 @@ public class Friendstivals extends Activity {
 			public void onComplete(Bundle values) {
 				SessionStore.save(Utility.mFacebook, Friendstivals.this);
 				requestUserData();
+				
 			}
 
 			public void onFacebookError(FacebookError error) {
@@ -184,5 +209,78 @@ public class Friendstivals extends Activity {
 	public void onResume() {    
 		super.onResume();
 		Utility.mFacebook.extendAccessTokenIfNeeded(this, null);
+	}
+
+	/**
+	 * Se inicia la conexion con el servidor para ingresar a un nuevo usuario.
+	 * @author astom
+	 *
+	 */
+	private class ConexionToServer extends AsyncTask<String, Integer, String> {
+		@Override
+		protected String doInBackground(String... sUrl) {
+			try {
+				if(D) Log.println(Log.DEBUG, "CONEXION_TO_SERVER", "Iniciando conexion");
+				httpclient = new DefaultHttpClient();
+				httppost = new HttpPost(sUrl[0]);
+				if(D) Log.println(Log.DEBUG, "CONEXION_TO_SERVER", "Conexion lograda");
+				if(httpclient != null && httppost != null && Utility.userUID != null && !Utility.userUID.equals("")){
+					try {
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+						nameValuePairs.add(new BasicNameValuePair("fbid", Utility.userUID));
+						nameValuePairs.add(new BasicNameValuePair("email", ""));
+						httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+						HttpResponse response = httpclient.execute(httppost);
+
+						BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+						String sResponse;
+						StringBuilder s = new StringBuilder();
+						while ((sResponse = reader.readLine()) != null) 
+							s = s.append(sResponse);
+
+						if(D) Log.println(Log.DEBUG, "UPDATE_POSITION", s.toString());	
+						if(D) Log.println(Log.DEBUG, "UPDATE_POSITION", "Usuario registrado " + Utility.userUID);
+					} catch (ClientProtocolException e) {
+						if(D) Log.println(Log.DEBUG, "UPDATE_POSITION" , "Error de protocolo");
+						e.printStackTrace();
+					} catch (IOException e) {
+						if(D) Log.println(Log.DEBUG, "UPDATE_POSITION" , "I/O error");
+						e.printStackTrace();
+					}
+				}
+				else{
+					if(D) Log.println(Log.DEBUG, "UPDATE_POSITION", "Error al intentar hacer update");
+				}
+			} catch (Exception e) {
+				if(D) Log.println(Log.DEBUG, "CONEXION_TO_SERVER" , "No se puede conectar al servidor");
+				if(D) e.printStackTrace();
+			}
+			return null;
+		}
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... progress) {
+			super.onProgressUpdate(progress);
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+		}
+	}
+	
+	public void createConexion(){
+		new Thread(){
+
+			public void run() {
+				ConexionToServer  conexionToServer  = new ConexionToServer();
+				conexionToServer.execute(DIRECCION);
+			}
+
+		}.start();
 	}
 }

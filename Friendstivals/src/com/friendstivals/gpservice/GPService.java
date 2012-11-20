@@ -256,7 +256,7 @@ public class GPService extends Service implements LocationListener{
 				httpclient = new DefaultHttpClient();
 				httppost = new HttpPost(sUrl[0]);
 				if(D) Log.println(Log.DEBUG, "CONEXION_TO_SERVER", "Conexion lograda");
-				if(httpclient != null && httppost != null && bestLocation != null && !Utility.userUID.equals("")){
+				if(httpclient != null && httppost != null && bestLocation != null && Utility.userUID != null && !Utility.userUID.equals("")){
 					try {
 						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 						nameValuePairs.add(new BasicNameValuePair("fbid", Utility.userUID));

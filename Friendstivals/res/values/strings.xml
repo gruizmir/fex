@@ -50,6 +50,9 @@
 	<!-- Splash view -->
 	<string name="splash_button_festivals">Festivals</string>
 	
+	<!-- Messages dialog -->
+	<string name="messages_dialog_title">Messages</string>
+	
 	<string name="extras_invite_btn">Invitar</string>
     <string name="extras_title">Extras</string>
     <string name="extras_msg_btn">Mensajes</string>
@@ -63,4 +66,7 @@
     <string name="info_location">Ubicación</string>
     <string name="unblock">unblock</string>
     <string name="invite_textbox_hint">hint</string>
+    
+    <!-- GPS service -->
+    <string name="gps_service">friendstival_gps_service</string>
 </resources>

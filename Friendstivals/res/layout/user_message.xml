@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/messageIcon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/happy_face" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/messageHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right|bottom"
+            android:textColor="#777777"
+            android:text="00:00" />
+
+        <TextView
+            android:id="@+id/messageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           	android:textColor="#000000"
+            android:text="TEST" />
+
+    </FrameLayout>
+
+</LinearLayout>

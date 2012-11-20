@@ -10,7 +10,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	
     <application
         android:icon="@drawable/ic_launcher"
@@ -29,6 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:label="@string/gps_service"
+            android:name="com.friendstivals.gpservice.GPService">
+        </service>
         <activity
             android:name=".templates.customDialog"
             android:screenOrientation="portrait"
@@ -87,6 +92,12 @@
             android:name=".SplashScreen"
             android:label="SplashScreen"
             android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Messages"
+            android:label="Messages"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Dialog"
             android:screenOrientation="portrait" />
 
         <uses-library android:name="com.google.android.maps" >

@@ -63,11 +63,14 @@ public class Friendstivals extends Activity {
 			//Significa que es la primera vez que se loguea
 			if(fbButton.isClickable()){
 				fbButton.setClickable(false);
+				openFestivalList();
 				openInviteView();
+				finish();
 			}
 			else{
 				fbButton.setClickable(false);
 				openFestivalList();
+				finish();
 			}
 		}
 	};

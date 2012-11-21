@@ -1,5 +1,8 @@
 package com.friendstivals;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -8,17 +11,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.facebook.android.AsyncFacebookRunner.RequestListener;
+import com.facebook.android.FacebookError;
+import com.facebook.android.R;
 import com.friendstivals.gpservice.GPService;
 import com.friendstivals.gpservice.GPService.LocalBinder;
 import com.friendstivals.utils.Festival;
+import com.friendstivals.utils.SessionStore;
+import com.friendstivals.utils.Utility;
 
 public class FestivalSelector extends Activity implements OnItemClickListener{
 	private ListView listView1;
@@ -27,21 +41,23 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 	private GPService mBoundService;
 	private Intent lock_intent = null;
 	boolean mBound = false;
-
+	private int LOGOUT = 1;
 	//D = true si se esta haciendo debug por logCat, DT = true si se esta haciendo debug por toast
 	private static final boolean D = true;
+	Handler mHandler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			if(msg.what == LOGOUT){
+				loggedOut();				
+			}
+		}
+	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.festival_selector);
-		//		ArrayList<F> eventos = new ArrayList<Event>();
-		//		Event evento = new Event(null, null, null, null, null);
-		//		eventos.add(evento);
-
-		//		FestivalAdapter adapter = new FestivalAdapter(this,
-		//                R.layout.festival_list_item, eventos);
 		eventos= new ArrayList<Festival>();
 		String[] fest_list = getResources().getStringArray(R.array.fests);
 		for(int i=0; i<fest_list.length; i++){
@@ -50,8 +66,6 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 		}
 		FestivalAdapter adapter = new FestivalAdapter(this,R.layout.festival_list_item, eventos);
 		listView1 = (ListView)findViewById(R.id.list_festival);
-		//		View header = (View)getLayoutInflater().inflate(R.layout.festival_list_item, null);
-		//		listView1.addHeaderView(header);
 		listView1.setAdapter(adapter);
 		listView1.setOnItemClickListener(this);
 
@@ -118,4 +132,47 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 		}
 
 	};
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		menu.getItem(0).setTitle("Logout");
+		return true;
+	}
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		case R.id.menu_logout:
+			Utility.mAsyncRunner.logout(getBaseContext(), new RequestListener() {
+				public void onComplete(String response, Object state) {
+					SessionStore.clear(getApplicationContext());
+					mHandler.sendEmptyMessage(LOGOUT);
+				}
+
+				public void onIOException(IOException e, Object state) {}
+
+				public void onFileNotFoundException(FileNotFoundException e,
+						Object state) {}
+
+				public void onMalformedURLException(MalformedURLException e,
+						Object state) {}
+
+				public void onFacebookError(FacebookError e, Object state) {}
+			});
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private void loggedOut(){
+		Toast.makeText(getApplicationContext(), "Se ha deslogueado correctamente", Toast.LENGTH_SHORT).show();
+		Intent i = new Intent(this, Friendstivals.class);
+		startActivity(i);
+		finish();
+	}
 }

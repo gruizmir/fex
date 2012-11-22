@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -34,6 +35,7 @@ import com.friendstivals.utils.Festival;
 import com.friendstivals.utils.SessionStore;
 import com.friendstivals.utils.Utility;
 
+@SuppressLint("HandlerLeak")
 public class FestivalSelector extends Activity implements OnItemClickListener{
 	private ListView listView1;
 	protected ArrayList<Festival> eventos;

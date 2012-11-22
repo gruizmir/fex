@@ -43,9 +43,10 @@ public class BlackList extends ListActivity implements TopButtonActions{
 	private Handler mHandler= new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			progressDialog.dismiss();
+			if(progressDialog!=null && progressDialog.isShowing())
+				progressDialog.dismiss();
 			// Se cargo la data de AddBlackList
-			if(msg.what == 1){
+			if(msg.what == 1){ 
 				setData(apiResponse);
 			}
 			//No se pudo cargar la data
@@ -69,7 +70,6 @@ public class BlackList extends ListActivity implements TopButtonActions{
 		Bundle extras = getIntent().getExtras();
 		String apiResponse = extras.getString("API_RESPONSE");
 		setData(apiResponse);
-
 		TextView title = (TextView) findViewById(R.id.friend_title);
 		title.setText(R.string.blocked_friends);
 

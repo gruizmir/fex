@@ -1,10 +1,22 @@
 package com.friendstivals;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,6 +31,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -44,15 +57,30 @@ public class Settings extends Activity {
 	protected Bitmap pic=null;
 	private ProgressDialog progressDialog;
 	private CheckBox avail;
+	private int NO_LIST_ID = 2;
+	private int SEND_DATA = 3;
+	private String id=null;
 	private Handler mHandler= new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			progressDialog.dismiss();
+			if(progressDialog!=null && progressDialog.isShowing())
+				progressDialog.dismiss();
 			if(msg.what == 1){
 				setImage();
 			}
 			if(msg.what == 0){
 
+			}
+			if(msg.what == NO_LIST_ID)
+				getBlockedListId();
+			if(msg.what == SEND_DATA){
+				id = msg.getData().getString("blocked_list_id");
+				new Thread(new Runnable(){
+					public void run() {
+						ConexionToServer  conexionToServer  = new ConexionToServer();
+						conexionToServer.execute(getString(R.string.setBlockedListId));
+					}
+				}).start();
 			}
 		}
 	};
@@ -72,29 +100,7 @@ public class Settings extends Activity {
 		 * Falta verificar que la lista este en facebook aun.
 		 */
 		if(!pref.contains("blocked_list_id")){
-			new Thread(new Runnable(){
-				public void run() {
-					Bundle params = new Bundle();
-					params.putString("name", "FS_Lock");
-					String response=null;
-					try {
-						response = Utility.mFacebook.request(Utility.userUID + "/friendlists", params, "POST");
-						Log.e("response",response);
-						try {
-							JSONObject resp = new JSONObject(response);
-							SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
-							Editor editPref = pref.edit();
-							editPref.putString("blocked_list_id", resp.getString("id"));
-							editPref.commit();
-						} catch (JSONException e1) {
-							Log.e("respuesta", e1.toString());
-						}
-					} catch (FileNotFoundException e) {
-					} catch (MalformedURLException e) {
-					} catch (IOException e) {
-					}
-				}
-			}).start();
+			getBlockedListIdFromServer();
 		}
 
 		TextView title = (TextView) findViewById(R.id.settings_title);
@@ -241,6 +247,115 @@ public class Settings extends Activity {
 				ed.putBoolean("available", false);
 			}
 			ed.commit();
+		}
+	}
+	
+	private void getBlockedListIdFromServer(){
+		new Thread(new Runnable(){
+			public void run() {
+				ConexionToServer  conexionToServer  = new ConexionToServer();
+				conexionToServer.execute(getString(R.string.getBlockedListId));
+			}
+		}).start();
+	}
+	
+	private void getBlockedListId(){
+		new Thread(new Runnable(){
+			public void run() {
+				Bundle params = new Bundle();
+				params.putString("name", "FS_Lock");
+				String response=null;
+				try {
+					response = Utility.mFacebook.request(Utility.userUID + "/friendlists", params, "POST");
+					Log.e("response",response);
+					try {
+						JSONObject resp = new JSONObject(response);
+						SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
+						Editor editPref = pref.edit();
+						editPref.putString("blocked_list_id", resp.getString("id"));
+						editPref.commit();
+						Message m = new Message();
+						Bundle b = new Bundle();
+						b.putString("blocked_list_id", resp.getString("id"));
+						m.setData(b);
+						m.what = SEND_DATA;
+						mHandler.sendMessage(m);
+					} catch (JSONException e1) {
+					}
+				} catch (FileNotFoundException e) {
+				} catch (MalformedURLException e) {
+				} catch (IOException e) {
+				}
+			}
+		}).start();
+	}
+	
+	/**
+	 * Se inicia la conexion con el servidor para ingresar a un nuevo usuario.
+	 * @author astom
+	 *
+	 */
+	private class ConexionToServer extends AsyncTask<String, Integer, String> {
+		@Override
+		protected String doInBackground(String... sUrl) {
+			try {
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httppost = new HttpPost(sUrl[0]);
+				if(httpclient != null && httppost != null && Utility.userUID != null && !Utility.userUID.equals("")){
+					try {
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+						nameValuePairs.add(new BasicNameValuePair("fbid", Utility.userUID));
+						if(id!=null){
+							Log.e("blocked", id);
+							nameValuePairs.add(new BasicNameValuePair("blockedlistid", id));
+						}
+						httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+						HttpResponse response = httpclient.execute(httppost);
+						BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+						String sResponse;
+						StringBuilder s = new StringBuilder();
+						while ((sResponse = reader.readLine()) != null) 
+							s = s.append(sResponse);
+						Log.e("respuesta", s.toString());
+						if(s.toString().equals("OK")){
+							mHandler.sendEmptyMessage(0);
+							return "OK";
+						}
+						if(!s.toString().equals("") && !s.toString().equals("NULL")){
+							SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
+							Editor editPref = pref.edit();
+							editPref.putString("blocked_list_id", s.toString());
+							editPref.commit();
+							mHandler.sendEmptyMessage(0);
+						}
+						else
+							mHandler.sendEmptyMessage(NO_LIST_ID);
+						
+					} catch (ClientProtocolException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				else{
+				}
+			} catch (Exception e) {
+			}
+			return null;
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... progress) {
+			super.onProgressUpdate(progress);
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
 		}
 	}
 }

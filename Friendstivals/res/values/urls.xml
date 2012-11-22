@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="getBlockedListId">http://23.23.170.228/save.php?action=getblockedlistid</string>
+    <string name="setBlockedListId">http://23.23.170.228/save.php?action=setblockedlistid</string>
+    <string name="register">http://23.23.170.228/save.php?action=register</string>
+    <string name="updateLoc">http://23.23.170.228/save.php?action=updateloc</string>
+    <string name="getLoc">http://23.23.170.228/save.php?action=getloc</string>
+</resources>

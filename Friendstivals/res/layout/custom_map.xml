@@ -3,7 +3,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/mapa_prueba" >
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:background="@drawable/banner_superior">
+
+        <ImageButton
+            android:id="@+id/map_invite_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/extras_invite_btn"
+            android:background="@android:color/transparent"
+            android:src="@drawable/boton_invitar"
+            android:onClick="leftButtonClick" />
+		<ImageView
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/extras_invite_btn"
+            android:src="@drawable/franja_vertical_50"
+            />
+       <ImageView
+		    android:id="@+id/map_title"
+		  	android:src="@drawable/titulo_mysteryland"
+			android:contentDescription="@string/festivals"
+			android:layout_width="wrap_content"
+			android:scaleType="fitCenter"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:background="@android:color/transparent"
+			
+		/>
+       <ImageView
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/extras_msg_btn"
+            android:src="@drawable/franja_vertical_50"
+            />
+        <ImageButton
+            android:id="@+id/map_msg_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/extras_msg_btn"
+            android:background="@android:color/transparent"
+            android:src="@drawable/boton_mensajes" 
+            android:onClick="rightButtonClick" />
+    </LinearLayout>
     <ImageView
         android:id="@+id/friend_list_photo"
         android:layout_width="match_parent"
@@ -12,33 +61,65 @@
         android:layout_weight="1.0" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:gravity="center_horizontal" >
-        <Button 
+        android:gravity="center_horizontal"
+        android:divider="@drawable/franja_vertical_50"
+        android:background="@drawable/banner_inferior" >
+        <ImageButton 
             android:id="@+id/map_calendar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/festivals"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/festivals"
+            android:src="@drawable/boton_calendario"
             android:onClick="openFestivalList"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
             />
-        <Button
+        <ImageView
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/festivals"
+            android:src="@drawable/franja_vertical_50"
+            />
+        <ImageButton
             android:id="@+id/map_main"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/map"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/map"
+            android:src="@drawable/boton_acciones_activo"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
             android:onClick="openMap" />
-        <Button
+        <ImageView
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/map"
+            android:src="@drawable/franja_vertical_50"
+            />
+        <ImageButton
             android:id="@+id/map_extras"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/map_extras"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/map_extras"
+            android:src="@drawable/boton_extras"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
             android:onClick="openExtras" />
-        <Button 
+        <ImageView
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/extras_title"
+            android:src="@drawable/franja_vertical_50"
+            />
+        <ImageButton 
             android:id="@+id/map_me"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/me"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/me"
+            android:src="@drawable/boton_perfil"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
             android:onClick="openSettings" />
     </LinearLayout>
 

@@ -3,7 +3,7 @@
 
     <string-array name="fests">
         <item>maquinaria</item>
-        <item>misteryland</item>
+        <item>mysteryland</item>
         <item>lollapalooza</item>
         <item>ultra</item>
     </string-array>
@@ -20,8 +20,8 @@
         <item>entrada:Ticket por Día/General/46.000</item>
         <item>entrada:Ticket por Día/Vip/95.000</item>
     </string-array>
-    <string-array name="misteryland">
-        <item>Misteryland</item>
+    <string-array name="mysteryland">
+        <item>Mysteryland</item>
         <item>Mostazal</item>
         <item>14, 15 y 16 de Diciembre</item>
         <item>Picarquín</item>.

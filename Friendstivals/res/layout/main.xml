@@ -3,30 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:background="@drawable/wp_principal"
+    android:gravity="center_horizontal|bottom">
 
-    <TextView
-        android:id="@+id/app_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
-        android:text="@string/app_name"
-        tools:context=".Friendstivals"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        />
-
-    <Button
+    <ImageButton
         android:id="@+id/fb_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/facebook"
+        android:padding="11dp"
+        android:contentDescription="@string/facebook"
+        android:src="@drawable/boton_login_fb"
+        android:background="@android:color/transparent"
         android:onClick="fbLogin" />
 
-    <Button
+    <ImageButton
         android:id="@+id/mail_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="37dp"
-        android:text="@string/email" />
+        android:padding="11dp"
+        android:contentDescription="@string/email"
+        android:background="@android:color/transparent"
+        android:src="@drawable/boton_login_mail" />
 
 </LinearLayout>

@@ -44,7 +44,8 @@ public class FestivalAdapter extends ArrayAdapter<Festival> {
 		}
 		Festival e = eventos.get(position);
 		holder.title.setText(e.getName()); 
-		holder.imgIcon.setBackgroundResource(R.drawable.happy_face);
+//		holder.imgIcon.setBackgroundResource(R.drawable.happy_face);
+		holder.imgIcon.setBackgroundResource(context.getResources().getIdentifier("calendario_"+e.getId(), "drawable", context.getPackageName()));
 		return view;
 	}
 

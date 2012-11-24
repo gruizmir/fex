@@ -32,7 +32,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.facebook.android.AsyncFacebookRunner;
@@ -48,8 +48,8 @@ import com.friendstivals.utils.Utility;
 
 @SuppressLint("HandlerLeak")
 public class Friendstivals extends Activity {
-	private Button fbButton; 
-	private Button mailButton;
+	private ImageButton fbButton; 
+	private ImageButton mailButton;
 	private HttpClient httpclient;
 	private HttpPost httppost;
 	//Direccion para realizar la conexion
@@ -81,9 +81,9 @@ public class Friendstivals extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
-		fbButton = (Button) this.findViewById(R.id.fb_button);
+		fbButton = (ImageButton) this.findViewById(R.id.fb_button);
 		fbButton.setClickable(false);
-		mailButton = (Button) this.findViewById(R.id.mail_button);
+		mailButton = (ImageButton) this.findViewById(R.id.mail_button);
 		mailButton.setClickable(false);
 		
 		Utility.mFacebook = new Facebook(getString(R.string.fb_id));
@@ -277,13 +277,13 @@ public class Friendstivals extends Activity {
 	}
 	
 	public void createConexion(){
-		new Thread(){
+//		new Thread(){
 
-			public void run() {
+//			public void run() {
 				ConexionToServer  conexionToServer  = new ConexionToServer();
 				conexionToServer.execute(DIRECCION);
-			}
+//			}
 
-		}.start();
+//		}.start();
 	}
 }

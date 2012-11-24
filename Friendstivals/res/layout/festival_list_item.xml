@@ -6,23 +6,20 @@
 
     <ImageView
         android:id="@+id/fest_calendar_icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="5dp"
+        android:paddingLeft="10dp"
         android:contentDescription="@string/fest_calendar_text"
-        android:drawable="@drawable/happy_face"
         android:gravity="center_vertical" />
 
     <TextView
         android:id="@+id/fest_festival_icon"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="8dp"
         android:text="@string/fest_festival_text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center_vertical" />
-    <!-- <ImageView -->
-    <!-- android:layout_height="20dp" -->
-    <!-- android:layout_width="120dp" -->
-    <!-- android:contentDescription="@string/fest_festival_text" -->
-    <!-- android:id="@+id/fest_festival_icon"/> -->
 
 </LinearLayout>

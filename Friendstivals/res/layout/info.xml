@@ -4,57 +4,98 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#000000" 
-        >
-        <Button
+        android:background="@drawable/banner_superior"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageButton
             android:id="@+id/info_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/extras_title"
-            android:layout_weight="1"
-            android:layout_gravity="left"
-            android:onClick="leftButtonClick" />
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/extras_title"
+            android:onClick="leftButtonClick"
+            android:src="@drawable/boton_volver" />
 
-        <TextView
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/info_cancel"
+            android:contentDescription="@string/extras_title"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageView
             android:id="@+id/info_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/extras_info"
-            android:layout_weight="1"
-            android:textColor="#FFFFFF"
-            android:gravity="center_horizontal|center_vertical"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/extras_info"
+            android:src="@drawable/titulo_info" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/info_dates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="5dp"
+            android:gravity="left|center_vertical"
+            android:onClick="showDates"
+            android:padding="10dp"
+            android:text="@string/info_dates"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/festivals"
+            android:src="@drawable/franja_horizontal_oscura" />
+
+        <Button
+            android:id="@+id/info_tickets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="5dp"
+            android:gravity="left|center_vertical"
+            android:onClick="showTickets"
+            android:padding="10dp"
+            android:text="@string/info_tickets"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/festivals"
+            android:src="@drawable/franja_horizontal_oscura" />
+
+        <Button
+            android:id="@+id/info_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="5dp"
+            android:gravity="left|center_vertical"
+            android:onClick="showLocation"
+            android:padding="10dp"
+            android:text="@string/info_location"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/festivals"
+            android:src="@drawable/franja_horizontal_oscura" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/info_dates"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/info_dates"
-        android:gravity="left|center_vertical"
-        android:onClick="showDates"
-        android:textAppearance="?android:attr/textAppearanceMedium"  />
-
-    <Button
-        android:id="@+id/info_tickets"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/info_tickets"
-        android:gravity="left|center_vertical"
-        android:onClick="showTickets"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/info_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/info_location"
-        android:gravity="left|center_vertical"
-        android:onClick="showLocation"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 </LinearLayout>

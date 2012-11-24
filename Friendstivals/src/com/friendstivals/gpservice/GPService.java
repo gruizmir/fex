@@ -56,7 +56,7 @@ public class GPService extends Service implements LocationListener{
 	//Direccion para realizar la conexion
 	private static final String DIRECCION = "http://23.23.170.228/save.php?action=updateloc";
 	//D = true si se esta haciendo debug por logCat, DT = true si se esta haciendo debug por toast
-	private static final boolean D = true;
+	private static final boolean D = false;
 	private static final boolean DT = false;
 
 	public class LocalBinder extends Binder {

@@ -2,26 +2,12 @@
 <resources>
 
     <string-array name="fests">
-        <item>maquinaria</item>
-        <item>misteryland</item>
+        <item>mysteryland</item>
         <item>lollapalooza</item>
         <item>ultra</item>
     </string-array>
-    <string-array name="maquinaria">
-        <item>Maquinaria</item>
-        <item>Santiago</item>
-        <item>10 y 11 de Noviembre</item>
-        <item>Club de campo Las Vizcachas</item>
-        <item>null</item>
-        <item>null</item>
-        <item>El Festival de Rock más grande de Chile</item>
-        <item>entrada:Venta Normal Abonos/General/70.000</item>
-        <item>entrada:Venta Normal Abonos/Vip/150.000</item>
-        <item>entrada:Ticket por Día/General/46.000</item>
-        <item>entrada:Ticket por Día/Vip/95.000</item>
-    </string-array>
-    <string-array name="misteryland">
-        <item>Misteryland</item>
+    <string-array name="mysteryland">
+        <item>Mysteryland</item>
         <item>Mostazal</item>
         <item>14, 15 y 16 de Diciembre</item>
         <item>Picarquín</item>.

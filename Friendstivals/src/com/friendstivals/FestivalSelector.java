@@ -50,7 +50,7 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 	
 	private int LOGOUT = 1;
 	//D = true si se esta haciendo debug por logCat, DT = true si se esta haciendo debug por toast
-	private static final boolean D = true;
+	private static final boolean D = false;
 	Handler mHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {

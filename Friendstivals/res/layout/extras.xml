@@ -2,82 +2,205 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wp_general"
     android:orientation="vertical"
-    android:weightSum="1.0" >
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:background="@drawable/banner_superior"
         android:gravity="center_horizontal"
-        android:background="#000000" >
+        android:orientation="horizontal" >
 
-        <Button
+        <ImageButton
             android:id="@+id/extras_invite_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/extras_invite_btn"
-            android:onClick="leftButtonClick" />
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/extras_invite_btn"
+            android:onClick="leftButtonClick"
+            android:src="@drawable/boton_invitar" />
 
-        <TextView
-            android:id="@+id/extras_title"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/extras_title"
-            android:textColor="#FFFFFF"
-            android:layout_weight="1"
-            android:gravity="center_horizontal|center_vertical"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:contentDescription="@string/extras_invite_btn"
+            android:src="@drawable/franja_vertical_50" />
 
-        <Button
+        <ImageView
+            android:id="@+id/extras_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/festivals"
+            android:scaleType="fitCenter"
+            android:src="@drawable/titulo_mysteryland" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/extras_msg_btn"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageButton
             android:id="@+id/extras_msg_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/extras_msg_btn"
-            android:onClick="rightButtonClick" />
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/extras_msg_btn"
+            android:onClick="rightButtonClick"
+            android:src="@drawable/boton_mensajes" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/extras_lineup"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="openLineup"
-        android:gravity="left|center_vertical"
-        android:drawableLeft="@drawable/ic_launcher"
-        android:text="@string/extras_lineup"               
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_height="0dip"
+        android:layout_weight="1.0"
+        android:orientation="vertical"
+        >
 
-    <Button
-        android:id="@+id/extras_playlist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="openPlaylist"
-        android:gravity="left|center_vertical"
-        android:drawableLeft="@drawable/ic_launcher"
-        android:text="@string/extras_playlist"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        <Button
+            android:id="@+id/extras_lineup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icono_lineup"
+            android:padding="4dp"
+            android:drawablePadding="5dp"
+            android:gravity="left|center_vertical"
+            android:onClick="openLineup"
+            android:text="@string/extras_lineup"
+            android:background="@android:color/transparent"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/extras_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="openInfo"
-        android:gravity="left|center_vertical"
-        android:drawableLeft="@drawable/ic_launcher"
-        android:text="@string/extras_info"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/festivals"
+            android:src="@drawable/franja_horizontal_oscura" />
 
-    <Button
-        android:id="@+id/extras_anteriores"
+        <Button
+            android:id="@+id/extras_playlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/icono_playlist"
+            android:padding="4dp"
+            android:drawablePadding="5dp"
+            android:gravity="left|center_vertical"
+            android:onClick="openPlaylist"
+            android:text="@string/extras_playlist"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/festivals"
+            android:src="@drawable/franja_horizontal_oscura" />
+
+        <Button
+            android:id="@+id/extras_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/icono_info"
+            android:padding="4dp"
+            android:drawablePadding="5dp"
+            android:gravity="left|center_vertical"
+            android:onClick="openInfo"
+            android:text="@string/extras_info"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/festivals"
+            android:src="@drawable/franja_horizontal_oscura" />
+
+        <Button
+            android:id="@+id/extras_anteriores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/icono_edanteriores"
+            android:enabled="false"
+        	android:padding="4dp"
+            android:drawablePadding="5dp"
+            android:gravity="left|center_vertical"
+            android:onClick="openAnteriores"
+            android:text="@string/extras_anteriores"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="openAnteriores"
-        android:gravity="left|center_vertical"
-        android:drawableLeft="@drawable/ic_launcher"
-        android:text="@string/extras_anteriores"
-        android:enabled="false"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_height="50dp"
+        android:background="@drawable/banner_inferior"
+        android:divider="@drawable/franja_vertical_50"
+        android:gravity="center_horizontal|bottom"
+        android:orientation="horizontal"
+        >
+
+        <ImageButton
+            android:id="@+id/map_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/festivals"
+            android:onClick="openFestivalList"
+            android:scaleType="fitCenter"
+            android:src="@drawable/boton_calendario" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/festivals"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageButton
+            android:id="@+id/map_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/map"
+            android:onClick="openMap"
+            android:scaleType="fitCenter"
+            android:src="@drawable/boton_acciones" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/map"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageButton
+            android:id="@+id/map_extras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/map_extras"
+            android:onClick="openExtras"
+            android:scaleType="fitCenter"
+            android:src="@drawable/boton_extras_activo" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/extras_title"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageButton
+            android:id="@+id/map_me"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/me"
+            android:onClick="openSettings"
+            android:scaleType="fitCenter"
+            android:src="@drawable/boton_perfil" />
+    </LinearLayout>
 
 </LinearLayout>

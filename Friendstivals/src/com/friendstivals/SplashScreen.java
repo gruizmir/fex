@@ -1,21 +1,11 @@
 package com.friendstivals;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.friendstivals.utils.Festival;
 
 /**
  * SplashScreen que muestra a los sponsors del festival
@@ -23,11 +13,9 @@ import com.friendstivals.utils.Festival;
  *
  */
 public class SplashScreen extends Activity{
-
-	ArrayList<Integer> imageIDs;
+//	ArrayList<Integer> imageIDs;
 	private Handler mHandler;
 	Intent nextWindow;
-	
 	boolean AUTO_CLOSE = true;
 	int TIME_CLOSE = 3000;
 	
@@ -40,23 +28,23 @@ public class SplashScreen extends Activity{
 		mHandler = new Handler();
 
 		Intent intent = getIntent();
-		String id = intent.getStringExtra("festival_id");
+//		String id = intent.getStringExtra("festival_id");
 		
-		Festival festival = new Festival(this, id);
-		TextView sponsorsMessage = (TextView)findViewById(R.id.sponsorMessage);
-		TextView festivalMessage = (TextView)findViewById(R.id.festivalMessage);
+//		Festival festival = new Festival(this, id);
+//		TextView sponsorsMessage = (TextView)findViewById(R.id.sponsorMessage);
+//		TextView festivalMessage = (TextView)findViewById(R.id.festivalMessage);
 
 //		sponsorsMessage.setText("welcomes you to the\nbiggest festival in Chile:");
-		sponsorsMessage.setText(festival.getSplashMessage());
-		festivalMessage.setText(festival.getName());
+//		sponsorsMessage.setText(festival.getSplashMessage());
+//		festivalMessage.setText(festival.getName());
+//
+//		imageIDs = new ArrayList<Integer>();
+//		imageIDs.add(R.drawable.ic_launcher);
+//		imageIDs.add(R.drawable.ic_launcher);
 
-		imageIDs = new ArrayList<Integer>();
-		imageIDs.add(R.drawable.ic_launcher);
-		imageIDs.add(R.drawable.ic_launcher);
-
-		GridView sponsors = (GridView)findViewById(R.id.sponsorsView);
-		sponsors.setAdapter(new ImageAdapter(this));
-		sponsors.setVerticalScrollBarEnabled(false);
+//		GridView sponsors = (GridView)findViewById(R.id.sponsorsView);
+//		sponsors.setAdapter(new ImageAdapter(this));
+//		sponsors.setVerticalScrollBarEnabled(false);
 		
 		nextWindow = intent;
 		nextWindow.setClass(this, CustomMap.class);
@@ -84,47 +72,47 @@ public class SplashScreen extends Activity{
 		this.finish();
 	}
 
-	/**
-	 * Adapter para el gridView que muestra los sponsors
-	 * @author astom
-	 *
-	 */
-	public class ImageAdapter extends BaseAdapter 
-	{
-		private Context context;
-
-		public ImageAdapter(Context c) 
-		{
-			context = c;
-		}
-
-		//---returns the number of images---
-		public int getCount() {
-			return imageIDs.size();
-		}
-
-		//---returns the ID of an item--- 
-		public Object getItem(int position) {
-			return position;
-		}
-
-		public long getItemId(int position) {
-			return position;
-		}
-
-		//---returns an ImageView view---
-		public View getView(int position, View convertView, ViewGroup parent) 
-		{
-			ImageView imageView;
-			if (convertView == null) {
-				imageView = new ImageView(context);
-				imageView.setScaleType(ImageView.ScaleType.CENTER);
-				imageView.setPadding(5, 5, 5, 5);
-			} else {
-				imageView = (ImageView) convertView;
-			}
-			imageView.setImageResource(imageIDs.get(position));
-			return imageView;
-		}
-	}    
+//	/**
+//	 * Adapter para el gridView que muestra los sponsors
+//	 * @author astom
+//	 *
+//	 */
+//	public class ImageAdapter extends BaseAdapter 
+//	{
+//		private Context context;
+//
+//		public ImageAdapter(Context c) 
+//		{
+//			context = c;
+//		}
+//
+//		//---returns the number of images---
+//		public int getCount() {
+//			return imageIDs.size();
+//		}
+//
+//		//---returns the ID of an item--- 
+//		public Object getItem(int position) {
+//			return position;
+//		}
+//
+//		public long getItemId(int position) {
+//			return position;
+//		}
+//
+//		//---returns an ImageView view---
+//		public View getView(int position, View convertView, ViewGroup parent) 
+//		{
+//			ImageView imageView;
+//			if (convertView == null) {
+//				imageView = new ImageView(context);
+//				imageView.setScaleType(ImageView.ScaleType.CENTER);
+//				imageView.setPadding(5, 5, 5, 5);
+//			} else {
+//				imageView = (ImageView) convertView;
+//			}
+//			imageView.setImageResource(imageIDs.get(position));
+//			return imageView;
+//		}
+//	}    
 }

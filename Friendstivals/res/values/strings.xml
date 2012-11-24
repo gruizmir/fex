@@ -11,7 +11,7 @@
 	<string name="fest_festival_text">Festival</string>
 	<string name="facebook">Sign in with Facebook</string>
 	<string name="email">Sign in with mail</string>
-	<string name="festivals">Festivals</string>
+	<string name="festivals">Festivales</string>
 	<string name="friend_ok_text">OK</string>
 	<string name="friend_back_text">Cancel</string>
 	<string name="friend_title">Meet friends</string>
@@ -42,13 +42,13 @@
 	<string name="invite_button_later">Later</string>
 	<string name="invite_button_send">Send</string>
 	<string name="invite_button_add">+</string>
-	<string name="invite_button_facebook">Add from facebook</string>
-	<string name="invite_message_tittle">Send invitations</string>
-	<string name="invite_message_invitation">Invite your friends to download\nFriendstival so you can enjoy\n all the festivals together</string>
+	<string name="invite_button_facebook">Agregar desde Facebook</string>
+	<string name="invite_message_title">Enviar invitaciones</string>
+	<string name="invite_message_invitation">Invita a tus amigos a descargarse la aplicación para que puedan disfrutar del festival juntos</string>
 	<string name="invite_textfield_hint">type the name or e-mail address</string>
 	
 	<!-- Splash view -->
-	<string name="splash_button_festivals">Festivals</string>
+	<string name="splash_button_festivals">Festivales</string>
 	
 	<!-- Messages dialog -->
 	<string name="messages_dialog_title">Messages</string>

@@ -55,7 +55,7 @@ public class Friendstivals extends Activity {
 	//Direccion para realizar la conexion
 	private static final String DIRECCION = "http://23.23.170.228/save.php?action=register";
 	//D = true si se esta haciendo debug por logCat, DT = true si se esta haciendo debug por toast
-	private static final boolean D = true;
+	private static final boolean D = false;
 
 	private Handler mHandler= new Handler() {
 		@Override

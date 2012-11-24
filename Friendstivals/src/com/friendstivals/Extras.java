@@ -51,4 +51,27 @@ public class Extras extends Activity implements TopButtonActions{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void openMap(View v){
+		this.finish();
+	}
+	
+	public void openExtras(View v){
+	}
+
+	public void openSettings(View v){
+		Intent i = new Intent(getApplicationContext(), Settings.class);
+		Bundle b = new Bundle();
+		b.putString("festival_id", festivalId);
+		i.putExtras(b);
+		startActivity(i);
+	}
+
+	public void openFestivalList(View v){
+		Intent i = new Intent(getApplicationContext(), FestivalSelector.class);
+		Bundle b = new Bundle();
+		b.putString("festival_id", festivalId);
+		i.putExtras(b);
+		startActivity(i);
+	}
 }

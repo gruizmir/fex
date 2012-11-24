@@ -69,4 +69,8 @@
     
     <!-- GPS service -->
     <string name="gps_service">friendstival_gps_service</string>
+    
+    <!-- FriendService -->
+    <string name="friends_service">friendstival_friends_service</string>
+    
 </resources>

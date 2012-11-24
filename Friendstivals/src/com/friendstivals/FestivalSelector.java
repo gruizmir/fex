@@ -22,13 +22,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.FacebookError;
-import com.facebook.android.R;
+import com.friendstivals.friendservice.FriendService;
 import com.friendstivals.gpservice.GPService;
 import com.friendstivals.gpservice.GPService.LocalBinder;
 import com.friendstivals.utils.Festival;
@@ -43,6 +43,11 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 	private GPService mBoundService;
 	private Intent lock_intent = null;
 	boolean mBound = false;
+	/*Variables de control del servicio de amigos*/
+	private FriendService mBoudServiceFriends;
+	private Intent lock_intent_friends = null;
+	boolean mBoundFriends = false;
+	
 	private int LOGOUT = 1;
 	//D = true si se esta haciendo debug por logCat, DT = true si se esta haciendo debug por toast
 	private static final boolean D = true;
@@ -74,6 +79,10 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 		/*Iniciado del servicio GPS */
 		lock_intent = new Intent(this, GPService.class);
 		startService(lock_intent);
+		
+		/*Iniciado del servicio GPS */
+		lock_intent_friends = new Intent(this, FriendService.class);
+		startService(lock_intent_friends);
 	}
 
 
@@ -96,6 +105,8 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 		Intent intent = new Intent(this, GPService.class);
 		bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 
+		intent = new Intent(this, FriendService.class);
+		bindService(intent,mConnectionFriends, Context.BIND_AUTO_CREATE);
 	}
 
 	public void onStop(){
@@ -106,15 +117,19 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 			unbindService(mConnection);
 			mBound = false;
 		}
-		if(D) Log.println(Log.DEBUG, "FESTIVAL_SELECTOR", "Servicio desligado");
+		if(mBoundFriends){
+			unbindService(mConnectionFriends);
+			mBoundFriends = false;
+		}
+		if(D) Log.println(Log.DEBUG, "FESTIVAL_SELECTOR", "Servicios desligado");
 	}
 
 	public void onDestroy(){
 		super.onDestroy();
 		if(D) Log.println(Log.DEBUG, "FESTIVAL_SELECTOR", "Destroying...");
 		mBoundService.stopService(lock_intent);
+		mBoudServiceFriends.stopService(lock_intent_friends);
 		if(D) Log.println(Log.DEBUG, "FESTIVAL_SELECTOR", "Servicio GPS detenido");
-
 	}
 
 	/**
@@ -133,6 +148,25 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 			mBound = false;
 		}
 
+	};
+	
+	/**
+	 * Iniciar conexion al servicio friends
+	 */
+	private ServiceConnection mConnectionFriends = new ServiceConnection() {
+
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			FriendService.LocalBinder binder = (FriendService.LocalBinder) service;
+			mBoudServiceFriends = binder.getService();
+			mBoundFriends = true;
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			mBoundFriends = false;
+		}
+		
 	};
 	
 	@Override

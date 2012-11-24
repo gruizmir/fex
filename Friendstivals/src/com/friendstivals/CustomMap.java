@@ -8,7 +8,6 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.facebook.android.FacebookError;
-import com.facebook.android.R;
 import com.facebook.android.Util;
 import com.friendstivals.utils.BaseRequestListener;
 import com.friendstivals.utils.Utility;

@@ -25,9 +25,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.android.R;
 import com.friendstivals.Friend;
 import com.friendstivals.FriendListAdapter;
+import com.friendstivals.R;
 import com.friendstivals.utils.TopButtonActions;
 import com.friendstivals.utils.Utility;
 

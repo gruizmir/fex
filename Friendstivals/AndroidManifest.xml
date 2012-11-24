@@ -34,6 +34,10 @@
             android:label="@string/gps_service"
             android:name="com.friendstivals.gpservice.GPService">
         </service>
+        <service
+            android:label="@string/gps_service"
+            android:name="com.friendstivals.friendservice.FriendService">
+        </service>
         <activity
             android:name=".templates.customDialog"
             android:screenOrientation="portrait"

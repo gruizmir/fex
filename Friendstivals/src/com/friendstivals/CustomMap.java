@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -26,8 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,7 +36,6 @@ import android.widget.Toast;
 
 import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
-import com.friendstivals.LocationMap.MyOverlay;
 import com.friendstivals.utils.BaseRequestListener;
 import com.friendstivals.utils.Utility;
 import com.google.android.maps.GeoPoint;

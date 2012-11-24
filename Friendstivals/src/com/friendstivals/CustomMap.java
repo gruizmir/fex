@@ -54,6 +54,11 @@ public class CustomMap extends MapActivity {
 	private static final int SEARCH=4;
 	private List<Overlay> mapOverlays;
 	private MyOverlay itemizedoverlay;
+	private Handler handlerUpdateFriendsPosition;
+
+	//Tiempo con el cual se obtiene la posicion de los amigos
+	private static final int TIME_UPDATE_POSITION = 1000 * 15 * 1;
+
 	protected Handler mHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
@@ -76,7 +81,18 @@ public class CustomMap extends MapActivity {
 		mapOverlays = mapView.getOverlays();
 		Drawable drawable = this.getResources().getDrawable(R.drawable.boton_mapa);
 		itemizedoverlay = new MyOverlay(drawable, this);
-		showFriendsInMap();
+
+		handlerUpdateFriendsPosition = new Handler();
+		Runnable r = new Runnable(){
+
+			public void run() {
+				showFriendsInMap();
+				handlerUpdateFriendsPosition.postDelayed(this, TIME_UPDATE_POSITION);
+			}
+
+		};
+		handlerUpdateFriendsPosition.postDelayed(r, 1000);
+
 	}
 
 	public void openMap(View v){
@@ -179,31 +195,31 @@ public class CustomMap extends MapActivity {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	private void search(String direccion){
 		GeoPoint point;
 		MapView mapView = (MapView) findViewById(R.id.custom_map);
 		MapController controller = mapView.getController();
-//		Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
-//		List<Address> addresses;
+		//		Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
+		//		List<Address> addresses;
 		String[] pos=direccion.split(",");
-//		try {
-//			addresses = geoCoder.getFromLocationName(direccion,5);
-//			if(addresses.size() > 0){
-			if(pos.length>0 && !pos[0].equals("") && !pos[0].equals(" ")){
-				point = new GeoPoint((int)(Double.parseDouble(pos[0])*1000000),(int) (Double.parseDouble(pos[1])*1000000));
-				Log.e("punto",point.toString());
-				OverlayItem overlayitem = new OverlayItem(point, null, null);
-				controller.animateTo(point);
-				controller.setZoom(19);
-				itemizedoverlay.addOverlay(overlayitem);
-				mapOverlays.add(itemizedoverlay);
-			}
-//			}
-//		} catch (IOException e) {
-//		}
+		//		try {
+		//			addresses = geoCoder.getFromLocationName(direccion,5);
+		//			if(addresses.size() > 0){
+		if(pos.length>0 && !pos[0].equals("") && !pos[0].equals(" ")){
+			point = new GeoPoint((int)(Double.parseDouble(pos[0])*1000000),(int) (Double.parseDouble(pos[1])*1000000));
+			Log.e("punto",point.toString());
+			OverlayItem overlayitem = new OverlayItem(point, null, null);
+			controller.animateTo(point);
+			controller.setZoom(19);
+			itemizedoverlay.addOverlay(overlayitem);
+			mapOverlays.add(itemizedoverlay);
+		}
+		//			}
+		//		} catch (IOException e) {
+		//		}
 	}
-	
+
 	/**
 	 * Se inicia la conexion con el servidor para ingresar a un nuevo usuario.
 	 * @author astom
@@ -211,12 +227,12 @@ public class CustomMap extends MapActivity {
 	 */
 	private class ConexionToServer extends AsyncTask<String, Integer, String> {
 		private String fbId;
-		
+
 		public ConexionToServer(String fbId){
 			super();
 			this.fbId = fbId;
 		}
-		
+
 		@Override
 		protected String doInBackground(String... sUrl) {
 			try {
@@ -267,7 +283,7 @@ public class CustomMap extends MapActivity {
 		protected void onPostExecute(String result) {
 		}
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	class MyOverlay extends ItemizedOverlay {
 		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
@@ -296,15 +312,15 @@ public class CustomMap extends MapActivity {
 			mOverlays.add(overlay);
 			populate();
 		}
-		
+
 		@Override
 		protected boolean onTap(int index) {
-		  OverlayItem item = mOverlays.get(index);
-		  AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-		  dialog.setTitle(item.getTitle());
-		  dialog.setMessage(item.getSnippet());
-		  dialog.show();
-		  return true;
+			OverlayItem item = mOverlays.get(index);
+			AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+			dialog.setTitle(item.getTitle());
+			dialog.setMessage(item.getSnippet());
+			dialog.show();
+			return true;
 		}
 	}	
 }

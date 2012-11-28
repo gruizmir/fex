@@ -8,7 +8,7 @@
         android:id="@+id/messageIcon"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/happy_face" />
+        android:src="@drawable/boton_mensajes" />
 
     <FrameLayout
         android:layout_width="fill_parent"

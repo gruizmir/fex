@@ -11,6 +11,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -204,6 +206,16 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 	}
 	
 	private void loggedOut(){
+		SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
+		Editor ed = pref.edit();
+		ed.clear();
+		ed.commit();
+		
+		pref = getSharedPreferences("settings", MODE_PRIVATE);
+		ed = pref.edit();
+		ed.clear();
+		ed.commit();
+		
 		Toast.makeText(getApplicationContext(), "Se ha deslogueado correctamente", Toast.LENGTH_SHORT).show();
 		Intent i = new Intent(this, Friendstivals.class);
 		startActivity(i);

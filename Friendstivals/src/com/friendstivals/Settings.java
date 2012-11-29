@@ -47,11 +47,13 @@ import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
 import com.friendstivals.blacklist.BlackList;
 import com.friendstivals.utils.BaseRequestListener;
+import com.friendstivals.utils.TopButtonActions;
 import com.friendstivals.utils.Utility;
 
 @SuppressLint("HandlerLeak")
-public class Settings extends Activity {
+public class Settings extends Activity implements TopButtonActions {
 	private CheckBox check; 
+	private String festivalId;
 	protected Bitmap pic=null;
 	private ProgressDialog progressDialog;
 	private CheckBox avail;
@@ -89,7 +91,7 @@ public class Settings extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.settings);
 		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
-
+		festivalId = getIntent().getExtras().getString("festival_id");
 		SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
 		/*
 		 * Falta verificar que la lista este en facebook aun.
@@ -350,5 +352,37 @@ public class Settings extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 		}
+	}
+
+	public void leftButtonClick(View v) {
+		Intent i = new Intent(getApplicationContext(), InviteView.class);
+		startActivity(i);
+	}
+
+	public void rightButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void openMap(View v){
+		this.finish();
+	}
+	
+	public void openExtras(View v){
+		Intent i = new Intent(getApplicationContext(), Extras.class);
+		Bundle b = new Bundle();
+		b.putString("festival_id", festivalId);
+		i.putExtras(b);
+		startActivity(i);
+		finish();
+	}
+
+	public void openSettings(View v){
+	}
+
+	public void openFestivalList(View v){
+		Intent i = new Intent(getApplicationContext(), FestivalSelector.class);
+		startActivity(i);
+		finish();
 	}
 }

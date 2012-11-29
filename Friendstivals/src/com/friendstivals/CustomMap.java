@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
 import com.friendstivals.utils.BaseRequestListener;
+import com.friendstivals.utils.TopButtonActions;
 import com.friendstivals.utils.Utility;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -47,7 +48,7 @@ import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 @SuppressLint("HandlerLeak")
-public class CustomMap extends MapActivity {
+public class CustomMap extends MapActivity implements TopButtonActions{
 	private String festivalId;
 	private ArrayList<String> ids;
 	private static final int GET_POSITIONS=5;
@@ -323,5 +324,16 @@ public class CustomMap extends MapActivity {
 			dialog.show();
 			return true;
 		}
+	}
+
+	public void leftButtonClick(View v) {
+		Intent i = new Intent(getApplicationContext(), InviteView.class);
+		startActivity(i);
+		
+	}
+
+	public void rightButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

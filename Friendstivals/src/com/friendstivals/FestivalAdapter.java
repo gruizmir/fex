@@ -43,7 +43,6 @@ public class FestivalAdapter extends ArrayAdapter<Festival> {
 		}
 		Festival e = eventos.get(position);
 		holder.title.setText(e.getName()); 
-//		holder.imgIcon.setBackgroundResource(R.drawable.happy_face);
 		holder.imgIcon.setBackgroundResource(context.getResources().getIdentifier("calendario_"+e.getId(), "drawable", context.getPackageName()));
 		return view;
 	}
@@ -54,32 +53,5 @@ public class FestivalAdapter extends ArrayAdapter<Festival> {
 		TextView title;
 	}
 	
-//
-//	public View getView(int position, View convertView, ViewGroup parent) {
-//		View view = convertView;
-//		FestivalHolder holder = null;
-//		if(convertView == null){
-//			LayoutInflater vi = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//			view = vi.inflate(R.layout.festival_list_item, null);
-//			holder = new FestivalHolder();
-//			holder.imgIcon = (ImageView)view.findViewById(R.id.fest_calendar_icon);
-//			holder.titleImg= (ImageView)view.findViewById(R.id.fest_festival_icon);
-//			view.setTag(holder);
-//		}
-//		else
-//		{
-//			holder = (FestivalHolder)view.getTag();
-//		}
-//		Event e = eventos.get(position);
-//		holder.titleImg= e.getPhoto(); 
-//		holder.imgIcon =  e.getImg();
-//		return view;
-//	}
-//
-//	static class FestivalHolder
-//	{
-//		ImageView imgIcon;
-//		ImageView titleImg;
-//	}
 }
 

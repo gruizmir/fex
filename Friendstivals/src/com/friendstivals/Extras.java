@@ -44,7 +44,7 @@ public class Extras extends Activity implements TopButtonActions{
 
 	public void leftButtonClick(View v) {
 		Intent i = new Intent(this, InviteView.class);
-		this.startActivityForResult(i, 0);
+		startActivity(i);
 	}
 
 	public void rightButtonClick(View v) {
@@ -65,13 +65,12 @@ public class Extras extends Activity implements TopButtonActions{
 		b.putString("festival_id", festivalId);
 		i.putExtras(b);
 		startActivity(i);
+		finish();
 	}
 
 	public void openFestivalList(View v){
 		Intent i = new Intent(getApplicationContext(), FestivalSelector.class);
-		Bundle b = new Bundle();
-		b.putString("festival_id", festivalId);
-		i.putExtras(b);
 		startActivity(i);
+		finish();
 	}
 }

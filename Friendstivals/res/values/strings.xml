@@ -77,4 +77,7 @@
     <!-- FriendService -->
     <string name="friends_service">friendstival_friends_service</string>
     
+    <!-- Invite Dialog -->
+    <string name="invite_correct">Tus invitaciones han sido enviadas</string>
+    
 </resources>

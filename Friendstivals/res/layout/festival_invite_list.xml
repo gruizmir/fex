@@ -36,7 +36,7 @@
                 android:id="@+id/customInviteList"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="7dp"
+                android:padding="12dp"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -76,7 +76,7 @@
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.0"
             android:paddingRight="2dp"
             android:onClick="leftButtonClick"
             android:contentDescription="@string/invite_button_later"
@@ -88,7 +88,7 @@
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.0"
             android:paddingLeft="2dp"
             android:onClick="rightButtonClick"
             android:contentDescription="@string/invite_button_send"

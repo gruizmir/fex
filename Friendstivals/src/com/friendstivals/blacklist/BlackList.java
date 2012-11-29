@@ -22,9 +22,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.facebook.android.Util;
 import com.friendstivals.Friend;
@@ -70,14 +69,7 @@ public class BlackList extends ListActivity implements TopButtonActions{
 		Bundle extras = getIntent().getExtras();
 		String apiResponse = extras.getString("API_RESPONSE");
 		setData(apiResponse);
-		TextView title = (TextView) findViewById(R.id.friend_title);
-		title.setText(R.string.blocked_friends);
-
-		Button blockedBlock= (Button) findViewById(R.id.friend_ok);
-		blockedBlock.setText(R.string.add);
-
-		Button blockedBack = (Button) findViewById(R.id.friend_back);
-		blockedBack.setText(R.string.profile);
+		((ImageView) findViewById(R.id.friend_title)).setImageResource(R.drawable.titulo_bloqueados);
 
 		SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
 

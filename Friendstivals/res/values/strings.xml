@@ -21,22 +21,26 @@
 	<string name="select_message">Select a message</string>
 	<string name="write_message">Or write a message</string>
 	<string name="meet_me">Meet me here</string>
-	<string name="friends_in_map">Friends in my map</string>
-	<string name="set_avalaible">Available</string>
-	<string name="blocked_friends">Blocked</string>
 	<string name="add_blocked">Add to Blocked</string>
 	<string name="invite_friends">Invite</string>
-	<string name="gps">GPS</string>
 	<string name="settings_title">Festival</string>
-	<string name="avalaible_hint">Being avalaible will allow your friends to see your location in their maps.</string>
-	<string name="blocked_hint">Blocked friends won\'t be able to see your location in their maps, even if you are avalaible.</string>
-	<string name="gps_hint">algo con gps</string>
 	<string name="me">Me</string>
 	<string name="map">Map</string>
 	<string name="add">Add</string>
 	<string name="profile">Profile</string>
 	<string name="loading">Loading</string>
 	<string name="reloading">Reloading</string>
+	
+	<!-- Profile -->
+	<string name="avalaible_hint">Al estar disponible tus amigos podrán ver tu ubicación en sus mapas.</string>
+	<string name="blocked_hint">Tus amigos bloqueados no podrán ver tu ubicación en sus mapas, aunque te encuentres disponible.</string>
+	<string name="gps_hint">Con el GPS activado podrás aprovechar al máximo las funcionalidades de la aplicación.</string>
+	<string name="friends_in_map">· Amigos en mi mapa</string>
+	<string name="set_avalaible">· Disponible</string>
+	<string name="blocked_friends">· Bloqueados</string>
+	<string name="gps">· GPS</string>
+	<string name="arrow">>></string>	
+	<string name="friends">2 amigos</string>
 	
 	<!-- Invite View -->
 	<string name="invite_button_later">Later</string>

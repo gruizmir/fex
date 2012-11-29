@@ -20,9 +20,8 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.friendstivals.Friend;
@@ -49,8 +48,7 @@ public class AddBlackList extends ListActivity implements TopButtonActions {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.friend_list);
-		((TextView) findViewById(R.id.friend_title)).setText(getString(R.string.add_blocked));
-		((Button) findViewById(R.id.friend_back)).setText(R.string.blocked_friends);
+		((ImageView) findViewById(R.id.friend_title)).setImageResource(R.drawable.titulo_bloquear);
 
 		ids = new ArrayList<String>();
 		Bundle extras = getIntent().getExtras();

@@ -57,7 +57,7 @@ public class CustomMap extends MapActivity {
 	private Handler handlerUpdateFriendsPosition;
 
 	//Tiempo con el cual se obtiene la posicion de los amigos
-	private static final int TIME_UPDATE_POSITION = 1000 * 15 * 1;
+	private static final int TIME_UPDATE_POSITION = 1000 * 60 * 1;
 
 	protected Handler mHandler = new Handler(){
 		@Override
@@ -168,6 +168,7 @@ public class CustomMap extends MapActivity {
 					ids = new ArrayList<String>();
 					try {
 						JSONArray jsonArray = new JSONArray(response);
+						ids.add(Utility.userUID);
 						for(int i=0; i<jsonArray.length(); i++){
 							JSONObject jsonObject = jsonArray.getJSONObject(i);
 							ids.add(jsonObject.getString("uid"));   //Obtener la id de cada amigo

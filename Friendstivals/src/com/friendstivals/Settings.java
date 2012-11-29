@@ -47,12 +47,10 @@ import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
 import com.friendstivals.blacklist.BlackList;
 import com.friendstivals.utils.BaseRequestListener;
-import com.friendstivals.utils.Festival;
 import com.friendstivals.utils.Utility;
 
 @SuppressLint("HandlerLeak")
 public class Settings extends Activity {
-	private String festivalId;
 	private CheckBox check; 
 	protected Bitmap pic=null;
 	private ProgressDialog progressDialog;
@@ -91,9 +89,6 @@ public class Settings extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.settings);
 		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
-		Bundle extras = getIntent().getExtras();
-		festivalId = extras.getString("festival_id");
-		Festival f = new Festival(this, festivalId);  
 
 		SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
 		/*
@@ -103,8 +98,6 @@ public class Settings extends Activity {
 			getBlockedListIdFromServer();
 		}
 
-		TextView title = (TextView) findViewById(R.id.settings_title);
-		title.setText(f.getName());
 		try {
 			new Thread(new Runnable(){
 				public void run() {
@@ -155,7 +148,7 @@ public class Settings extends Activity {
 	private void setImage(){
 		TextView profilePic = (TextView) findViewById(R.id.settings_name);
 		Drawable d = new BitmapDrawable(getResources(), pic);
-		profilePic.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
+		profilePic.setCompoundDrawablesWithIntrinsicBounds(null, null, d, null);
 		profilePic.setText(Utility.name);
 	}
 	/**

@@ -140,10 +140,10 @@ public class GPService extends Service implements LocationListener{
 			bestLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		}
 
-		if(bestLocation!=null && D){
-			Log.println(Log.DEBUG, "GPS_LISTENER", "Latitud" + bestLocation.getLatitude());
-			Log.println(Log.DEBUG, "GPS_LISTENER", "Longitud" + bestLocation.getLongitude());
-		}
+//		if(bestLocation!=null && D){
+//			Log.println(Log.DEBUG, "GPS_LISTENER", "Latitud" + bestLocation.getLatitude());
+//			Log.println(Log.DEBUG, "GPS_LISTENER", "Longitud" + bestLocation.getLongitude());
+//		}
 
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);

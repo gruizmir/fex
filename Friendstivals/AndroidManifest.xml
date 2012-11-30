@@ -101,7 +101,7 @@
             android:label="InfoTickets"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LocationMap"
+            android:name=".info.LocationMap"
             android:label="LocationMap"
             android:screenOrientation="portrait" />
         <activity

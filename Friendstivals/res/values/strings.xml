@@ -66,9 +66,9 @@
     <string name="extras_info">Info</string>
     <string name="extras_anteriores">Versiones anteriores</string>
     <string name="map_extras">Extras</string>
-    <string name="info_dates">Fechas y Horario</string>
-    <string name="info_tickets">Valor Entradas</string>
-    <string name="info_location">Ubicación</string>
+    <string name="info_dates">· Fechas y Horario</string>
+    <string name="info_tickets">· Valor Entradas</string>
+    <string name="info_location">· Ubicación</string>
     <string name="unblock">Desbloquear</string>
     <string name="invite_textbox_hint">hint</string>
     

@@ -1,14 +1,11 @@
 package com.friendstivals.info;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 
-import com.friendstivals.LocationMap;
 import com.friendstivals.R;
 import com.friendstivals.utils.Festival;
 import com.friendstivals.utils.TopButtonActions;

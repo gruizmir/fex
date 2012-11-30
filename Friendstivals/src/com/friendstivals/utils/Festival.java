@@ -13,6 +13,7 @@ public class Festival {
 	private String end;
 	private String location;
 	private String genLocation;
+	private String country;
 	private String splashMessage;
 	private ArrayList<Entradas> entradas;
 	
@@ -28,18 +29,19 @@ public class Festival {
 		if(data != null){
 			name = data[0];
 			genLocation=data[1];
-			date = data[2];
-			location = data[3];
-			if(data[4].equals("null")){
+			country = data[2];
+			date = data[3];
+			location = data[4];
+			if(data[5].equals("null")){
 				start = "No disponible";
 				end = "No disponible";
 			}
 			else{
-				start = data[4];
-				end = data[5];
+				start = data[5];
+				end = data[6];
 			}
-			splashMessage = data[6];
-			for(int i=7; i<data.length; i++){
+			splashMessage = data[7];
+			for(int i=8; i<data.length; i++){
 				String[] temp = data[i].split(":")[1].split("/");
 				Entradas e = new Entradas();
 				e.setTipoVenta(temp[0]);
@@ -118,6 +120,14 @@ public class Festival {
 
 	public void setSplashMessage(String splashMessage) {
 		this.splashMessage = splashMessage;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 }
 

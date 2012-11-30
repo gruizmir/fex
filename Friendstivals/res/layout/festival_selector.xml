@@ -19,4 +19,11 @@
 	    android:id="@+id/list_festival"
 	    android:divider="@drawable/franja_horizontal_oscura"
 	    android:layout_weight="1.0"/>	
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="90dp"
+	    android:text="@string/festival_soon"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:gravity="top|center_horizontal"
+	    />
 </LinearLayout>

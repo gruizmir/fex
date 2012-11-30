@@ -51,6 +51,7 @@ public class Friendstivals extends Activity {
 	private ImageButton mailButton;
 	private HttpClient httpclient;
 	private HttpPost httppost;
+	private boolean firstLogin=false;
 	//Direccion para realizar la conexion
 	private static final String DIRECCION = "http://23.23.170.228/save.php?action=register";
 	//D = true si se esta haciendo debug por logCat, DT = true si se esta haciendo debug por toast
@@ -60,14 +61,12 @@ public class Friendstivals extends Activity {
 		@Override
 		public void handleMessage(Message msg) {
 			//Significa que es la primera vez que se loguea
-			if(fbButton.isClickable()){
-				fbButton.setClickable(false);
+			if(msg.what==0){
 				openFestivalList();
 				openInviteView();
 				finish();
 			}
 			else{
-				fbButton.setClickable(false);
 				openFestivalList();
 				finish();
 			}
@@ -79,22 +78,21 @@ public class Friendstivals extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.main);
-		fbButton = (ImageButton) this.findViewById(R.id.fb_button);
-		fbButton.setClickable(false);
-		mailButton = (ImageButton) this.findViewById(R.id.mail_button);
-		mailButton.setClickable(false);
-		
 		Utility.mFacebook = new Facebook(getString(R.string.fb_id));
 		Utility.mAsyncRunner = new AsyncFacebookRunner(Utility.mFacebook);
 		SessionStore.restore(Utility.mFacebook, this);
 		if (Utility.mFacebook.isSessionValid()) {
+			firstLogin=false;
 			requestUserData();
 		}
 		else{
+			firstLogin=true;
+			setContentView(R.layout.main);
+			fbButton = (ImageButton) this.findViewById(R.id.fb_button);
 			fbButton.setClickable(true);
+			mailButton = (ImageButton) this.findViewById(R.id.mail_button);
+			mailButton.setClickable(false);
 		}
-
 	}
 
 	/*
@@ -106,7 +104,10 @@ public class Friendstivals extends Activity {
 				Bundle params = new Bundle();
 				params.putString("fields", "id, name, picture");
 				Utility.mAsyncRunner.request("me", params, new UserRequestListener());
-				mHandler.sendEmptyMessage(0);
+				if(firstLogin)
+					mHandler.sendEmptyMessage(0);
+				else
+					mHandler.sendEmptyMessage(1);
 			}
 		}).start();
 	}

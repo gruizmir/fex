@@ -36,7 +36,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:contentDescription="@string/extras_lineup"
-            android:src="@drawable/titulo_info" />
+            android:src="@drawable/titulo_line_up" />
     </RelativeLayout>
     <ListView
         android:id="@android:id/list"

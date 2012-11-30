@@ -37,14 +37,23 @@ public class ArtistAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		holder = list.get(position);
-		View hView = convertView;
-		if (convertView == null) {
-			hView = mInflater.inflate(R.layout.artist_list_item, null);
-			TextView txtView = (TextView)hView.findViewById(R.id.artist_name);
-			txtView.setText(holder.getName());
+		View view = convertView;
+		Artist holder = null;
+		TextView name;
+		if(convertView == null){
+			view = mInflater.inflate(R.layout.lineup_item, null);
+			holder = new Artist();
+			holder = list.get(position);
+			name = (TextView)view.findViewById(R.id.lineup_name);
+			view.setTag(holder);
 		}
-		hView.setTag(holder);
-		return hView;
+		else
+		{
+			holder = (Artist)view.getTag();
+			name = (TextView)view.findViewById(R.id.lineup_name);
+		}
+		Artist e = list.get(position);
+		name.setText(e.getName()); 
+		return view;
 	}
 }

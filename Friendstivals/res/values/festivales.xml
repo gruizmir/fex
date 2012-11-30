@@ -3,12 +3,13 @@
 
     <string-array name="fests">
         <item>mysteryland</item>
-        <item>lollapalooza</item>
         <item>ultra</item>
+        <item>lollapalooza</item>
     </string-array>
     <string-array name="mysteryland">
         <item>Mysteryland</item>
         <item>Mostazal</item>
+        <item>Chile</item>
         <item>14, 15 y 16 de Diciembre</item>
         <item>Picarquín</item>.
         <item>null</item>
@@ -24,6 +25,7 @@
     <string-array name="ultra">
         <item>Ultra Music Festival</item>
         <item>Santiago</item>
+        <item>Chile</item>
         <item>22 y 23 de Febrero</item>
         <item>Espacio Broadway</item>
         <item>null</item>
@@ -37,6 +39,7 @@
     <string-array name="lollapalooza">
         <item>Lollapalooza</item>
         <item>Santiago</item>
+        <item>Chile</item>
         <item>6 y 7 de Abril </item>
         <item>Parque O\'Higgins</item>
         <item>null</item>

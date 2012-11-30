@@ -57,18 +57,19 @@
 	<!-- Messages dialog -->
 	<string name="messages_dialog_title">Messages</string>
 	
+	<!-- Extras -->
 	<string name="extras_invite_btn">Invitar</string>
     <string name="extras_title">Extras</string>
     <string name="extras_msg_btn">Mensajes</string>
     <string name="extras_lineup">Line up</string>
     <string name="extras_playlist">Playlist</string>
     <string name="extras_info">Info</string>
-    <string name="extras_anteriores">Previous versions</string>
+    <string name="extras_anteriores">Versiones anteriores</string>
     <string name="map_extras">Extras</string>
-    <string name="info_dates">Dates and times</string>
-    <string name="info_tickets">Tickets</string>
+    <string name="info_dates">Fechas y Horario</string>
+    <string name="info_tickets">Valor Entradas</string>
     <string name="info_location">Ubicación</string>
-    <string name="unblock">unblock</string>
+    <string name="unblock">Desbloquear</string>
     <string name="invite_textbox_hint">hint</string>
     
     <!-- GPS service -->
@@ -80,4 +81,6 @@
     <!-- Invite Dialog -->
     <string name="invite_correct">Tus invitaciones han sido enviadas</string>
     
+    <!-- Festival Selector -->
+    <string name="festival_soon">Pronto más festivales</string>
 </resources>

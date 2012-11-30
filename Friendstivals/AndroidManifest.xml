@@ -89,8 +89,16 @@
             android:label="Playlist"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Info"
+            android:name=".info.Info"
             android:label="Info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".info.InfoDates"
+            android:label="InfoDates"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".info.InfoTickets"
+            android:label="InfoTickets"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LocationMap"

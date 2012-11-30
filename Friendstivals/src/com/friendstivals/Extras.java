@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.friendstivals.artist.LineUp;
+import com.friendstivals.info.Info;
 import com.friendstivals.playlist.Playlist;
 import com.friendstivals.utils.TopButtonActions;
 

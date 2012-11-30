@@ -45,7 +45,6 @@
         android:background="@android:color/transparent"
         android:drawablePadding="5dp"
         android:gravity="left|center_vertical"
-        android:onClick="showDates"
         android:padding="10dp"
         android:text="@string/info_dates"
         android:textAppearance="?android:attr/textAppearanceMedium" />

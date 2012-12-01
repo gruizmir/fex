@@ -93,7 +93,7 @@
             android:src="@drawable/boton_acciones_activo"
             android:scaleType="fitCenter"
             android:background="@android:color/transparent"
-            android:onClick="openMap" />
+            android:onClick="openAcciones" />
         <ImageView
             android:layout_height="match_parent"
             android:layout_width="wrap_content"

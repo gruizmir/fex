@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/wp_general"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,15 +13,14 @@
         android:orientation="horizontal" >
 
         <ImageButton
-            android:id="@+id/extras_invite_btn"
+            android:id="@+id/msg_invite_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"            
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:contentDescription="@string/extras_invite_btn"
             android:onClick="leftButtonClick"
-            android:src="@drawable/boton_invitar"
-            />
+            android:src="@drawable/boton_invitar" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -31,12 +29,12 @@
             android:src="@drawable/franja_vertical_50" />
 
         <ImageView
-            android:id="@+id/extras_title"
+            android:id="@+id/msg_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/festivals"
+            android:contentDescription="@string/extras_msg_btn"
             android:scaleType="fitCenter"
             android:src="@drawable/titulo_mysteryland" />
 
@@ -47,13 +45,13 @@
             android:src="@drawable/franja_vertical_50" />
 
         <ImageButton
-            android:id="@+id/extras_msg_btn"
+            android:id="@+id/msg_msg_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/extras_msg_btn"
             android:onClick="rightButtonClick"
+            android:contentDescription="@string/extras_msg_btn"
             android:src="@drawable/boton_mensajes" />
     </LinearLayout>
 
@@ -61,83 +59,50 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1.0"
-        android:orientation="vertical"
-        >
+        android:layout_margin="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/extras_lineup"
+        <TextView
+            android:id="@+id/messagge_select_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_message" />
+
+        <Spinner
+            android:id="@+id/message_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icono_lineup"
-            android:padding="4dp"
-            android:layout_margin="10dp"
-            android:drawablePadding="5dp"
-            android:gravity="left|center_vertical"
-            android:onClick="openLineup"
-            android:text="@string/extras_lineup"
+            android:entries="@array/messages_array" >
+        </Spinner>
+
+        <TextView
+            android:id="@+id/message_write_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/write_message" />
+
+        <EditText
+            android:id="@+id/message_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/meet_me"
+            android:inputType="text" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/message_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/festivals"
-            android:src="@drawable/franja_horizontal_oscura" />
-
-        <Button
-            android:id="@+id/extras_playlist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/icono_playlist"
-            android:padding="4dp"
-            android:layout_margin="10dp"
-            android:drawablePadding="5dp"
-            android:gravity="left|center_vertical"
-            android:onClick="openPlaylist"
-            android:text="@string/extras_playlist"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/festivals"
-            android:src="@drawable/franja_horizontal_oscura" />
-
-        <Button
-            android:id="@+id/extras_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/icono_info"
-            android:padding="4dp"
-            android:layout_margin="10dp"
-            android:drawablePadding="5dp"
-            android:gravity="left|center_vertical"
-            android:onClick="openInfo"
-            android:text="@string/extras_info"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/festivals"
-            android:src="@drawable/franja_horizontal_oscura" />
-
-        <Button
-            android:id="@+id/extras_anteriores"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/icono_edanteriores"
-            android:enabled="false"
-        	android:padding="4dp"
-        	android:layout_margin="10dp"
-            android:drawablePadding="5dp"
-            android:gravity="left|center_vertical"
-            android:onClick="openAnteriores"
-            android:text="@string/extras_anteriores"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:contentDescription="@string/friend_ok_text"
+            android:onClick="send"
+            android:src="@drawable/boton_ok" />
     </LinearLayout>
 
     <LinearLayout
@@ -145,14 +110,13 @@
         android:layout_height="50dp"
         android:background="@drawable/banner_inferior"
         android:divider="@drawable/franja_vertical_50"
-        android:gravity="center_horizontal|bottom"
-        android:orientation="horizontal"
-        >
+        android:gravity="bottom|center_horizontal"
+        android:orientation="horizontal" >
 
         <ImageButton
-            android:id="@+id/map_calendar"
+            android:id="@+id/message_calendar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:contentDescription="@string/festivals"
             android:onClick="openFestivalList"
@@ -166,14 +130,14 @@
             android:src="@drawable/franja_vertical_50" />
 
         <ImageButton
-            android:id="@+id/map_main"
+            android:id="@+id/message_main"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:contentDescription="@string/map"
-            android:onClick="openMap"
+            android:onClick="openAcciones"
             android:scaleType="fitCenter"
-            android:src="@drawable/boton_mapa" />
+            android:src="@drawable/boton_acciones_activo" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -182,14 +146,14 @@
             android:src="@drawable/franja_vertical_50" />
 
         <ImageButton
-            android:id="@+id/map_extras"
+            android:id="@+id/message_extras"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:contentDescription="@string/map_extras"
             android:onClick="openExtras"
             android:scaleType="fitCenter"
-            android:src="@drawable/boton_extras_activo" />
+            android:src="@drawable/boton_extras" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -198,7 +162,7 @@
             android:src="@drawable/franja_vertical_50" />
 
         <ImageButton
-            android:id="@+id/map_me"
+            android:id="@+id/message_me"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"

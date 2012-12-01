@@ -21,6 +21,8 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,11 +33,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
+import com.friendstivals.utils.BaseButtonActions;
 import com.friendstivals.utils.BaseRequestListener;
 import com.friendstivals.utils.TopButtonActions;
 import com.friendstivals.utils.Utility;
@@ -48,7 +53,7 @@ import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 @SuppressLint("HandlerLeak")
-public class CustomMap extends MapActivity implements TopButtonActions{
+public class CustomMap extends MapActivity implements TopButtonActions, BaseButtonActions{
 	private String festivalId;
 	private ArrayList<String> ids;
 	private static final int GET_POSITIONS=5;
@@ -56,6 +61,7 @@ public class CustomMap extends MapActivity implements TopButtonActions{
 	private List<Overlay> mapOverlays;
 	private MyOverlay itemizedoverlay;
 	private Handler handlerUpdateFriendsPosition;
+	private ProgressDialog progressDialog;
 
 	//Tiempo con el cual se obtiene la posicion de los amigos
 	private static final int TIME_UPDATE_POSITION = 1000 * 60 * 1;
@@ -96,7 +102,10 @@ public class CustomMap extends MapActivity implements TopButtonActions{
 
 	}
 
-	public void openMap(View v){
+	public void openAcciones(View v){
+		Intent i = new Intent(this, SendMessage.class);
+		i.putExtras(getIntent());		
+		startActivity(i);
 	}
 
 	public void openExtras(View v){
@@ -139,6 +148,7 @@ public class CustomMap extends MapActivity implements TopButtonActions{
 	public class FriendsRequestListener extends BaseRequestListener {
 
 		public void onComplete(final String response, final Object state) {
+			progressDialog.dismiss();
 			Intent myIntent = new Intent(getApplicationContext(), FriendsList.class);
 			myIntent.putExtra("API_RESPONSE", response);
 			startActivity(myIntent);
@@ -202,24 +212,16 @@ public class CustomMap extends MapActivity implements TopButtonActions{
 		GeoPoint point;
 		MapView mapView = (MapView) findViewById(R.id.custom_map);
 		MapController controller = mapView.getController();
-		//		Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
-		//		List<Address> addresses;
 		String[] pos=direccion.split(",");
-		//		try {
-		//			addresses = geoCoder.getFromLocationName(direccion,5);
-		//			if(addresses.size() > 0){
 		if(pos.length>0 && !pos[0].equals("") && !pos[0].equals(" ")){
 			point = new GeoPoint((int)(Double.parseDouble(pos[0])*1000000),(int) (Double.parseDouble(pos[1])*1000000));
-			Log.e("punto",point.toString());
+//			Log.e("punto",point.toString());
 			OverlayItem overlayitem = new OverlayItem(point, null, null);
 			controller.animateTo(point);
 			controller.setZoom(19);
 			itemizedoverlay.addOverlay(overlayitem);
 			mapOverlays.add(itemizedoverlay);
 		}
-		//			}
-		//		} catch (IOException e) {
-		//		}
 	}
 
 	/**
@@ -333,6 +335,13 @@ public class CustomMap extends MapActivity implements TopButtonActions{
 	}
 
 	public void rightButtonClick(View v) {
+		Dialog mDialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		mDialog.setContentView(R.layout.bubble_dialog);
+		mDialog.setCanceledOnTouchOutside(true);
+		mDialog.show();
+	}
+
+	public void openMap(View v) {
 		// TODO Auto-generated method stub
 		
 	}	

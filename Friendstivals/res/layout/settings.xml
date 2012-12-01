@@ -281,7 +281,7 @@
             android:contentDescription="@string/map"
             android:onClick="openMap"
             android:scaleType="fitCenter"
-            android:src="@drawable/boton_acciones" />
+            android:src="@drawable/boton_mapa" />
 
         <ImageView
             android:layout_width="wrap_content"

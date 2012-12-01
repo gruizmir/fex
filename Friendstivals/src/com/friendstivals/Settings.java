@@ -46,12 +46,13 @@ import android.widget.Toast;
 import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
 import com.friendstivals.blacklist.BlackList;
+import com.friendstivals.utils.BaseButtonActions;
 import com.friendstivals.utils.BaseRequestListener;
 import com.friendstivals.utils.TopButtonActions;
 import com.friendstivals.utils.Utility;
 
 @SuppressLint("HandlerLeak")
-public class Settings extends Activity implements TopButtonActions {
+public class Settings extends Activity implements TopButtonActions, BaseButtonActions {
 	private CheckBox check; 
 	private String festivalId;
 	protected Bitmap pic=null;
@@ -212,7 +213,10 @@ public class Settings extends Activity implements TopButtonActions {
 		public void onComplete(final String response, final Object state) {
 			progressDialog.dismiss();
 			Intent myIntent = new Intent(getApplicationContext(), FriendsList.class);
-			myIntent.putExtra("API_RESPONSE", response);
+			Bundle b = new Bundle();
+			b.putString("API_RESPONSE", response);
+			b.putInt("ACTION", FriendsList.FRIENDS_IN_MAP);
+			myIntent.putExtras(b);
 			startActivity(myIntent);
 		}
 
@@ -360,8 +364,9 @@ public class Settings extends Activity implements TopButtonActions {
 	}
 
 	public void rightButtonClick(View v) {
-		// TODO Auto-generated method stub
-		
+		Intent i = new Intent(this, SendMessage.class);
+		i.putExtras(getIntent());
+		startActivity(i);
 	}
 	
 	public void openMap(View v){
@@ -384,5 +389,10 @@ public class Settings extends Activity implements TopButtonActions {
 		Intent i = new Intent(getApplicationContext(), FestivalSelector.class);
 		startActivity(i);
 		finish();
+	}
+
+	public void openAcciones(View v) {
+		// TODO Auto-generated method stub
+		
 	}
 }

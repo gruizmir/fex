@@ -1,18 +1,24 @@
 package com.friendstivals;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
+import com.facebook.android.FacebookError;
 import com.friendstivals.artist.LineUp;
 import com.friendstivals.info.Info;
 import com.friendstivals.playlist.Playlist;
+import com.friendstivals.utils.BaseButtonActions;
+import com.friendstivals.utils.BaseRequestListener;
 import com.friendstivals.utils.TopButtonActions;
 
-public class Extras extends Activity implements TopButtonActions{
+public class Extras extends Activity implements TopButtonActions, BaseButtonActions{
 	private String festivalId;
+	private ProgressDialog progressDialog;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,8 +55,38 @@ public class Extras extends Activity implements TopButtonActions{
 	}
 
 	public void rightButtonClick(View v) {
-		// TODO Auto-generated method stub
-		
+		Intent i = new Intent(this, SendMessage.class);
+		i.putExtras(getIntent());
+		startActivity(i);
+//		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
+//		if (!Utility.mFacebook.isSessionValid()) {
+//			Util.showAlert(this, "Warning", "You must first log in.");
+//		} else {
+//			String query = "select name, current_location, uid, pic_square from user where uid in (select uid2 from friend where uid1=me()) and is_app_user='true' order by name";
+//			Bundle params = new Bundle();
+//			params.putString("method", "fql.query");
+//			params.putString("query", query);
+//			Utility.mAsyncRunner.request(null, params,
+//					new FriendsRequestListener());
+//		}
+	}
+
+	/*
+	 * callback after friends are fetched via me/friends or fql query.
+	 */
+	public class FriendsRequestListener extends BaseRequestListener {
+
+		public void onComplete(final String response, final Object state) {
+			progressDialog.dismiss();
+			Intent myIntent = new Intent(getApplicationContext(), FriendsList.class);
+			myIntent.putExtra("API_RESPONSE", response);
+			startActivity(myIntent);
+		}
+
+		public void onFacebookError(FacebookError error) {
+			Toast.makeText(getApplicationContext(), "Facebook Error: " + error.getMessage(),
+					Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	public void openMap(View v){
@@ -73,5 +109,9 @@ public class Extras extends Activity implements TopButtonActions{
 		Intent i = new Intent(getApplicationContext(), FestivalSelector.class);
 		startActivity(i);
 		finish();
+	}
+
+	public void openAcciones(View v) {
+		// TODO Auto-generated method stub
 	}
 }

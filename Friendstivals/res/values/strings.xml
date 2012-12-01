@@ -1,7 +1,8 @@
 <resources>
     <string-array name="messages_array">
-        <item>I\'m going there</item>
-        <item>Meet me here</item>
+        <item>Ven donde estoy</item>
+        <item>Voy donde estás</item>
+        <item>Juntémonos aquí</item>
     </string-array>    
     <string name="fb_id">153953141413353</string>
     <string name="app_name">Friendstivals</string>

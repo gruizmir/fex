@@ -28,7 +28,7 @@ public class customDialog extends Activity{
         getWindow().setFlags(LayoutParams.FLAG_NOT_TOUCH_MODAL, LayoutParams.FLAG_NOT_TOUCH_MODAL);
         getWindow().setFlags(LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
      // Set del XML a usuar.
-        this.setContentView(R.layout.message_dialog);
+        this.setContentView(R.layout.send_message);
      // Set del nombre del Custom Dialog, cambiar a conveniencia.
         this.setTitle("Custom Dialog");
      // Obtener el intent del sender.   

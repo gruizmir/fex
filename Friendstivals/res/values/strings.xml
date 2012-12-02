@@ -84,4 +84,7 @@
     
     <!-- Festival Selector -->
     <string name="festival_soon">Pronto más festivales</string>
+    
+    <!-- Fakes para eliminar warnings -->
+    <string name="fake_image">imagen</string>
 </resources>

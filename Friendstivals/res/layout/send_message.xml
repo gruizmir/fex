@@ -73,6 +73,7 @@
             android:id="@+id/message_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_shape"
             android:entries="@array/messages_array" >
         </Spinner>
 
@@ -87,6 +88,7 @@
             android:id="@+id/message_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/meet_me"
             android:inputType="text" >

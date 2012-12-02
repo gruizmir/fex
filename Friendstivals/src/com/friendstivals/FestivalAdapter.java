@@ -43,7 +43,11 @@ public class FestivalAdapter extends ArrayAdapter<Festival> {
 		}
 		Festival e = eventos.get(position);
 		holder.title.setText(e.getName() + " - " + e.getCountry()); 
-		holder.imgIcon.setBackgroundResource(context.getResources().getIdentifier("calendario_"+e.getId(), "drawable", context.getPackageName()));
+		if(e.isActive())
+			holder.imgIcon.setBackgroundResource(context.getResources().getIdentifier("calendario_"+e.getId()+"_rojo", "drawable", context.getPackageName()));
+		else{
+			holder.imgIcon.setBackgroundResource(context.getResources().getIdentifier("calendario_"+e.getId(), "drawable", context.getPackageName()));
+		}
 		return view;
 	}
 

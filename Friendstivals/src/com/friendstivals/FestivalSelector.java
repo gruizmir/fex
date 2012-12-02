@@ -96,9 +96,11 @@ public class FestivalSelector extends Activity implements OnItemClickListener{
 		Intent splashIntent = new Intent(getApplicationContext(), SplashScreen.class);
 		Bundle mapBundle = new Bundle();
 		Festival f = eventos.get(position);
-		mapBundle.putString("festival_id", f.getId());
-		splashIntent.putExtras(mapBundle);
-		startActivity(splashIntent);
+		if(f.isActive()){
+			mapBundle.putString("festival_id", f.getId());
+			splashIntent.putExtras(mapBundle);
+			startActivity(splashIntent);
+		}
 	}
 
 	public void onStart(){

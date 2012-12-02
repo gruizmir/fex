@@ -1,6 +1,9 @@
 package com.friendstivals.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +12,7 @@ public class Festival {
 	private String id;
 	private String name;
 	private String date;
+	private String realDate;
 	private String start;
 	private String end;
 	private String location;
@@ -16,6 +20,7 @@ public class Festival {
 	private String country;
 	private String splashMessage;
 	private ArrayList<Entradas> entradas;
+	protected static SimpleDateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
 	public Festival(Context cont, String id){
 		this.id = id;
@@ -31,17 +36,18 @@ public class Festival {
 			genLocation=data[1];
 			country = data[2];
 			date = data[3];
-			location = data[4];
-			if(data[5].equals("null")){
+			realDate = data[4];
+			location = data[5];
+			if(data[6].equals("null")){
 				start = "No disponible";
 				end = "No disponible";
 			}
 			else{
-				start = data[5];
-				end = data[6];
+				start = data[6];
+				end = data[7];
 			}
-			splashMessage = data[7];
-			for(int i=8; i<data.length; i++){
+			splashMessage = data[8];
+			for(int i=9; i<data.length; i++){
 				String[] temp = data[i].split(":")[1].split("/");
 				Entradas e = new Entradas();
 				e.setTipoVenta(temp[0]);
@@ -129,6 +135,30 @@ public class Festival {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
+	public String getRealDate() {
+		return realDate;
+	}
+
+	public void setRealDate(String realDate) {
+		this.realDate = realDate;
+	}
+
+	public boolean isActive() {
+		Date date = new Date();
+		Date nDate;
+		try {
+			nDate = FORMATTER.parse(realDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return false;
+		}
+		if(nDate.getTime() - date.getTime() <= 1209600000 &&  nDate.getTime() - date.getTime() >= 0)
+			return true;
+		else
+			return false;
+	}
+
 }
 
 class Entradas{

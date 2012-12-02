@@ -32,10 +32,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.android.FacebookError;
@@ -58,10 +60,12 @@ public class CustomMap extends MapActivity implements TopButtonActions, BaseButt
 	private ArrayList<String> ids;
 	private static final int GET_POSITIONS=5;
 	private static final int SEARCH=4;
+	private static final int MESSAGES=3;
 	private List<Overlay> mapOverlays;
 	private MyOverlay itemizedoverlay;
 	private Handler handlerUpdateFriendsPosition;
 	private ProgressDialog progressDialog;
+	protected int minId;
 
 	//Tiempo con el cual se obtiene la posicion de los amigos
 	private static final int TIME_UPDATE_POSITION = 1000 * 60 * 1;
@@ -74,6 +78,9 @@ public class CustomMap extends MapActivity implements TopButtonActions, BaseButt
 			}
 			if(msg.what == SEARCH){
 				search(msg.getData().getString("position"));
+			}
+			if(msg.what == MESSAGES){
+				showMessages(msg.getData().getString("messages"));
 			}
 		}
 	};
@@ -215,7 +222,7 @@ public class CustomMap extends MapActivity implements TopButtonActions, BaseButt
 		String[] pos=direccion.split(",");
 		if(pos.length>0 && !pos[0].equals("") && !pos[0].equals(" ")){
 			point = new GeoPoint((int)(Double.parseDouble(pos[0])*1000000),(int) (Double.parseDouble(pos[1])*1000000));
-//			Log.e("punto",point.toString());
+			//			Log.e("punto",point.toString());
 			OverlayItem overlayitem = new OverlayItem(point, null, null);
 			controller.animateTo(point);
 			controller.setZoom(19);
@@ -331,18 +338,78 @@ public class CustomMap extends MapActivity implements TopButtonActions, BaseButt
 	public void leftButtonClick(View v) {
 		Intent i = new Intent(getApplicationContext(), InviteView.class);
 		startActivity(i);
-		
 	}
 
-	public void rightButtonClick(View v) {
-		Dialog mDialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
-		mDialog.setContentView(R.layout.bubble_dialog);
-		mDialog.setCanceledOnTouchOutside(true);
-		mDialog.show();
+	public void rightButtonClick(View v) {		
+		SharedPreferences pref = getSharedPreferences("messages", MODE_PRIVATE);
+		minId = pref.getInt("last_got", 0);
+		new Thread(new Runnable(){
+			public void run(){
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httppost = new HttpPost(getString(R.string.get_messages));
+				if(httpclient != null && httppost != null){
+					try {
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+						nameValuePairs.add(new BasicNameValuePair("minid", Integer.toString(minId)));
+						nameValuePairs.add(new BasicNameValuePair("receiver", Utility.userUID));
+						//						nameValuePairs.add(new BasicNameValuePair("receiver", "123123123"));
+
+						httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+						HttpResponse response = httpclient.execute(httppost);
+						BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+						String sResponse;
+						StringBuilder s = new StringBuilder();
+						while ((sResponse = reader.readLine()) != null) 
+							s = s.append(sResponse);
+						Message m = new Message();
+						Bundle data = new Bundle();
+						if(s!=null)
+							data.putString("messages", s.toString());
+						else
+							data.putString("messages", "");
+						m.setData(data);
+						m.what = MESSAGES;
+						mHandler.sendMessage(m);
+
+					} catch (ClientProtocolException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}				
+			}
+		}).start();
+
+
 	}
 
 	public void openMap(View v) {
 		// TODO Auto-generated method stub
-		
 	}	
+	
+	private void showMessages(String resp){
+		String[] filas = resp.split("</br>");
+		Dialog mDialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+		mDialog.setContentView(R.layout.bubble_dialog);
+		LinearLayout customList = (LinearLayout)mDialog.findViewById(R.id.bubble_parent_layout);
+		if(resp!=null && !resp.equals("ERROR") && resp.length()>0){
+			for(int i=0; i<filas.length; i++){
+				String[] row = filas[i].split("%%");
+				TableLayout newItem = new TableLayout(this);
+				LayoutInflater.from(this.getApplicationContext()).inflate(R.layout.bubble_item, newItem);
+				TextView txt = (TextView) newItem.findViewById(R.id.bubble_text);
+				txt.setText(row[1]);
+				customList.addView(newItem);
+			}
+		}
+		else{
+			TableLayout newItem = new TableLayout(this);
+			LayoutInflater.from(this.getApplicationContext()).inflate(R.layout.bubble_item, newItem);
+			TextView txt = (TextView) newItem.findViewById(R.id.bubble_text);
+			txt.setText("No tienes mensajes nuevos");
+			customList.addView(newItem);
+		}
+		mDialog.setCanceledOnTouchOutside(true);
+		mDialog.show();
+	}
 }

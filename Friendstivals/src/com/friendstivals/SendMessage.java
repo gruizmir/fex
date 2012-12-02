@@ -56,7 +56,6 @@ public class SendMessage extends Activity implements TopButtonActions, BaseButto
 	public class FriendsRequestListener extends BaseRequestListener {
 
 		public void onComplete(final String response, final Object state) {
-			progressDialog.dismiss();
 			Intent myIntent = new Intent(getApplicationContext(), FriendsList.class);
 			myIntent.putExtra("API_RESPONSE", response);
 			Bundle b = new Bundle();
@@ -64,7 +63,8 @@ public class SendMessage extends Activity implements TopButtonActions, BaseButto
 			b.putString("message", message);
 			b.putInt("ACTION", FriendsList.SEND_MESSAGE);
 			myIntent.putExtras(b);
-			startActivityForResult(myIntent, FriendsList.SEND_MESSAGE);
+			startActivity(myIntent);
+			progressDialog.dismiss();
 		}
 
 		public void onFacebookError(FacebookError error) {
@@ -75,7 +75,6 @@ public class SendMessage extends Activity implements TopButtonActions, BaseButto
 
 	public void openAcciones(View v) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void openExtras(View v) {
@@ -102,7 +101,6 @@ public class SendMessage extends Activity implements TopButtonActions, BaseButto
 
 	public void openMap(View v) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void leftButtonClick(View v) {

@@ -76,14 +76,34 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 	private Handler handlerUpdateFriendsPosition;
 	private ProgressDialog progressDialog;
 	private RelativeLayout mainLayout;
+	private SimpleRegisterReceiver simpleReceiver;
 	protected int minId;
 	private MapView mMapView;
 	private ResourceProxy mResourceProxy;
 	private ItemizedOverlay<OverlayItem> mMyLocationOverlay;
-
+	//Seteo inicial del mapa.
+	private int MIN_ZOOM = 18;
+	private int MAX_ZOOM = 21;
+	private double CENTER_LAT = -33.0403681;
+	private double CENTER_LON = -71.5928617;
+	private String MAP_NAME = "map1.mbtiles";
 	//Tiempo con el cual se obtiene la posicion de los amigos
 	private static final int TIME_UPDATE_POSITION = 1000 * 60 * 1;
 
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		festivalId = getIntent().getExtras().getString("festival_id");
+		itemsOverlay = new ArrayList<OverlayItem>();
+		setMapView();
+		setContentView(R.layout.custom_map);
+		configMapView();
+	}
+
+	/**
+	 * handler encargado de recibir la informacion del servidor
+	 */
 	protected Handler mHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
@@ -100,40 +120,67 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 	};
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		itemsOverlay = new ArrayList<OverlayItem>();
-		
-		int minZoom = 18;
-		int maxZoom = 21;
+	protected void onResume(){
+		super.onResume();
+		//Declaracion del handler encargado de actualizar la posicion del usuario y amigos
+		//cada cierto intervalo de tiempo.
+		handlerUpdateFriendsPosition = new Handler();
+		Runnable r = new Runnable(){
+			public void run() {
+				if(!itemsOverlay.isEmpty()){
+					itemsOverlay.clear();
+				}
+				if(mMapView.getOverlays()!=null){
+					mMapView.getOverlays().clear();
+				}
+				showFriendsInMap();
+				handlerUpdateFriendsPosition.postDelayed(this, TIME_UPDATE_POSITION);
+			}
+		};
+		handlerUpdateFriendsPosition.postDelayed(r, 1000);
+	}
 
+	@Override
+	protected void onPause(){
+		super.onPause();
+		//Detencion del handler.
+		handlerUpdateFriendsPosition.removeCallbacksAndMessages(null);
+	}
+
+	/**
+	 * setMapView esta encargado de inicializar la vista con el mapa proviniente desde un archivo
+	 * .mbtiles
+	 */
+	private void setMapView(){
+		//Se define la procedencia del mapa, en este caso un archivo mbtile.
 		XYTileSource MBTILESRENDER = new XYTileSource(
 				"mbtiles", 
 				ResourceProxy.string.offline_mode, 
-				minZoom, maxZoom, 
+				MIN_ZOOM, MAX_ZOOM, 
 				256, ".png", ""
 				);
-		
+
 		mResourceProxy = new DefaultResourceProxyImpl(getApplicationContext());
-		SimpleRegisterReceiver simpleReceiver = new SimpleRegisterReceiver(this);
-		
-		String path = Environment.getExternalStorageDirectory().getPath() + "/fex/maps/map1.mbtiles";
+		simpleReceiver = new SimpleRegisterReceiver(this);
+
+		String path = Environment.getExternalStorageDirectory().getPath() + "/fex/maps/" + MAP_NAME;
 		File mapa = new File(path);
-		
+
 		try {
+			//En caso de que no se pueda leer el archivo desde la fuente inicial se copia a la 
+			//memoria SD.
 			if(!mapa.canRead()){
 				path = Environment.getExternalStorageDirectory().getPath() + "/fex/maps/";
 				File friendsFolder = new File(path);
 				friendsFolder.mkdirs();
 				Log.println(Log.DEBUG, "FileFolder", friendsFolder.getAbsolutePath());
-				copyToSD(R.raw.map1, friendsFolder.getAbsolutePath()+"/map1.mbtiles");
-				mapa = new File(Environment.getExternalStorageDirectory(), "/fex/maps/map1.mbtiles");
+				copyToSD(R.raw.map1, friendsFolder.getAbsolutePath() + "/" + MAP_NAME);
+				mapa = new File(Environment.getExternalStorageDirectory(), "/fex/maps/" + MAP_NAME);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		IArchiveFile[] files = {MBTilesFileArchive.getDatabaseFileArchive(mapa)}; 
 		MapTileModuleProviderBase moduleProvider = new MapTileFileArchiveProvider(
 				simpleReceiver, 
@@ -146,64 +193,38 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 				null, 
 				new MapTileModuleProviderBase[]{ moduleProvider }
 				);
-		
-		this.mMapView =  new MapView(this, 256, mResourceProxy, mProvider);
 
-		setContentView(R.layout.custom_map);
-
+		//Se inicializa la vista.
+		this.mMapView =  new MapView(this, 256, mResourceProxy, mProvider);		
+	}
+	/**
+	 * configMapView se encarga de configurar los aspectos basicos del MapView.
+	 */
+	private void configMapView(){
 		mainLayout = (RelativeLayout) findViewById(R.id.maplayout);
 
 		this.mMapView.setLayoutParams(new LinearLayout.LayoutParams(
-				  RelativeLayout.LayoutParams.MATCH_PARENT,
-				  RelativeLayout.LayoutParams.MATCH_PARENT
-		));
-		
+				RelativeLayout.LayoutParams.MATCH_PARENT,
+				RelativeLayout.LayoutParams.MATCH_PARENT
+				));
+
 		mainLayout.addView(this.mMapView);
-		
+
 		this.mMapView.setBuiltInZoomControls(true);
 		this.mMapView.setMultiTouchControls(true);
-		this.mMapView.getController().setZoom(18);
+		this.mMapView.getController().setZoom(MIN_ZOOM);
 
-		double lat = -33.0403681;
-		double lon = -71.5928617;
-		
-		IGeoPoint point = new GeoPoint(lat, lon);
-		
+		IGeoPoint point = new GeoPoint(CENTER_LAT, CENTER_LON);
 		mMapView.getController().setCenter(point);
-
-		festivalId = getIntent().getExtras().getString("festival_id");
-
 	}
 
-	@Override
-	protected void onResume(){
-		super.onResume();
-		handlerUpdateFriendsPosition = new Handler();
-		Runnable r = new Runnable(){
-
-			public void run() {
-				if(!itemsOverlay.isEmpty()){
-					itemsOverlay.clear();
-				}
-				if(mMapView.getOverlays()!=null){
-					mMapView.getOverlays().clear();
-				}
-				showFriendsInMap();
-				handlerUpdateFriendsPosition.postDelayed(this, TIME_UPDATE_POSITION);
-			}
-
-		};
-		
-		handlerUpdateFriendsPosition.postDelayed(r, 1000);
-	}
-	
-	@Override
-	protected void onPause(){
-		super.onPause();
-		handlerUpdateFriendsPosition.removeCallbacksAndMessages(null);
-	}
-
-	public void copyToSD(int res, String path) throws Exception{
+	/**
+	 * copyToSd funcion encarga de traspasar un archivo almacenado en la aplicacion a la memoria SD. 
+	 * @param res : Recurso dentro de la aplicacion que quiere ser copiado
+	 * @param path : Ruta donde sera copiado el archivo.	
+	 * @throws Exception
+	 */
+	private void copyToSD(int res, String path) throws Exception{
 		InputStream in = getResources().openRawResource(res);
 		FileOutputStream out = new FileOutputStream(path);
 		byte[] buff = new byte[1024];
@@ -318,7 +339,11 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 		}
 	}
 
-	private void search(String direccion){
+	/**
+	 * search esta encargado de agregar los marcadores del usuario y de los amigos al mapa.
+	 * @param direccion : posicion en que sera puesto el marcador.
+	 */
+	private void search(String direccion/*, String nombre */){
 		GeoPoint point;
 		String[] pos=direccion.split(",");
 		if(pos.length>0 && !pos[0].equals("") && !pos[0].equals(" ")){
@@ -326,33 +351,33 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 			OverlayItem nuevoItem = new OverlayItem("Here", "SampleDescription", point);
 			nuevoItem.setMarker(this.getResources().getDrawable(R.drawable.boton_mapa));
 			Log.println(Log.DEBUG, "ID+POS", direccion);
-			
+
 			itemsOverlay.add(nuevoItem);
 
 			mMyLocationOverlay = new ItemizedIconOverlay<OverlayItem>(itemsOverlay,
-	                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-	                    @Override
-	                    public boolean onItemSingleTapUp(final int index,
-	                            final OverlayItem item) {
-	                        Toast.makeText(
-	                        		CustomMap.this,
-	                                "Item '" + item.mTitle, Toast.LENGTH_LONG).show();
-	                        return true; // We 'handled' this event.
-	                    }
-	                    @Override
-	                    public boolean onItemLongPress(final int index,
-	                            final OverlayItem item) {
-	                        Toast.makeText(
-	                        		CustomMap.this, 
-	                                "Item '" + item.mTitle ,Toast.LENGTH_LONG).show();
-	                        return false;
-	                    }
-	                }, mResourceProxy);
-			
+					new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+				@Override
+				public boolean onItemSingleTapUp(final int index,
+						final OverlayItem item) {
+					// Agregar aqui que accion a realizar cuando se preciona uno de los marcadores
+					// en el mapa.
+					
+					return true;
+				}
+				@Override
+				public boolean onItemLongPress(final int index,
+						final OverlayItem item) {
+					// Agregar aqui que accion a realizar cuando se mantiene precionado un marcador
+					// en el mapa por un largo periodo de tiempo.
+
+					return false;
+				}
+			}, mResourceProxy);
+
 			if(mMapView.getOverlays() != null){
 				mMapView.getOverlays().clear();
 			}
-			
+
 			mMapView.getOverlays().add(mMyLocationOverlay);
 			mMapView.refreshDrawableState();
 			mMapView.invalidate();

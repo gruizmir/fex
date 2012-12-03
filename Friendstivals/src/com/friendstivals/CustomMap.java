@@ -121,6 +121,7 @@ public class CustomMap extends MapActivity implements TopButtonActions, BaseButt
 		b.putString("festival_id", festivalId);
 		i.putExtras(b);
 		startActivity(i);
+		finish();
 	}
 
 	public void openSettings(View v){

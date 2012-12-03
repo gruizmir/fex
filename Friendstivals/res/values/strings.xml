@@ -41,7 +41,7 @@
 	<string name="blocked_friends">· Bloqueados</string>
 	<string name="gps">· GPS</string>
 	<string name="arrow">>></string>	
-	<string name="friends">2 amigos</string>
+	<string name="friends">0 amigos</string>
 	
 	<!-- Invite View -->
 	<string name="invite_button_later">Later</string>

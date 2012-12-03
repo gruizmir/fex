@@ -17,6 +17,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,6 +40,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,14 +55,17 @@ import com.friendstivals.utils.Utility;
 
 @SuppressLint("HandlerLeak")
 public class Settings extends Activity implements TopButtonActions, BaseButtonActions {
-	private CheckBox check; 
+	private CheckBox check;
+	protected int cantBlock=0;
 	private String festivalId;
 	protected Bitmap pic=null;
 	private ProgressDialog progressDialog;
 	private CheckBox avail;
 	private int NO_LIST_ID = 2;
 	private int SEND_DATA = 3;
+	private int COUNT = 4;
 	private String id=null;
+	private Button countBtn; 
 	private Handler mHandler= new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -70,7 +75,7 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 				setImage();
 			}
 			if(msg.what == 0){
-
+				setCantBlock();
 			}
 			if(msg.what == NO_LIST_ID)
 				getBlockedListId();
@@ -80,8 +85,22 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 					public void run() {
 						ConexionToServer  conexionToServer  = new ConexionToServer();
 						conexionToServer.execute(getString(R.string.setBlockedListId));
+						mHandler.sendEmptyMessage(0);
 					}
 				}).start();
+			}
+			if(msg.what ==COUNT){
+				try {
+					JSONArray jsonArray = new JSONArray(msg.getData().getString("count"));
+					cantBlock = jsonArray.length();
+				} catch (JSONException e) {
+					Log.e("json_fail", e.getMessage());
+				}
+				SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
+				countBtn.setText(Integer.toString(cantBlock) + " amigos");
+				Editor ed = pref.edit();
+				ed.putInt("blocked_count", cantBlock);
+				ed.commit();
 			}
 		}
 	};
@@ -93,6 +112,7 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 		setContentView(R.layout.settings);
 		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
 		festivalId = getIntent().getExtras().getString("festival_id");
+		countBtn = (Button) findViewById(R.id.blocked_button);
 		SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
 		/*
 		 * Falta verificar que la lista este en facebook aun.
@@ -100,7 +120,9 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 		if(!pref.contains("blocked_list_id")){
 			getBlockedListIdFromServer();
 		}
-
+		else{
+			setCantBlock();
+		}
 		try {
 			new Thread(new Runnable(){
 				public void run() {
@@ -117,12 +139,15 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 				}}).start();
 		}catch (FacebookError e) {
 		} 
+		
+		//Switch para ver si la persona esta disponible para que sus amigos la vean.
 		avail = (CheckBox)findViewById(R.id.avalaible_check);
 		SharedPreferences sets = getSharedPreferences("settings", MODE_PRIVATE);
 		if(sets.contains("available")){
 			avail.setChecked(sets.getBoolean("available", false));
 		}
-
+		
+		//Ver si el GPS esta encendido para poner el switch en on u off
 		check = (CheckBox)findViewById(R.id.gps_switch);
 		check.setOnClickListener(new OnClickListener(){
 
@@ -180,7 +205,7 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 					progressDialog.dismiss();
 					Intent myIntent = new Intent(getApplicationContext(), BlackList.class);
 					myIntent.putExtra("API_RESPONSE", response);
-					startActivity(myIntent);
+					startActivityForResult(myIntent,1);
 				}
 			});
 		}
@@ -217,7 +242,7 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 			b.putString("API_RESPONSE", response);
 			b.putInt("ACTION", FriendsList.FRIENDS_IN_MAP);
 			myIntent.putExtras(b);
-			startActivity(myIntent);
+			startActivityForResult(myIntent,1);
 		}
 
 		public void onFacebookError(FacebookError error) {
@@ -266,7 +291,6 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 				String response=null;
 				try {
 					response = Utility.mFacebook.request(Utility.userUID + "/friendlists", params, "POST");
-					Log.e("response",response);
 					try {
 						JSONObject resp = new JSONObject(response);
 						SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
@@ -394,5 +418,35 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 	public void openAcciones(View v) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void getCantBloqueados(){
+		if (!Utility.mFacebook.isSessionValid()) {
+			Util.showAlert(this, "Warning", "You must first log in.");
+		} else {
+			SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
+			String query = "select uid from user where uid in (select flid, uid from friendlist_member where flid="+ pref.getString("blocked_list_id", null) + ") and is_app_user='true'";
+			Bundle params = new Bundle();
+			params.putString("method", "fql.query");
+			params.putString("query", query);
+			Utility.mAsyncRunner.request(null, params, new BaseRequestListener() {
+				public void onComplete(final String response, final Object state) {
+					Bundle b = new Bundle();
+					b.putString("count", response);
+					Message m = new Message();
+					m.what = COUNT;
+					m.setData(b);
+					mHandler.sendMessage(m);
+				}
+			});
+		}
+	}
+	
+	private void setCantBlock(){
+		getCantBloqueados();
+	}
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		setCantBlock();
 	}
 }

@@ -103,6 +103,7 @@ public class BlackList extends ListActivity implements TopButtonActions{
 			}).start();
 		}
 		blockedId = pref.getString("blocked_list_id", null);
+		setResult(RESULT_OK);
 	}
 
 	public void onListItemClick(ListView l, View v, int position, long id) {
@@ -170,7 +171,6 @@ public class BlackList extends ListActivity implements TopButtonActions{
 			Utility.mAsyncRunner.request(null, params,
 					new BaseRequestListener(){
 				public void onComplete(final String response, final Object state) {
-					Log.e("response", response);
 					progressDialog.dismiss();
 					Intent myIntent = new Intent(getApplicationContext(), AddBlackList.class);
 					myIntent.putExtra("API_RESPONSE", response);
@@ -246,7 +246,6 @@ public class BlackList extends ListActivity implements TopButtonActions{
 					m.setData(data);
 					m.what = 3;
 					mHandler.sendMessage(m);
-//					mHandler.sendEmptyMessage(1);
 				}
 			});
 		}

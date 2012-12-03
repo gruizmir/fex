@@ -1,18 +1,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.friendstivals"
-    android:versionCode="1"
-    android:versionName="1.0"
     android:installLocation="preferExternal"
-    >
+    android:versionCode="1"
+    android:versionName="1.0" >
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
@@ -20,8 +24,7 @@
         <activity
             android:name=".Friendstivals"
             android:label="@string/title_activity_friendstivals"
-            android:screenOrientation="portrait"
-             >
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="Friendstivals" />
@@ -32,14 +35,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
-            android:label="@string/gps_service"
-            android:name="com.friendstivals.gpservice.GPService">
+            android:name="com.friendstivals.gpservice.GPService"
+            android:label="@string/gps_service" >
         </service>
         <service
-            android:label="@string/gps_service"
-            android:name="com.friendstivals.friendservice.FriendService">
+            android:name="com.friendstivals.friendservice.FriendService"
+            android:label="@string/gps_service" >
         </service>
+
         <activity
             android:name=".templates.customDialog"
             android:screenOrientation="portrait"
@@ -56,8 +61,7 @@
         <activity
             android:name=".CustomMap"
             android:label="CustomMap"
-            android:screenOrientation="portrait"
-             />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Settings"
             android:label="Settings"
@@ -72,8 +76,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".InviteView"
-            android:label="InviteView"
             android:configChanges="orientation"
+            android:label="InviteView"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
@@ -118,8 +122,8 @@
             android:name=".Messages"
             android:label="Messages"
             android:noHistory="true"
-            android:theme="@android:style/Theme.Dialog"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" />
 
         <uses-library android:name="com.google.android.maps" >
         </uses-library>

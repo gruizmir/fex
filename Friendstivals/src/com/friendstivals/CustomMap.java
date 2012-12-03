@@ -1,7 +1,10 @@
 package com.friendstivals;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,17 +21,31 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.osmdroid.DefaultResourceProxyImpl;
+import org.osmdroid.ResourceProxy;
+import org.osmdroid.api.IGeoPoint;
+import org.osmdroid.tileprovider.MapTileProviderArray;
+import org.osmdroid.tileprovider.modules.IArchiveFile;
+import org.osmdroid.tileprovider.modules.MBTilesFileArchive;
+import org.osmdroid.tileprovider.modules.MapTileFileArchiveProvider;
+import org.osmdroid.tileprovider.modules.MapTileModuleProviderBase;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
+import org.osmdroid.tileprovider.util.SimpleRegisterReceiver;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.ItemizedOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -36,6 +53,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,26 +64,22 @@ import com.friendstivals.utils.BaseButtonActions;
 import com.friendstivals.utils.BaseRequestListener;
 import com.friendstivals.utils.TopButtonActions;
 import com.friendstivals.utils.Utility;
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
 
 @SuppressLint("HandlerLeak")
-public class CustomMap extends MapActivity implements TopButtonActions, BaseButtonActions{
+public class CustomMap extends Activity implements TopButtonActions, BaseButtonActions{
 	private String festivalId;
 	private ArrayList<String> ids;
 	private static final int GET_POSITIONS=5;
 	private static final int SEARCH=4;
 	private static final int MESSAGES=3;
-	private List<Overlay> mapOverlays;
-	private MyOverlay itemizedoverlay;
+	private ArrayList<OverlayItem> itemsOverlay;
 	private Handler handlerUpdateFriendsPosition;
 	private ProgressDialog progressDialog;
+	private RelativeLayout mainLayout;
 	protected int minId;
+	private MapView mMapView;
+	private ResourceProxy mResourceProxy;
+	private ItemizedOverlay<OverlayItem> mMyLocationOverlay;
 
 	//Tiempo con el cual se obtiene la posicion de los amigos
 	private static final int TIME_UPDATE_POSITION = 1000 * 60 * 1;
@@ -89,24 +103,120 @@ public class CustomMap extends MapActivity implements TopButtonActions, BaseButt
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.custom_map);
-		festivalId = getIntent().getExtras().getString("festival_id");
-		MapView mapView = (MapView) findViewById(R.id.custom_map);
-		mapOverlays = mapView.getOverlays();
-		Drawable drawable = this.getResources().getDrawable(R.drawable.boton_mapa);
-		itemizedoverlay = new MyOverlay(drawable, this);
+		itemsOverlay = new ArrayList<OverlayItem>();
+		
+		int minZoom = 18;
+		int maxZoom = 21;
 
+		XYTileSource MBTILESRENDER = new XYTileSource(
+				"mbtiles", 
+				ResourceProxy.string.offline_mode, 
+				minZoom, maxZoom, 
+				256, ".png", ""
+				);
+		
+		mResourceProxy = new DefaultResourceProxyImpl(getApplicationContext());
+		SimpleRegisterReceiver simpleReceiver = new SimpleRegisterReceiver(this);
+		
+		String path = Environment.getExternalStorageDirectory().getPath() + "/fex/maps/map1.mbtiles";
+		File mapa = new File(path);
+		
+		try {
+			if(!mapa.canRead()){
+				path = Environment.getExternalStorageDirectory().getPath() + "/fex/maps/";
+				File friendsFolder = new File(path);
+				friendsFolder.mkdirs();
+				Log.println(Log.DEBUG, "FileFolder", friendsFolder.getAbsolutePath());
+				copyToSD(R.raw.map1, friendsFolder.getAbsolutePath()+"/map1.mbtiles");
+				mapa = new File(Environment.getExternalStorageDirectory(), "/fex/maps/map1.mbtiles");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		IArchiveFile[] files = {MBTilesFileArchive.getDatabaseFileArchive(mapa)}; 
+		MapTileModuleProviderBase moduleProvider = new MapTileFileArchiveProvider(
+				simpleReceiver, 
+				MBTILESRENDER, 
+				files
+				);
+
+		MapTileProviderArray mProvider = new MapTileProviderArray(
+				MBTILESRENDER, 
+				null, 
+				new MapTileModuleProviderBase[]{ moduleProvider }
+				);
+		
+		this.mMapView =  new MapView(this, 256, mResourceProxy, mProvider);
+
+		setContentView(R.layout.custom_map);
+
+		mainLayout = (RelativeLayout) findViewById(R.id.maplayout);
+
+		this.mMapView.setLayoutParams(new LinearLayout.LayoutParams(
+				  RelativeLayout.LayoutParams.MATCH_PARENT,
+				  RelativeLayout.LayoutParams.MATCH_PARENT
+		));
+		
+		mainLayout.addView(this.mMapView);
+		
+		this.mMapView.setBuiltInZoomControls(true);
+		this.mMapView.setMultiTouchControls(true);
+		this.mMapView.getController().setZoom(18);
+
+		double lat = -33.0403681;
+		double lon = -71.5928617;
+		
+		IGeoPoint point = new GeoPoint(lat, lon);
+		
+		mMapView.getController().setCenter(point);
+
+		festivalId = getIntent().getExtras().getString("festival_id");
+
+	}
+
+	@Override
+	protected void onResume(){
+		super.onResume();
 		handlerUpdateFriendsPosition = new Handler();
 		Runnable r = new Runnable(){
 
 			public void run() {
+				if(!itemsOverlay.isEmpty()){
+					itemsOverlay.clear();
+				}
+				if(mMapView.getOverlays()!=null){
+					mMapView.getOverlays().clear();
+				}
 				showFriendsInMap();
 				handlerUpdateFriendsPosition.postDelayed(this, TIME_UPDATE_POSITION);
 			}
 
 		};
+		
 		handlerUpdateFriendsPosition.postDelayed(r, 1000);
+	}
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		handlerUpdateFriendsPosition.removeCallbacksAndMessages(null);
+	}
 
+	public void copyToSD(int res, String path) throws Exception{
+		InputStream in = getResources().openRawResource(res);
+		FileOutputStream out = new FileOutputStream(path);
+		byte[] buff = new byte[1024];
+		int read = 0;
+
+		try {
+			while ((read = in.read(buff)) > 0) {
+				out.write(buff, 0, read);
+			}
+		} finally {
+			in.close();
+			out.close();
+		}
 	}
 
 	public void openAcciones(View v){
@@ -121,7 +231,6 @@ public class CustomMap extends MapActivity implements TopButtonActions, BaseButt
 		b.putString("festival_id", festivalId);
 		i.putExtras(b);
 		startActivity(i);
-		finish();
 	}
 
 	public void openSettings(View v){
@@ -146,7 +255,6 @@ public class CustomMap extends MapActivity implements TopButtonActions, BaseButt
 			params.putString("query", query);
 			Utility.mAsyncRunner.request(null, params,
 					new FriendsRequestListener());
-
 		}
 	}
 
@@ -210,25 +318,44 @@ public class CustomMap extends MapActivity implements TopButtonActions, BaseButt
 		}
 	}
 
-	@Override
-	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	private void search(String direccion){
 		GeoPoint point;
-		MapView mapView = (MapView) findViewById(R.id.custom_map);
-		MapController controller = mapView.getController();
 		String[] pos=direccion.split(",");
 		if(pos.length>0 && !pos[0].equals("") && !pos[0].equals(" ")){
 			point = new GeoPoint((int)(Double.parseDouble(pos[0])*1000000),(int) (Double.parseDouble(pos[1])*1000000));
-			//			Log.e("punto",point.toString());
-			OverlayItem overlayitem = new OverlayItem(point, null, null);
-			controller.animateTo(point);
-			controller.setZoom(19);
-			itemizedoverlay.addOverlay(overlayitem);
-			mapOverlays.add(itemizedoverlay);
+			OverlayItem nuevoItem = new OverlayItem("Here", "SampleDescription", point);
+			nuevoItem.setMarker(this.getResources().getDrawable(R.drawable.boton_mapa));
+			Log.println(Log.DEBUG, "ID+POS", direccion);
+			
+			itemsOverlay.add(nuevoItem);
+
+			mMyLocationOverlay = new ItemizedIconOverlay<OverlayItem>(itemsOverlay,
+	                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+	                    @Override
+	                    public boolean onItemSingleTapUp(final int index,
+	                            final OverlayItem item) {
+	                        Toast.makeText(
+	                        		CustomMap.this,
+	                                "Item '" + item.mTitle, Toast.LENGTH_LONG).show();
+	                        return true; // We 'handled' this event.
+	                    }
+	                    @Override
+	                    public boolean onItemLongPress(final int index,
+	                            final OverlayItem item) {
+	                        Toast.makeText(
+	                        		CustomMap.this, 
+	                                "Item '" + item.mTitle ,Toast.LENGTH_LONG).show();
+	                        return false;
+	                    }
+	                }, mResourceProxy);
+			
+			if(mMapView.getOverlays() != null){
+				mMapView.getOverlays().clear();
+			}
+			
+			mMapView.getOverlays().add(mMyLocationOverlay);
+			mMapView.refreshDrawableState();
+			mMapView.invalidate();
 		}
 	}
 
@@ -296,46 +423,6 @@ public class CustomMap extends MapActivity implements TopButtonActions, BaseButt
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	class MyOverlay extends ItemizedOverlay {
-		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
-		private Context mContext;
-
-		public MyOverlay(Drawable defaultMarker, Context context) {
-			super(boundCenterBottom(defaultMarker));
-			mContext = context;
-		}
-
-		public MyOverlay(Drawable marker) {
-			super(boundCenterBottom(marker));
-		}
-
-		@Override
-		protected OverlayItem createItem(int i) {
-			return mOverlays.get(i);
-		}
-
-		@Override
-		public int size() {
-			return mOverlays.size();
-		}
-
-		public void addOverlay(OverlayItem overlay) {
-			mOverlays.add(overlay);
-			populate();
-		}
-
-		@Override
-		protected boolean onTap(int index) {
-			OverlayItem item = mOverlays.get(index);
-			AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-			dialog.setTitle(item.getTitle());
-			dialog.setMessage(item.getSnippet());
-			dialog.show();
-			return true;
-		}
-	}
-
 	public void leftButtonClick(View v) {
 		Intent i = new Intent(getApplicationContext(), InviteView.class);
 		startActivity(i);
@@ -387,7 +474,7 @@ public class CustomMap extends MapActivity implements TopButtonActions, BaseButt
 	public void openMap(View v) {
 		// TODO Auto-generated method stub
 	}	
-	
+
 	private void showMessages(String resp){
 		String[] filas = resp.split("</br>");
 		Dialog mDialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);

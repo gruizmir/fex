@@ -20,6 +20,9 @@
 		function setLongitude($longitude){
 			$this->longitude = $longitude;
 		}
+		function setAvailable($avalaible){
+			$this->available = $avalaible;
+		}		
 		function getBlockedListId(){
 			return $this->blockedListId;
 		}
@@ -32,15 +35,20 @@
 		function getEmail(){
 			return $this->email;
 		}
-		
+		function isAvailable(){
+			if($this->$available==0)
+				return false;
+			else
+				return true;
+		}		
 		function insertar(){
-			$consulta = "INSERT INTO User(fbId, Email, BlockedListId, Latitude, Longitude) VALUES ('$this->fbId','$this->blockedListId','$this->email','$this->latitude', '$this->longitude');";
+			$consulta = "INSERT INTO User(fbId, BlockedId, Email, Latitude, Longitude, Available) VALUES ('$this->fbId','$this->blockedListId','$this->email','$this->latitude', '$this->longitude', 1);";
 			return $this->insert($consulta);	
 		}
 		
 		function getUser($fbId){
 			require_once("includes/config.php");
-			$sql="SELECT fbId, BlockedId, Latitude, Longitude FROM User WHERE fbId='$fbId'";
+			$sql="SELECT fbId, BlockedId, Latitude, Longitude, Available FROM User WHERE fbId='$fbId'";
 			$this->conectar();
 			$resultado = $this->query($sql);
 			if($this->numRows($resultado) == 1){
@@ -49,6 +57,7 @@
 				$this->blockedListId=$row[1];
 				$this->latitude=$row[2];
 				$this->longitude=$row[3];
+				$this->available=$row[4];
 			}
 			else
 				return false;
@@ -61,6 +70,14 @@
 		
 		function updateBlock(){
 			$consulta = "UPDATE User SET BlockedId='$this->blockedListId' WHERE fbId='$this->fbId';";
+			return $this->insert($consulta);	
+		}
+		
+		function updateAvailable(){
+			if($this->available == "true")
+				$consulta = "UPDATE User SET Available=1 WHERE fbId='$this->fbId';";
+			else
+				$consulta = "UPDATE User SET Available=0 WHERE fbId='$this->fbId';";
 			return $this->insert($consulta);	
 		}
 	}

@@ -6,23 +6,16 @@
 	<title>FeX</title>
 </head>
 <body>
-	<form action="save.php?action=register" METHOD="POST">
+	<form action="artist.php?action=getids" METHOD="POST">
 	  <table width="379" border="0">
-		  <tr>
-		    <th scope="row">fbId</th>
-			<td><input type="text" name="fbid" /></td>
-		  </tr>
-		  <tr>
-		    <th scope="row">email</th>
-		    <td><input type="text" name="email" /></td>
-		  </tr>
-		  <tr>
-		    <th scope="row">lat</th>
-		    <td><input type="text" name="latitude" /></td>
-		  </tr>		
-		  <tr>
-		    <th scope="row">long</th>
-		    <td><input type="text" name="longitud" /></td>
+		    <th scope="row">Festival</th>
+			<td>
+              <select name="festival" size="1">
+          		<option value="mysteryland">Mysteryland</option>
+          		<option value="ultra">Ultra Music Festival</option>
+          		<option value="lollapalooza">Lollapalooza</option>          		          		
+              </select>
+			</td>
 		  </tr>
 		</table>
 	<br>

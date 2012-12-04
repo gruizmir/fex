@@ -17,7 +17,7 @@ if($_GET['action'] == "getmessages"){
 	$result = $msg->getMessages($_POST['receiver'], $_POST['minid']);
 	while($row = mysql_fetch_array($result, MYSQL_NUM)){
 		//0=msg, 1=fecha
-		echo $row[0]."%%".$row[1];
+		echo $row[0]."%%".$row[1]."%%".$row[2]."</br>";
 	}
 }
 

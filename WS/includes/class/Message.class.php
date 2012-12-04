@@ -44,7 +44,7 @@
 		
 		function getMessages($receiver, $id){
 			require_once("includes/config.php");
-			$sql="SELECT msg, fecha FROM Message WHERE id>'$id' AND receiver='$receiver'";
+			$sql="SELECT id, msg, fecha FROM Message WHERE id>'$id' AND receiver='$receiver'";
 			$this->conectar();
 			$resultado = $this->query($sql);
 			if($this->numRows($resultado) >= 1){

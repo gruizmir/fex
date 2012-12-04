@@ -32,11 +32,26 @@ if($_GET['action'] == "setblockedlistid"){
 	else
 		echo "ERROR";
 }
+
+if($_GET['action'] == "setavail"){
+	$user = new User();
+	$user->setFbId($_POST['fbid']);
+	$user->setAvailable($_POST['available']);
+	if($user->updateAvailable())
+		echo "OK";
+	else
+		echo "ERROR";
+}
 	
 if($_GET['action'] == "getloc"){
 	$user = new User();
 	$user->getUser($_POST['fbid']);
-	echo $user->getLatitude()."-".$user->getLongitude();
+	if($user->isAvailable){
+		echo $user->getLatitude()."-".$user->getLongitude();
+	}
+	else{
+		return "";
+	}
 }
 
 if($_GET['action'] == "getblockedlistid"){

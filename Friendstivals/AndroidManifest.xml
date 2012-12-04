@@ -89,6 +89,10 @@
             android:label="LineUp"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".artist.ArtistVideos"
+            android:label="ArtistVideos"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".playlist.Playlist"
             android:label="Playlist"
             android:screenOrientation="portrait" />

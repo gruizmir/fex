@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wp_general"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/banner_superior"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/videos_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/extras_title"
+            android:onClick="leftButtonClick"
+            android:src="@drawable/boton_volver" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/videos_back"
+            android:contentDescription="@string/extras_title"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageView
+            android:id="@+id/videos_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/extras_lineup"
+            android:src="@drawable/titulo_line_up" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/videos_artist_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/boton_perfil"
+        android:gravity="center_vertical"
+        android:text="@string/friend_list_name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/settings_name"
+        android:src="@drawable/franja_horizontal_oscura" />
+
+    <TextView
+        android:id="@+id/videos_video1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/boton_perfil"
+        android:gravity="center_vertical"
+        android:text="@string/friend_list_name"
+        android:clickable="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/settings_name"
+        android:src="@drawable/franja_horizontal_oscura" />
+
+    <TextView
+        android:id="@+id/videos_video2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/boton_perfil"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:text="@string/friend_list_name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/settings_name"
+        android:src="@drawable/franja_horizontal_oscura" />
+
+    <TextView
+        android:id="@+id/videos_video3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/boton_perfil"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:text="@string/friend_list_name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/settings_name"
+        android:src="@drawable/franja_horizontal_oscura" />
+
+</LinearLayout>

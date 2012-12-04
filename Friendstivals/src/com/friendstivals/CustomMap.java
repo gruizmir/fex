@@ -298,36 +298,41 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 	}
 
 	private void showFriendsInMap(){
-		if (!Utility.mFacebook.isSessionValid()) {
-			Util.showAlert(this, "Warning", "You must first log in.");
-		} else {
-			SharedPreferences pref = this.getSharedPreferences("blocked", MODE_PRIVATE);
-			String query;
-			if(pref.contains("blocked_list_id"))
-				query = "select uid from user where uid in (select uid2 from friend where uid1=me()) AND NOT (uid in (select uid, flid from friendlist_member where flid="+ pref.getString("blocked_list_id", null) + ")) AND is_app_user='true'";
-			else
-				query = "select uid from user where uid in (select uid2 from friend where uid1=me()) and is_app_user='true'";
-			Bundle params = new Bundle();
-			params.putString("method", "fql.query");
-			params.putString("query", query);
-			Utility.mAsyncRunner.request(null, params,
-					new BaseRequestListener(){
-				public void onComplete(final String response, final Object state) {
-					ids = new ArrayList<String>();
-					try {
-						JSONArray jsonArray = new JSONArray(response);
-						ids.add(Utility.userUID);
-						for(int i=0; i<jsonArray.length(); i++){
-							JSONObject jsonObject = jsonArray.getJSONObject(i);
-							ids.add(jsonObject.getString("uid"));   //Obtener la id de cada amigo
+		try{
+			if (!Utility.mFacebook.isSessionValid()) {
+				Util.showAlert(this, "Warning", "You must first log in.");
+			} else {
+				SharedPreferences pref = this.getSharedPreferences("blocked", MODE_PRIVATE);
+				String query;
+				if(pref.contains("blocked_list_id"))
+					query = "select uid from user where uid in (select uid2 from friend where uid1=me()) AND NOT (uid in (select uid, flid from friendlist_member where flid="+ pref.getString("blocked_list_id", null) + ")) AND is_app_user='true'";
+				else
+					query = "select uid from user where uid in (select uid2 from friend where uid1=me()) and is_app_user='true'";
+				Bundle params = new Bundle();
+				params.putString("method", "fql.query");
+				params.putString("query", query);
+				Utility.mAsyncRunner.request(null, params,
+						new BaseRequestListener(){
+					public void onComplete(final String response, final Object state) {
+						ids = new ArrayList<String>();
+						try {
+							JSONArray jsonArray = new JSONArray(response);
+							ids.add(Utility.userUID);
+							for(int i=0; i<jsonArray.length(); i++){
+								JSONObject jsonObject = jsonArray.getJSONObject(i);
+								ids.add(jsonObject.getString("uid"));   //Obtener la id de cada amigo
+							}
+							mHandler.sendEmptyMessage(GET_POSITIONS);
+						} catch (JSONException e) {
+							Log.e("json_fail", e.getMessage());
 						}
-						mHandler.sendEmptyMessage(GET_POSITIONS);
-					} catch (JSONException e) {
-						Log.e("json_fail", e.getMessage());
 					}
-				}
-			});
+				});
+			}
+		}catch(NullPointerException e){
+
 		}
+
 	}
 
 	private void getPositions(){
@@ -356,15 +361,13 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 
 			mMyLocationOverlay = new ItemizedIconOverlay<OverlayItem>(itemsOverlay,
 					new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-				@Override
 				public boolean onItemSingleTapUp(final int index,
 						final OverlayItem item) {
 					// Agregar aqui que accion a realizar cuando se preciona uno de los marcadores
 					// en el mapa.
-					
+
 					return true;
 				}
-				@Override
 				public boolean onItemLongPress(final int index,
 						final OverlayItem item) {
 					// Agregar aqui que accion a realizar cuando se mantiene precionado un marcador

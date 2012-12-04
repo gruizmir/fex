@@ -192,7 +192,7 @@ public class Friendstivals extends Activity {
 			public void onComplete(Bundle values) {
 				SessionStore.save(Utility.mFacebook, Friendstivals.this);
 				requestUserData();
-				
+
 			}
 
 			public void onFacebookError(FacebookError error) {
@@ -275,15 +275,9 @@ public class Friendstivals extends Activity {
 		protected void onPostExecute(String result) {
 		}
 	}
-	
+
 	public void createConexion(){
-//		new Thread(){
-
-//			public void run() {
-				ConexionToServer  conexionToServer  = new ConexionToServer();
-				conexionToServer.execute(DIRECCION);
-//			}
-
-//		}.start();
+		ConexionToServer  conexionToServer  = new ConexionToServer();
+		conexionToServer.execute(DIRECCION);
 	}
 }

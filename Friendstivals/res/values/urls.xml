@@ -5,6 +5,10 @@
     <string name="register">http://23.23.170.228/save.php?action=register</string>
     <string name="updateLoc">http://23.23.170.228/save.php?action=updateloc</string>
     <string name="getLoc">http://23.23.170.228/save.php?action=getloc</string>
+    <string name="setAvail">http://23.23.170.228/save.php?action=setavail</string>
     <string name="send_message">http://23.23.170.228/send.php?action=sendnew</string>
     <string name="get_messages">http://23.23.170.228/send.php?action=getmessages</string>
+    <string name="new_artist">http://23.23.170.228/artist.php?action=register</string>
+    <string name="get_artist">http://23.23.170.228/artist.php?action=getids</string>
+    <string name="get_videos">http://23.23.170.228/artist.php?action=getvideos</string>
 </resources>

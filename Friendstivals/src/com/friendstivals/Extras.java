@@ -29,6 +29,9 @@ public class Extras extends Activity implements TopButtonActions, BaseButtonActi
 	
 	public void openLineup(View v){
 		Intent i = new Intent(this, LineUp.class);
+		Bundle b = new Bundle();
+		b.putString("festival_id", festivalId);
+		i.putExtras(b);
 		startActivity(i);
 	}
 	
@@ -58,17 +61,6 @@ public class Extras extends Activity implements TopButtonActions, BaseButtonActi
 		Intent i = new Intent(this, SendMessage.class);
 		i.putExtras(getIntent());
 		startActivity(i);
-//		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
-//		if (!Utility.mFacebook.isSessionValid()) {
-//			Util.showAlert(this, "Warning", "You must first log in.");
-//		} else {
-//			String query = "select name, current_location, uid, pic_square from user where uid in (select uid2 from friend where uid1=me()) and is_app_user='true' order by name";
-//			Bundle params = new Bundle();
-//			params.putString("method", "fql.query");
-//			params.putString("query", query);
-//			Utility.mAsyncRunner.request(null, params,
-//					new FriendsRequestListener());
-//		}
 	}
 
 	/*

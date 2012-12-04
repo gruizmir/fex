@@ -42,6 +42,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +65,8 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 	private int NO_LIST_ID = 2;
 	private int SEND_DATA = 3;
 	private int COUNT = 4;
+	private int NO_ACT=5;
+	private int ACT=6;
 	private String id=null;
 	private Button countBtn; 
 	private Handler mHandler= new Handler() {
@@ -71,6 +74,9 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 		public void handleMessage(Message msg) {
 			if(progressDialog!=null && progressDialog.isShowing())
 				progressDialog.dismiss();
+			if(msg.what == ACT){
+			}
+
 			if(msg.what == 1){
 				setImage();
 			}
@@ -139,14 +145,20 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 				}}).start();
 		}catch (FacebookError e) {
 		} 
-		
+
 		//Switch para ver si la persona esta disponible para que sus amigos la vean.
 		avail = (CheckBox)findViewById(R.id.avalaible_check);
-		SharedPreferences sets = getSharedPreferences("settings", MODE_PRIVATE);
-		if(sets.contains("available")){
-			avail.setChecked(sets.getBoolean("available", false));
-		}
-		
+		final SharedPreferences sets = getSharedPreferences("settings", MODE_PRIVATE);
+		if(sets.contains("available"))
+			avail.setChecked(sets.getBoolean("available", true));
+		avail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+			public void onCheckedChanged(CompoundButton buttonView,	boolean isChecked) {
+				sendAvailable(isChecked);
+				Editor sed = sets.edit();
+				sed.putBoolean("available", isChecked);
+				sed.commit();
+			}
+		});
 		//Ver si el GPS esta encendido para poner el switch en on u off
 		check = (CheckBox)findViewById(R.id.gps_switch);
 		check.setOnClickListener(new OnClickListener(){
@@ -159,7 +171,7 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 
 		});
 	}
-	
+
 	@Override
 	protected void onResume(){
 		super.onResume();
@@ -172,7 +184,7 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 			check.setChecked(true);
 		}
 	}
-	
+
 	private void setImage(){
 		TextView profilePic = (TextView) findViewById(R.id.settings_name);
 		Drawable d = new BitmapDrawable(getResources(), pic);
@@ -273,7 +285,7 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 			ed.commit();
 		}
 	}
-	
+
 	private void getBlockedListIdFromServer(){
 		new Thread(new Runnable(){
 			public void run() {
@@ -282,7 +294,7 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 			}
 		}).start();
 	}
-	
+
 	private void getBlockedListId(){
 		new Thread(new Runnable(){
 			public void run() {
@@ -312,7 +324,7 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 			}
 		}).start();
 	}
-	
+
 	/**
 	 * Se inicia la conexion con el servidor para ingresar a un nuevo usuario.
 	 * @author astom
@@ -339,7 +351,6 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 						StringBuilder s = new StringBuilder();
 						while ((sResponse = reader.readLine()) != null) 
 							s = s.append(sResponse);
-						Log.e("respuesta", s.toString());
 						if(s.toString().equals("OK")){
 							mHandler.sendEmptyMessage(0);
 							return "OK";
@@ -353,7 +364,7 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 						}
 						else
 							mHandler.sendEmptyMessage(NO_LIST_ID);
-						
+
 					} catch (ClientProtocolException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
@@ -366,7 +377,7 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -392,11 +403,11 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 		i.putExtras(getIntent());
 		startActivity(i);
 	}
-	
+
 	public void openMap(View v){
 		this.finish();
 	}
-	
+
 	public void openExtras(View v){
 		Intent i = new Intent(getApplicationContext(), Extras.class);
 		Bundle b = new Bundle();
@@ -417,9 +428,9 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 
 	public void openAcciones(View v) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	private void getCantBloqueados(){
 		if (!Utility.mFacebook.isSessionValid()) {
 			Util.showAlert(this, "Warning", "You must first log in.");
@@ -441,12 +452,48 @@ public class Settings extends Activity implements TopButtonActions, BaseButtonAc
 			});
 		}
 	}
-	
+
 	private void setCantBlock(){
 		getCantBloqueados();
 	}
-	
+
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		setCantBlock();
+	}
+
+	private void sendAvailable(final boolean isChecked){
+		new Thread(new Runnable(){
+			public void run(){
+				try {
+					HttpClient httpclient = new DefaultHttpClient();
+					HttpPost httppost = new HttpPost(getString(R.string.setAvail));
+					if(httpclient != null && httppost != null && Utility.userUID != null && !Utility.userUID.equals("")){
+						try {
+							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+							nameValuePairs.add(new BasicNameValuePair("fbid", Utility.userUID));
+							nameValuePairs.add(new BasicNameValuePair("available", Boolean.toString(isChecked)));
+							httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+							HttpResponse response = httpclient.execute(httppost);
+							BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+							String sResponse;
+							StringBuilder s = new StringBuilder();
+							while ((sResponse = reader.readLine()) != null) 
+								s = s.append(sResponse);
+							if(!s.toString().equals("") && !s.toString().equals("NULL"))
+								mHandler.sendEmptyMessage(ACT);
+							else
+								mHandler.sendEmptyMessage(NO_ACT);
+						} catch (ClientProtocolException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					else{
+					}
+				} catch (Exception e) {
+				}
+			}
+		}).start();
 	}
 }

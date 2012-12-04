@@ -84,7 +84,6 @@ public class BlackList extends ListActivity implements TopButtonActions{
 					String response=null;
 					try {
 						response = Utility.mFacebook.request(Utility.userUID + "/friendlists", params, "POST");
-						Log.e("response",response);
 						try {
 							JSONObject resp = new JSONObject(response);
 							SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
@@ -117,7 +116,7 @@ public class BlackList extends ListActivity implements TopButtonActions{
 			 * Funcionara esto?
 			 */
 			f.getBtn().setOnClickListener(new OnClickListener(){
- 				public void onClick(View arg0) {
+				public void onClick(View arg0) {
 					progressDialog = ProgressDialog.show(BlackList.this, "", getString(R.string.loading),true);
 					new Thread(new Runnable(){
 						public void run(){
@@ -220,7 +219,7 @@ public class BlackList extends ListActivity implements TopButtonActions{
 		}
 		setListAdapter(new BlacklistAdapter(this, jsonArray));
 	}
-	
+
 	private void reloadData(){
 		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
 		if (!Utility.mFacebook.isSessionValid()) {

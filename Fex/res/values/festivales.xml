@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="fests">
+        <item>mysteryland</item>
+        <item>ultra</item>
+        <item>lollapalooza</item>
+    </string-array>
+    <string-array name="mysteryland">
+        <item>Mysteryland</item>
+        <item>San Francisco de Mostazal</item>
+        <item>Chile</item>
+        <item>Mysteryland se llevará a cabo los días Viernes 14, Sábado 15 y Domingo 16 de Diciembre de 2012 </item>
+        <item>14/12/2012 09:00:00</item>
+        <item>Hacienda de Picarquín</item>
+        <item>VIERNES: 9:00 &#8211; 22:00 \n SABADO: 9:00 &#8211; 22:00</item>
+        <item>DOMINGO: 9:00 &#8211; 19:00</item>
+        <item>Yesterday is history, Today is a gift, Tomorrow is a Mistery</item>
+        <item>entrada:Preventa/General/65.000</item>
+        <item>entrada:Preventa/Zona Entel/52.000</item>
+        <item>entrada:Preventa/Entel Visa/45.5000</item>
+        <item>entrada:Normal/General/77.500</item>
+        <item>entrada:Normal/Zona Entel/62.000</item>
+        <item>entrada:Normal/Entel Visa/54.250</item>
+    </string-array>
+    <string-array name="ultra">
+        <item>Ultra Music Festival</item>
+        <item>Santiago</item>
+        <item>Chile</item>
+        <item>22 y 23 de Febrero</item>
+        <item>22/02/2013 09:00:00</item>
+        <item>Espacio Broadway</item>
+        <item>null</item>
+        <item>null</item>
+        <item>THE WORLD\'S PREMIERE ELECTRONIC MUSIC FESTIVAL</item>
+        <item>entrada:Preventa/2 días/No disponible</item>
+        <item>entrada:Preventa/Diario/No disponible</item>
+        <item>entrada:Normal/2 días/No disponible</item>
+        <item>entrada:Normal/Diario/No disponible</item>
+    </string-array>
+    <string-array name="lollapalooza">
+        <item>Lollapalooza</item>
+        <item>Santiago</item>
+        <item>Chile</item>
+        <item>6 y 7 de Abril </item>
+        <item>06/04/2012 09:00:00</item>
+        <item>Parque O\'Higgins</item>
+        <item>null</item>
+        <item>null</item>
+        <item>Welcome you to the biggest festival in Chile</item>
+        <item>entrada:Preventa/General 2 días/75.000</item>
+        <item>entrada:Preventa/General Diario/55.000</item>
+        <item>entrada:Preventa/VIP 2 días/160.000</item>
+        <item>entrada:Normal/General 2 días/90.000</item>
+        <item>entrada:Normal/General Diario/65.000</item>
+        <item>entrada:Normal/VIP 2 días/190.000</item>
+        <item>entrada:Normal/VIP Diario/120.000</item>
+    </string-array>
+</resources>

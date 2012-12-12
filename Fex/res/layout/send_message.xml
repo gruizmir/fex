@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wp_general"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/banner_superior"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/msg_invite_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/extras_invite_btn"
+            android:onClick="leftButtonClick"
+            android:src="@drawable/boton_invitar" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/extras_invite_btn"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageView
+            android:id="@+id/msg_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/extras_msg_btn"
+            android:scaleType="fitCenter"
+            android:src="@drawable/titulo_mysteryland" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/extras_msg_btn"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageButton
+            android:id="@+id/msg_msg_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:onClick="rightButtonClick"
+            android:contentDescription="@string/extras_msg_btn"
+            android:src="@drawable/boton_mensajes" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1.0"
+        android:layout_margin="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/messagge_select_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_message" />
+
+        <Spinner
+            android:id="@+id/message_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_shape"
+            android:entries="@array/messages_array" >
+        </Spinner>
+
+        <TextView
+            android:id="@+id/message_write_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/write_message" />
+
+        <EditText
+            android:id="@+id/message_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_shape"
+            android:ems="10"
+            android:hint="@string/meet_me"
+            android:inputType="text" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/message_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/friend_ok_text"
+            android:onClick="send"
+            android:src="@drawable/boton_ok" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/banner_inferior"
+        android:divider="@drawable/franja_vertical_50"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/message_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/festivals"
+            android:onClick="openFestivalList"
+            android:scaleType="fitCenter"
+            android:src="@drawable/boton_calendario" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/festivals"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageButton
+            android:id="@+id/message_main"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/map"
+            android:onClick="openAcciones"
+            android:scaleType="fitCenter"
+            android:src="@drawable/boton_acciones_activo" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/map"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageButton
+            android:id="@+id/message_extras"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/map_extras"
+            android:onClick="openExtras"
+            android:scaleType="fitCenter"
+            android:src="@drawable/boton_extras" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/extras_title"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageButton
+            android:id="@+id/message_me"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/me"
+            android:onClick="openSettings"
+            android:scaleType="fitCenter"
+            android:src="@drawable/boton_perfil" />
+    </LinearLayout>
+
+</LinearLayout>

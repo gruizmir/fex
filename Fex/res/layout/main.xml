@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/wp_principal"
+    android:gravity="center_horizontal|bottom">
+
+    <ImageButton
+        android:id="@+id/fb_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="11dp"
+        android:contentDescription="@string/facebook"
+        android:src="@drawable/boton_login_fb"
+        android:background="@android:color/transparent"
+        android:onClick="fbLogin" />
+
+    <ImageButton
+        android:id="@+id/mail_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="37dp"
+        android:padding="11dp"
+        android:contentDescription="@string/email"
+        android:background="@android:color/transparent"
+        android:src="@drawable/boton_login_mail" />
+
+</LinearLayout>

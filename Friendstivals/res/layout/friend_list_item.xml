@@ -1,7 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:layout_margin="3dp" >
 
     <ImageView
         android:id="@+id/friend_list_photo"
@@ -14,16 +15,19 @@
         android:id="@+id/friend_list_name"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_toRightOf="@id/friend_list_photo"
         android:gravity="center_vertical"
         android:text="@string/friend_list_name" />
 
     <CheckBox
         android:id="@+id/friend_check"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
+        android:button="@drawable/switch_selector"
+        android:layout_alignParentRight="true"
         android:checked="false"
         android:focusable="false"
         android:clickable="false"/>
 
-</LinearLayout>
+</RelativeLayout>

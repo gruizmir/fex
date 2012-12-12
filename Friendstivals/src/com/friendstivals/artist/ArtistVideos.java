@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,10 +36,13 @@ import com.friendstivals.utils.Utility;
 public class ArtistVideos extends Activity implements TopButtonActions{
 	private Artist artista;
 	private String[] videos;
+	private ProgressDialog progressDialog;
 	private Handler mHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
 			setData();
+			if(progressDialog!=null && progressDialog.isShowing())
+				progressDialog.dismiss();
 		}
 	};
 	
@@ -47,6 +51,7 @@ public class ArtistVideos extends Activity implements TopButtonActions{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.artist_videos);
+		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
 		artista = new Artist();
 		Bundle b = getIntent().getExtras();
 		artista.setId(b.getInt("artist_id"));

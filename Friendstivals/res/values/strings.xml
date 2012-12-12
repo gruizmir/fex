@@ -87,4 +87,8 @@
     
     <!-- Fakes para eliminar warnings -->
     <string name="fake_image">imagen</string>
+    
+    <!-- Line Up -->
+    <string name="loading_name">Cargando artista</string>
+    <string name="loading_video">Cargandos video</string>
 </resources>

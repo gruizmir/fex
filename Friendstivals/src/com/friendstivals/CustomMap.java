@@ -72,6 +72,7 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 	private static final int GET_POSITIONS=5;
 	private static final int SEARCH=4;
 	private static final int MESSAGES=3;
+	private static final int GET_NAME=6;
 	private ArrayList<OverlayItem> itemsOverlay;
 	private Handler handlerUpdateFriendsPosition;
 	private ProgressDialog progressDialog;
@@ -82,11 +83,11 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 	private ResourceProxy mResourceProxy;
 	private ItemizedOverlay<OverlayItem> mMyLocationOverlay;
 	//Seteo inicial del mapa.
-	private int MIN_ZOOM = 18;
-	private int MAX_ZOOM = 21;
-	private double CENTER_LAT = -33.0403681;
-	private double CENTER_LON = -71.5928617;
-	private String MAP_NAME = "map1.mbtiles";
+	private int MIN_ZOOM = 16;
+	private int MAX_ZOOM = 18;
+	private double CENTER_LAT = -33.9644;
+	private double CENTER_LON = -70.6273;
+	private String MAP_NAME = "mysteryland.mbtiles";
 	//Tiempo con el cual se obtiene la posicion de los amigos
 	private static final int TIME_UPDATE_POSITION = 1000 * 60 * 1;
 
@@ -111,10 +112,13 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 				getPositions();
 			}
 			if(msg.what == SEARCH){
-				search(msg.getData().getString("position"));
+				search(msg.getData().getString("position"), msg.getData().getString("name"));
 			}
 			if(msg.what == MESSAGES){
 				showMessages(msg.getData().getString("messages"));
+			}
+			if(msg.what == GET_NAME){
+				getName(msg.getData().getString("position"), msg.getData().getString("id"));
 			}
 		}
 	};
@@ -174,7 +178,7 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 				File friendsFolder = new File(path);
 				friendsFolder.mkdirs();
 				Log.println(Log.DEBUG, "FileFolder", friendsFolder.getAbsolutePath());
-				copyToSD(R.raw.map1, friendsFolder.getAbsolutePath() + "/" + MAP_NAME);
+				copyToSD(R.raw.mysteryland, friendsFolder.getAbsolutePath() + "/" + MAP_NAME);
 				mapa = new File(Environment.getExternalStorageDirectory(), "/fex/maps/" + MAP_NAME);
 			}
 		} catch (Exception e) {
@@ -330,9 +334,8 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 				});
 			}
 		}catch(NullPointerException e){
-
+			Log.e("null", e.toString());
 		}
-
 	}
 
 	private void getPositions(){
@@ -348,15 +351,13 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 	 * search esta encargado de agregar los marcadores del usuario y de los amigos al mapa.
 	 * @param direccion : posicion en que sera puesto el marcador.
 	 */
-	private void search(String direccion/*, String nombre */){
+	private void search(String direccion, String nombre){
 		GeoPoint point;
 		String[] pos=direccion.split(",");
 		if(pos.length>0 && !pos[0].equals("") && !pos[0].equals(" ")){
 			point = new GeoPoint((int)(Double.parseDouble(pos[0])*1000000),(int) (Double.parseDouble(pos[1])*1000000));
 			OverlayItem nuevoItem = new OverlayItem("Here", "SampleDescription", point);
 			nuevoItem.setMarker(this.getResources().getDrawable(R.drawable.boton_mapa));
-			Log.println(Log.DEBUG, "ID+POS", direccion);
-
 			itemsOverlay.add(nuevoItem);
 
 			mMyLocationOverlay = new ItemizedIconOverlay<OverlayItem>(itemsOverlay,
@@ -407,9 +408,8 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 				HttpPost httppost = new HttpPost(sUrl[0]);
 				if(httpclient != null && httppost != null){
 					try {
-						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
 						nameValuePairs.add(new BasicNameValuePair("fbid", this.fbId));
-						nameValuePairs.add(new BasicNameValuePair("email", ""));
 						httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 						HttpResponse response = httpclient.execute(httppost);
 						BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
@@ -419,13 +419,13 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 							s = s.append(sResponse);
 						if(s!=null && !s.toString().equals("ERROR") && s.toString().length()>0){
 							Bundle b = new Bundle();
-							b.putString("position",	s.toString().replace("|", ","));
+							b.putString("position",	s.toString());
+							b.putString("id", this.fbId);
 							Message m = new Message();
 							m.setData(b);
-							m.what = SEARCH;
+							m.what = GET_NAME;
 							mHandler.sendMessage(m);
 						}
-
 					} catch (ClientProtocolException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
@@ -468,8 +468,6 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 						nameValuePairs.add(new BasicNameValuePair("minid", Integer.toString(minId)));
 						nameValuePairs.add(new BasicNameValuePair("receiver", Utility.userUID));
-						//						nameValuePairs.add(new BasicNameValuePair("receiver", "123123123"));
-
 						httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 						HttpResponse response = httpclient.execute(httppost);
 						BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
@@ -527,5 +525,38 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 		}
 		mDialog.setCanceledOnTouchOutside(true);
 		mDialog.show();
+	}
+
+	private void getName(final String position, String id){	
+		try{
+			if (!Utility.mFacebook.isSessionValid()) {
+				Util.showAlert(this, "Warning", "You must first log in.");
+			} else {
+				String query = "select name from user where uid=" + id;
+				Bundle params = new Bundle();
+				params.putString("method", "fql.query");
+				params.putString("query", query);
+				Utility.mAsyncRunner.request(null, params,
+						new BaseRequestListener(){
+					public void onComplete(final String response, final Object state) {
+						try {
+							JSONArray jsonArray = new JSONArray(response);
+							JSONObject jsonObject = jsonArray.getJSONObject(0);
+							Message m = new Message();
+							Bundle b = new Bundle();
+							b.putString("name", jsonObject.getString("name"));
+							b.putString("position", position);
+							m.setData(b);
+							m.what=SEARCH;
+							mHandler.sendMessage(m);
+						} catch (JSONException e) {
+							Log.e("json_fail", e.getMessage());
+						}
+					}
+				});
+			}
+		}catch(NullPointerException e){
+			Log.e("getname", e.toString());
+		}
 	}
 }

@@ -256,9 +256,9 @@ public class GPService extends Service implements LocationListener{
 				httpclient = new DefaultHttpClient();
 				httppost = new HttpPost(sUrl[0]);
 				if(D) Log.println(Log.DEBUG, "CONEXION_TO_SERVER", "Conexion lograda");
-				if(httpclient != null && httppost != null && bestLocation != null && Utility.userUID != null && !Utility.userUID.equals("")){
+				if(httpclient != null && httppost != null && bestLocation != null){
 					try {
-						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 						nameValuePairs.add(new BasicNameValuePair("fbid", Utility.userUID));
 						nameValuePairs.add(new BasicNameValuePair("latitude", bestLocation.getLatitude()+""));
 						nameValuePairs.add(new BasicNameValuePair("longitude", bestLocation.getLongitude()+""));
@@ -279,6 +279,9 @@ public class GPService extends Service implements LocationListener{
 						e.printStackTrace();
 					} catch (IOException e) {
 						if(D) Log.println(Log.DEBUG, "UPDATE_POSITION" , "I/O error");
+						e.printStackTrace();
+					} catch(NullPointerException e){
+						if(D) Log.println(Log.DEBUG, "UPDATE_POSITION" , "NullPointer");
 						e.printStackTrace();
 					}
 				}

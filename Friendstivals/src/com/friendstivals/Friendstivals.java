@@ -223,40 +223,29 @@ public class Friendstivals extends Activity {
 		@Override
 		protected String doInBackground(String... sUrl) {
 			try {
-				if(D) Log.println(Log.DEBUG, "CONEXION_TO_SERVER", "Iniciando conexion");
 				httpclient = new DefaultHttpClient();
 				httppost = new HttpPost(sUrl[0]);
-				if(D) Log.println(Log.DEBUG, "CONEXION_TO_SERVER", "Conexion lograda");
 				if(httpclient != null && httppost != null && Utility.userUID != null && !Utility.userUID.equals("")){
 					try {
 						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 						nameValuePairs.add(new BasicNameValuePair("fbid", Utility.userUID));
 						nameValuePairs.add(new BasicNameValuePair("email", ""));
 						httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
 						HttpResponse response = httpclient.execute(httppost);
-
 						BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 						String sResponse;
 						StringBuilder s = new StringBuilder();
 						while ((sResponse = reader.readLine()) != null) 
 							s = s.append(sResponse);
-
-						if(D) Log.println(Log.DEBUG, "UPDATE_POSITION", s.toString());	
-						if(D) Log.println(Log.DEBUG, "UPDATE_POSITION", "Usuario registrado " + Utility.userUID);
 					} catch (ClientProtocolException e) {
-						if(D) Log.println(Log.DEBUG, "UPDATE_POSITION" , "Error de protocolo");
 						e.printStackTrace();
 					} catch (IOException e) {
-						if(D) Log.println(Log.DEBUG, "UPDATE_POSITION" , "I/O error");
 						e.printStackTrace();
 					}
 				}
 				else{
-					if(D) Log.println(Log.DEBUG, "UPDATE_POSITION", "Error al intentar hacer update");
 				}
 			} catch (Exception e) {
-				if(D) Log.println(Log.DEBUG, "CONEXION_TO_SERVER" , "No se puede conectar al servidor");
 				if(D) e.printStackTrace();
 			}
 			return null;

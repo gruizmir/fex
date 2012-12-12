@@ -63,8 +63,6 @@ public class BlacklistAdapter extends BaseAdapter {
 			holder.setProfile_pic((ImageView) hView.findViewById(R.id.blacklist_photo));
 			holder.setName((TextView) hView.findViewById(R.id.blacklist_name));
 			holder.setBox((CheckBox) hView.findViewById(R.id.blacklist_check));
-			holder.setBtn((Button)hView.findViewById(R.id.blacklist_delete));
-			
 		}
 		try {
 			holder.getProfile_pic().setImageBitmap(Utility.model.getBitmap(jsonObject.getString("pic_square")));
@@ -82,7 +80,6 @@ public class BlacklistAdapter extends BaseAdapter {
 		} catch (JSONException e) {
 			holder.setId("1");
 		}
-		holder.getBtn().setVisibility(View.GONE);
 		hView.setTag(holder);
 		return hView;
 	}

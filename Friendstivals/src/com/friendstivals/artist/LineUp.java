@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.annotation.SuppressLint;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,10 +35,13 @@ import com.friendstivals.utils.Utility;
 public class LineUp extends ListActivity implements TopButtonActions{
 	private ArrayList<Artist> artistList;
 	private String festival;
+	private ProgressDialog progressDialog;
 	private Handler mHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
 			setData();
+			if(progressDialog!=null && progressDialog.isShowing())
+				progressDialog.dismiss();
 		}
 	};
 	@Override
@@ -45,6 +49,7 @@ public class LineUp extends ListActivity implements TopButtonActions{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.lineup);
+		progressDialog = ProgressDialog.show(this, "", getString(R.string.loading),true);
 		festival = getIntent().getExtras().getString("festival_id");
 		artistList = new ArrayList<Artist>();
 		new Thread(new Runnable(){

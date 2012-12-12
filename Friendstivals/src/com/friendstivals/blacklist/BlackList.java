@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -70,7 +71,7 @@ public class BlackList extends ListActivity implements TopButtonActions{
 		String apiResponse = extras.getString("API_RESPONSE");
 		setData(apiResponse);
 		((ImageView) findViewById(R.id.friend_title)).setImageResource(R.drawable.titulo_bloqueados);
-
+		((ImageButton) findViewById(R.id.friend_ok_btn)).setImageResource(R.drawable.boton_agregar);
 		SharedPreferences pref = getSharedPreferences("blocked", MODE_PRIVATE);
 
 		/*
@@ -111,11 +112,7 @@ public class BlackList extends ListActivity implements TopButtonActions{
 		if(!f.getBox().isChecked()){
 			f.getBox().setChecked(true);
 			ids.add(f.getId());
-			f.getBtn().setVisibility(View.VISIBLE);
-			/*
-			 * Funcionara esto?
-			 */
-			f.getBtn().setOnClickListener(new OnClickListener(){
+			f.getBox().setOnClickListener(new OnClickListener(){
 				public void onClick(View arg0) {
 					progressDialog = ProgressDialog.show(BlackList.this, "", getString(R.string.loading),true);
 					new Thread(new Runnable(){
@@ -125,7 +122,6 @@ public class BlackList extends ListActivity implements TopButtonActions{
 							try {
 								params.putString("members", ids.get(ids.size()-1));
 								response = Utility.mFacebook.request(blockedId + "/members", params, "DELETE");
-								Log.e("response", response);
 								mHandler.sendEmptyMessage(2);
 							} catch (FileNotFoundException e) {
 							} catch (MalformedURLException e) {
@@ -140,7 +136,6 @@ public class BlackList extends ListActivity implements TopButtonActions{
 		else{
 			f.getBox().setChecked(false);
 			ids.remove(ids.indexOf(f.getId()));
-			f.getBtn().setVisibility(View.GONE);
 		}
 	}
 

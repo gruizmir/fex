@@ -3,6 +3,7 @@ package com.fex;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -36,8 +37,10 @@ public class Extras extends Activity implements TopButtonActions, BaseButtonActi
 	}
 	
 	public void openPlaylist(View v){
-		Intent i = new Intent(this, Playlist.class);
-		startActivity(i);
+//		Intent i = new Intent(this, Playlist.class);
+//		startActivity(i);
+		Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://grooveshark.com/#!/playlist/Mysteryland+Chile+2012/80189014"));
+		startActivity(myIntent);
 	}
 	
 	public void openInfo(View v){

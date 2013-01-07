@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wp_general"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/banner_superior"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/friend_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/extras_invite_btn"
+            android:onClick="leftButtonClick"
+            android:src="@drawable/boton_volver" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/extras_invite_btn"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageView
+            android:id="@+id/friend_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/settings_title"
+            android:scaleType="fitCenter"
+            android:src="@drawable/titulo_amigos_mapa" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/extras_msg_btn"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageButton
+            android:id="@+id/friend_ok_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/extras_msg_btn"
+            android:onClick="rightButtonClick"
+            android:src="@drawable/boton_check" />
+    </LinearLayout>
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:divider="@drawable/franja_horizontal_oscura"
+        android:layout_height="0dip"
+        android:layout_weight="1.0" />
+</LinearLayout>

@@ -1,0 +1,94 @@
+<resources>
+    <string-array name="messages_array">
+        <item>Ven donde estoy</item>
+        <item>Voy donde estás</item>
+        <item>Juntémonos aquí</item>
+    </string-array>    
+    <string name="fb_id">153953141413353</string>
+    <string name="app_name">Fex</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_friendstivals">Friendstivals</string>
+    <string name="fest_calendar_text">Fecha</string>
+	<string name="fest_festival_text">Festival</string>
+	<string name="facebook">Registro con Facebook</string>
+	<string name="email">Registro con email</string>
+	<string name="festivals">Festivales</string>
+	<string name="friend_ok_text">OK</string>
+	<string name="friend_back_text">Cancel</string>
+	<string name="friend_title">Meet friends</string>
+	<string name="friend_list_img">Profile Photo</string>
+	<string name="friend_list_name">Amigos</string>	
+	<string name="settings_name">Nombre en Facebook</string>
+	<string name="select_message">Selecciona un mensaje</string>
+	<string name="write_message">O escribe un mensaje</string>
+	<string name="meet_me">Meet me here</string>
+	<string name="add_blocked">Add to Blocked</string>
+	<string name="invite_friends">Invite</string>
+	<string name="settings_title">Festival</string>
+	<string name="me">Me</string>
+	<string name="map">Mapa</string>
+	<string name="add">Agregar</string>
+	<string name="profile">Perfil</string>
+	<string name="loading">Cargando</string>
+	<string name="reloading">Recargando</string>
+	
+	<!-- Profile -->
+	<string name="avalaible_hint">Al estar disponible tus amigos podrán ver tu ubicación en sus mapas.</string>
+	<string name="blocked_hint">Tus amigos bloqueados no podrán ver tu ubicación en sus mapas, aunque te encuentres disponible.</string>
+	<string name="gps_hint">Con el GPS activado podrás aprovechar al máximo las funcionalidades de la aplicación.</string>
+	<string name="friends_in_map">· Amigos en mi mapa</string>
+	<string name="set_avalaible">· Disponible</string>
+	<string name="blocked_friends">· Bloqueados</string>
+	<string name="gps">· GPS</string>
+	<string name="arrow">>></string>	
+	<string name="friends">0 amigos</string>
+	
+	<!-- Invite View -->
+	<string name="invite_button_later">Later</string>
+	<string name="invite_button_send">Send</string>
+	<string name="invite_button_add">+</string>
+	<string name="invite_button_facebook">Agregar desde Facebook</string>
+	<string name="invite_message_title">Enviar invitaciones</string>
+	<string name="invite_message_invitation">Invita a tus amigos a descargarse la aplicación para que puedan disfrutar del festival juntos</string>
+	<string name="invite_textfield_hint">type the name or e-mail address</string>
+	
+	<!-- Splash view -->
+	<string name="splash_button_festivals">Festivales</string>
+	
+	<!-- Messages dialog -->
+	<string name="messages_dialog_title">Messages</string>
+	
+	<!-- Extras -->
+	<string name="extras_invite_btn">Invitar</string>
+    <string name="extras_title">Extras</string>
+    <string name="extras_msg_btn">Mensajes</string>
+    <string name="extras_lineup">Line up</string>
+    <string name="extras_playlist">Playlist</string>
+    <string name="extras_info">Info</string>
+    <string name="extras_anteriores">Versiones anteriores</string>
+    <string name="map_extras">Extras</string>
+    <string name="info_dates">· Fechas y Horario</string>
+    <string name="info_tickets">· Valor Entradas</string>
+    <string name="info_location">· Ubicación</string>
+    <string name="unblock">Desbloquear</string>
+    <string name="invite_textbox_hint">hint</string>
+    
+    <!-- GPS service -->
+    <string name="gps_service">friendstival_gps_service</string>
+    
+    <!-- FriendService -->
+    <string name="friends_service">friendstival_friends_service</string>
+    
+    <!-- Invite Dialog -->
+    <string name="invite_correct">Tus invitaciones han sido enviadas</string>
+    
+    <!-- Festival Selector -->
+    <string name="festival_soon">Pronto más festivales</string>
+    
+    <!-- Fakes para eliminar warnings -->
+    <string name="fake_image">imagen</string>
+    
+    <!-- Line Up -->
+    <string name="loading_name">Cargando artista</string>
+    <string name="loading_video">Cargandos video</string>
+</resources>

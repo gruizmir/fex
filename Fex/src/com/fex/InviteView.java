@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -113,9 +114,10 @@ public class InviteView extends Activity implements TopButtonActions{
 			if(destinatarios.length>0){
 				Intent i = new Intent(Intent.ACTION_SEND);
 				i.setType("message/rfc822");
-				i.putExtra(Intent.EXTRA_EMAIL  , destinatarios);
+				i.putExtra(Intent.EXTRA_EMAIL, destinatarios);
 				i.putExtra(Intent.EXTRA_SUBJECT, "Juntémonos en Fex");
-				i.putExtra(Intent.EXTRA_TEXT   , "Te invito a Fex");
+				String msg = "<!DOCTYPE html><html><body>Te invito a probar Fex.</br> Descárgala desde <a href=\"http://23.23.170.228/15mo1q5ang/Fex.apk\">aquí</a></body></html>";
+				i.putExtra(Intent.EXTRA_TEXT   , Html.fromHtml(msg));
 				try {
 					this.startActivityForResult(Intent.createChooser(i, "Send mail..."), REQUEST_MAIL);
 				} catch (android.content.ActivityNotFoundException ex) {

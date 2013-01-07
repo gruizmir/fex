@@ -36,7 +36,7 @@
 			return $this->email;
 		}
 		function isAvailable(){
-			if($this->$available==0)
+			if($this->available==0)
 				return false;
 			else
 				return true;

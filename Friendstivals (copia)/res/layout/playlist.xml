@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wp_general"
+    android:orientation="vertical" >
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/banner_superior"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageButton 
+            android:id="@+id/playlist_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/extras_title"
+            android:src="@drawable/boton_volver"
+            android:background="@android:color/transparent"
+            android:onClick="leftButtonClick"/>
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/playlist_back"
+            android:contentDescription="@string/extras_title"
+            android:src="@drawable/franja_vertical_50" />
+
+        <ImageView
+            android:id="@+id/playlist_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/extras_playlist"
+            android:src="@drawable/titulo_playlist" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:divider="@drawable/franja_horizontal_oscura"
+        android:layout_height="0dip"
+        android:layout_weight="1.0" />
+
+</LinearLayout>

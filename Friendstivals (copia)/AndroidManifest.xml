@@ -1,0 +1,136 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.friendstivals"
+    android:installLocation="preferExternal"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".Friendstivals"
+            android:label="@string/title_activity_friendstivals"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="Friendstivals" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.friendstivals.gpservice.GPService"
+            android:label="@string/gps_service" >
+        </service>
+        <service
+            android:name="com.friendstivals.friendservice.FriendService"
+            android:label="@string/gps_service" >
+        </service>
+
+        <activity
+            android:name=".templates.customDialog"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name=".FestivalSelector"
+            android:label="FestivalSelector"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FriendsList"
+            android:label="FriendsList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CustomMap"
+            android:label="CustomMap"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Settings"
+            android:label="Settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".blacklist.BlackList"
+            android:label="BlackList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".blacklist.AddBlackList"
+            android:label="AddBlackList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InviteView"
+            android:configChanges="orientation"
+            android:label="InviteView"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".Extras"
+            android:label="Extras"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".artist.LineUp"
+            android:label="LineUp"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".artist.ArtistVideos"
+            android:label="ArtistVideos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".playlist.Playlist"
+            android:label="Playlist"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".info.Info"
+            android:label="Info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".info.InfoDates"
+            android:label="InfoDates"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".info.InfoTickets"
+            android:label="InfoTickets"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".info.LocationMap"
+            android:label="LocationMap"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SplashScreen"
+            android:label="SplashScreen"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SendMessage"
+            android:label="SendMessage"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Messages"
+            android:label="Messages"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" />
+
+        <uses-library android:name="com.google.android.maps" >
+        </uses-library>
+    </application>
+
+</manifest>

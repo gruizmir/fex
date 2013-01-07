@@ -85,7 +85,7 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 	//Seteo inicial del mapa.
 	private int MIN_ZOOM = 16;
 	private int MAX_ZOOM = 18;
-	private double CENTER_LAT = -33.9644;
+	private double CENTER_LAT= -33.9644;
 	private double CENTER_LON = -70.6273;
 	private String MAP_NAME = "mysteryland.mbtiles";
 	//Tiempo con el cual se obtiene la posicion de los amigos
@@ -320,6 +320,7 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 					public void onComplete(final String response, final Object state) {
 						ids = new ArrayList<String>();
 						try {
+							Log.e("response", response);
 							JSONArray jsonArray = new JSONArray(response);
 							ids.add(Utility.userUID);
 							for(int i=0; i<jsonArray.length(); i++){
@@ -334,7 +335,7 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 				});
 			}
 		}catch(NullPointerException e){
-			Log.e("null", e.toString());
+			Log.e("null", e.getMessage());
 		}
 	}
 
@@ -351,7 +352,7 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 	 * search esta encargado de agregar los marcadores del usuario y de los amigos al mapa.
 	 * @param direccion : posicion en que sera puesto el marcador.
 	 */
-	private void search(String direccion, String nombre){
+	private void search(String direccion, final String nombre){
 		GeoPoint point;
 		String[] pos=direccion.split(",");
 		if(pos.length>0 && !pos[0].equals("") && !pos[0].equals(" ")){
@@ -364,9 +365,7 @@ public class CustomMap extends Activity implements TopButtonActions, BaseButtonA
 					new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
 				public boolean onItemSingleTapUp(final int index,
 						final OverlayItem item) {
-					// Agregar aqui que accion a realizar cuando se preciona uno de los marcadores
-					// en el mapa.
-
+					Toast.makeText(getApplicationContext(), nombre, Toast.LENGTH_SHORT).show();
 					return true;
 				}
 				public boolean onItemLongPress(final int index,

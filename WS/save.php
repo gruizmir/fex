@@ -46,8 +46,8 @@ if($_GET['action'] == "setavail"){
 if($_GET['action'] == "getloc"){
 	$user = new User();
 	$user->getUser($_POST['fbid']);
-	if($user->isAvailable){
-		echo $user->getLatitude()."-".$user->getLongitude();
+	if($user->isAvailable()){
+		echo $user->getLatitude().",".$user->getLongitude();
 	}
 	else{
 		return "";

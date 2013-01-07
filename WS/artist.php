@@ -28,6 +28,6 @@ if($_GET['action'] == "getids"){
 if($_GET['action'] == "getvideos"){
 	$art = new Artist();
 	$art->getArtist($_POST['id']);
-	echo $art->getVideo1()."++".$art->getVideoName1().",".$art->getVideo2()."++".$art->getVideoName2().",".$art->getVideo3()."++".$art->getVideoName2();
+	echo $art->getVideo1()."++".$art->getVideoName1().",,".$art->getVideo2()."++".$art->getVideoName2().",,".$art->getVideo3()."++".$art->getVideoName3();
 }
 ?>

@@ -84,7 +84,7 @@
 		
 		function getIds($festival){
 			require_once("includes/config.php");
-			$sql="SELECT id, artist FROM Artist WHERE festival='$festival'";
+			$sql="SELECT id, artist FROM Artist WHERE festival='$festival' ORDER BY artist";
 			$this->conectar();
 			return $this->query($sql);
 		}
